@@ -1,0 +1,2341 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Student Participation | Institutional Dashboard</title>
+
+<style>
+
+/* =========================================================
+   RESET
+========================================================= */
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+:root{
+    --bg:#1B2A21;
+    --bg2:#1B2A21;
+    --panel:#1B2A21;
+
+    --blue:#315B8A;
+    --blue2:#315B8A;
+
+    --orange:#A33A3A;
+    --orange2:#A33A3A;
+
+    --white:#1B2A21;
+    --muted:#315B8A;
+
+    --line:rgba(27,42,33,.09);
+}
+
+body{
+    font-family:
+        "Segoe UI",
+        Arial,
+        sans-serif;
+
+    background:
+        radial-gradient(
+            circle at 50% 0%,
+            #F6F9F6 0%,
+            #F6F9F6 35%,
+            #F6F9F6 75%
+        );
+
+    color:var(--#1B2A21);
+    min-height:100vh;
+}
+
+
+/* =========================================================
+   MAIN
+========================================================= */
+
+.dashboard{
+    width:min(1500px,94%);
+    margin:auto;
+    padding:38px 0 60px;
+}
+
+
+/* =========================================================
+   HEADER
+========================================================= */
+
+.header{
+    display:flex;
+    justify-content:space-between;
+    align-items:flex-end;
+    gap:30px;
+    padding-bottom:28px;
+    border-bottom:1px solid var(--line);
+}
+
+.eyebrow{
+    color:#315B8A;
+    font-size:11px;
+    font-weight:700;
+    letter-spacing:3px;
+    margin-bottom:9px;
+}
+
+.header h1{
+    font-size:36px;
+    font-weight:700;
+    letter-spacing:-1px;
+}
+
+.header p{
+    margin-top:9px;
+    color:var(--muted);
+    font-size:13px;
+}
+
+.header-right{
+    text-align:right;
+}
+
+.header-right span{
+    display:block;
+    color:#315B8A;
+    font-size:9px;
+    letter-spacing:2px;
+    text-transform:uppercase;
+}
+
+.header-right strong{
+    font-size:24px;
+}
+
+
+/* =========================================================
+   KPI STRIP
+========================================================= */
+
+.kpis{
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+    gap:12px;
+    margin:24px 0 40px;
+}
+
+.kpi{
+    padding:17px 20px;
+    border:1px solid var(--line);
+    background:rgba(255,255,255,.025);
+    border-radius:12px;
+    position:relative;
+    overflow:hidden;
+}
+
+.kpi::after{
+    content:"";
+    position:absolute;
+    bottom:0;
+    left:0;
+    width:100%;
+    height:2px;
+    background:linear-gradient(
+        90deg,
+        transparent,
+        #315B8A,
+        transparent
+    );
+}
+
+.kpi.orange::after{
+    background:linear-gradient(
+        90deg,
+        transparent,
+        #A33A3A,
+        transparent
+    );
+}
+
+.kpi-label{
+    color:#315B8A;
+    font-size:9px;
+    text-transform:uppercase;
+    letter-spacing:1.5px;
+}
+
+.kpi-value{
+    margin-top:7px;
+    font-size:27px;
+    font-weight:800;
+}
+
+.kpi-sub{
+    color:#315B8A;
+    font-size:9px;
+    margin-top:3px;
+}
+
+
+/* =========================================================
+   EVENT SECTION
+========================================================= */
+
+.event-section{
+    margin-bottom:55px;
+}
+
+.event-header{
+    display:flex;
+    justify-content:space-between;
+    align-items:end;
+    margin-bottom:22px;
+}
+
+.event-title{
+    display:flex;
+    align-items:center;
+    gap:15px;
+}
+
+.event-number{
+    font-size:11px;
+    color:#315B8A;
+    letter-spacing:2px;
+    font-weight:700;
+}
+
+.event-title h2{
+    font-size:23px;
+}
+
+.event-title p{
+    margin-top:5px;
+    color:var(--muted);
+    font-size:11px;
+}
+
+.event-total{
+    text-align:right;
+}
+
+.event-total strong{
+    font-size:30px;
+}
+
+.event-total span{
+    display:block;
+    color:#315B8A;
+    font-size:8px;
+    letter-spacing:1.5px;
+    text-transform:uppercase;
+}
+
+
+/* =========================================================
+   SKYLINE CONTAINER
+========================================================= */
+
+.skyline{
+    position:relative;
+
+    border:1px solid var(--line);
+
+    border-radius:20px;
+
+    background:
+        linear-gradient(
+            180deg,
+            rgba(255,255,255,.035),
+            rgba(255,255,255,.008)
+        );
+
+    padding:
+        35px 28px 25px;
+
+    overflow:hidden;
+}
+
+
+/* =========================================================
+   GRID LINES
+========================================================= */
+
+.chart-area{
+    position:relative;
+
+    /* extra bottom room for straight (non-rotated) labels
+       and the always-visible total number above each bar */
+    height:490px;
+
+    border-bottom:
+        1px solid
+        rgba(27,42,33,.18);
+
+    border-left:
+        1px solid
+        rgba(27,42,33,.12);
+
+    padding-left:45px;
+}
+
+.grid-line{
+    position:absolute;
+    left:45px;
+    right:0;
+    border-top:1px dashed
+        rgba(27,42,33,.055);
+}
+
+.grid-label{
+    position:absolute;
+    left:0;
+    transform:translateY(-50%);
+    font-size:9px;
+    color:#315B8A;
+}
+
+
+/* =========================================================
+   SKYLINE
+========================================================= */
+
+.columns{
+    height:100%;
+
+    display:flex;
+
+    align-items:flex-end;
+
+    justify-content:space-around;
+
+    gap:12px;
+
+    padding:
+        0 10px;
+}
+
+
+/* =========================================================
+   DEPARTMENT COLUMN
+========================================================= */
+
+.department{
+    height:100%;
+    flex:1;
+
+    min-width:45px;
+    max-width:95px;
+
+    display:flex;
+    flex-direction:column;
+    justify-content:flex-end;
+    align-items:center;
+
+    cursor:pointer;
+
+    position:relative;
+
+    opacity:0;
+
+    animation:
+        columnIn .7s forwards;
+}
+
+@keyframes columnIn{
+    from{
+        opacity:0;
+        transform:
+            translateY(35px);
+    }
+
+    to{
+        opacity:1;
+        transform:
+            translateY(0);
+    }
+}
+
+
+/* =========================================================
+   NUMBER (TOTAL, ABOVE THE BAR — ALWAYS VISIBLE)
+========================================================= */
+
+.column-total{
+    font-size:12px;
+    font-weight:800;
+
+    margin-bottom:7px;
+
+    padding:2px 7px;
+
+    border-radius:6px;
+
+    background:rgba(27,42,33,.06);
+
+    color:#1B2A21;
+
+    opacity:1;
+
+    transition:.25s;
+}
+
+.department:hover .column-total{
+    background:rgba(27,42,33,.12);
+    transform:translateY(-2px);
+}
+
+
+/* =========================================================
+   BUILDING / BAR
+========================================================= */
+
+.building{
+    width:48px;
+
+    max-height:345px;
+
+    display:flex;
+
+    flex-direction:column;
+
+    justify-content:flex-end;
+
+    border-radius:
+        7px 7px 2px 2px;
+
+    overflow:visible;
+
+    background:
+        rgba(255,255,255,.025);
+
+    box-shadow:
+        0 10px 30px
+        rgba(27,42,33,.25);
+
+    transition:
+        transform .25s ease,
+        filter .25s ease;
+}
+
+.department:hover .building{
+    transform:
+        scaleX(1.08)
+        translateY(-5px);
+
+    filter:
+        brightness(1.15);
+}
+
+
+/* =========================================================
+   SVGOI SECTION
+========================================================= */
+
+.svgoi-bar{
+    display:flex;
+
+    align-items:flex-start;
+
+    justify-content:center;
+
+    background:
+        linear-gradient(
+            to top,
+            #315B8A,
+            #315B8A
+        );
+
+    position:relative;
+
+    border-radius:5px 5px 0 0;
+}
+
+
+/* =========================================================
+   OTHER SECTION
+========================================================= */
+
+.other-bar{
+    display:flex;
+
+    align-items:flex-start;
+
+    justify-content:center;
+
+    background:
+        linear-gradient(
+            to top,
+            #A33A3A,
+            #A33A3A
+        );
+
+    position:relative;
+}
+
+
+/* =========================================================
+   ZERO-VALUE BAR STATE
+   (kept short/flat and visually muted so a real small
+   value is never confused with a true zero)
+========================================================= */
+
+.svgoi-bar.zero,
+.other-bar.zero{
+    background:
+        repeating-linear-gradient(
+            135deg,
+            rgba(27,42,33,.10),
+            rgba(27,42,33,.10) 4px,
+            rgba(27,42,33,.04) 4px,
+            rgba(27,42,33,.04) 8px
+        );
+
+    box-shadow:none;
+}
+
+.svgoi-bar.zero .bar-value,
+.other-bar.zero .bar-value{
+    color:#315B8A;
+    text-shadow:none;
+}
+
+
+/* =========================================================
+   BAR VALUE
+========================================================= */
+
+.bar-value{
+    position:relative;
+
+    width:100%;
+
+    text-align:center;
+
+    margin-top:4px;
+
+    font-size:10px;
+
+    font-weight:800;
+
+    color:#fff;
+
+    text-shadow:
+        0 1px 3px rgba(0,0,0,.55);
+
+    line-height:1;
+}
+
+
+/* =========================================================
+   DEPARTMENT LABEL
+========================================================= */
+
+.department-label{
+    margin-top:12px;
+
+    width:96px;
+
+    text-align:center;
+
+    font-size:9px;
+
+    line-height:1.25;
+
+    color:#315B8A;
+
+    /* straight, upright text instead of a tilted label */
+    transform:none;
+
+    transform-origin:
+        center;
+
+    min-height:26px;
+}
+
+.department:hover
+.department-label{
+    color:#1B2A21;
+}
+
+
+/* =========================================================
+   LEGEND
+========================================================= */
+
+.legend{
+    display:flex;
+    justify-content:center;
+    flex-wrap:wrap;
+    gap:30px;
+
+    margin-top:42px;
+}
+
+.legend-item{
+    display:flex;
+    align-items:center;
+    gap:8px;
+
+    color:#315B8A;
+    font-size:9px;
+}
+
+.legend-box{
+    width:12px;
+    height:12px;
+    border-radius:3px;
+}
+
+.legend-box.blue{
+    background:#315B8A;
+}
+
+.legend-box.orange{
+    background:#A33A3A;
+}
+
+.legend-box.zero{
+    background:
+        repeating-linear-gradient(
+            135deg,
+            rgba(27,42,33,.18),
+            rgba(27,42,33,.18) 3px,
+            rgba(27,42,33,.06) 3px,
+            rgba(27,42,33,.06) 6px
+        );
+}
+
+
+/* =========================================================
+   DETAIL PANEL
+========================================================= */
+
+.detail-screen{
+
+    position:fixed;
+
+    inset:0;
+
+    background:
+        rgba(246,249,246,.88);
+
+    backdrop-filter:
+        blur(12px);
+
+    z-index:100;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    padding:25px;
+
+    opacity:0;
+
+    visibility:hidden;
+
+    transition:.35s;
+}
+
+.detail-screen.active{
+    opacity:1;
+    visibility:visible;
+}
+
+
+.detail-box{
+
+    width:
+        min(900px,100%);
+
+    border:
+        1px solid
+        rgba(27,42,33,.12);
+
+    border-radius:25px;
+
+    background:
+        linear-gradient(
+            145deg,
+            #F6F9F6,
+            #F6F9F6
+        );
+
+    padding:35px;
+
+    box-shadow:
+        0 40px 100px
+        rgba(27,42,33,.6);
+
+    transform:
+        translateY(30px)
+        scale(.96);
+
+    transition:.4s;
+}
+
+.detail-screen.active
+.detail-box{
+    transform:
+        translateY(0)
+        scale(1);
+}
+
+
+/* =========================================================
+   DETAIL TOP
+========================================================= */
+
+.detail-top{
+    display:flex;
+    justify-content:space-between;
+    align-items:flex-start;
+}
+
+.detail-category{
+    color:#315B8A;
+    font-size:9px;
+    letter-spacing:2px;
+    text-transform:uppercase;
+}
+
+.detail-top h2{
+    margin-top:7px;
+    font-size:32px;
+}
+
+.detail-top p{
+    color:#315B8A;
+    font-size:11px;
+    margin-top:5px;
+}
+
+.close{
+    width:38px;
+    height:38px;
+
+    border-radius:50%;
+
+    border:
+        1px solid
+        rgba(27,42,33,.15);
+
+    background:
+        rgba(255,255,255,.05);
+
+    color:#1B2A21;
+
+    font-size:21px;
+
+    cursor:pointer;
+}
+
+
+/* =========================================================
+   DETAIL TOTAL
+========================================================= */
+
+.detail-total{
+    margin:30px 0;
+
+    text-align:center;
+
+    padding:22px;
+
+    border-radius:17px;
+
+    background:
+        rgba(255,255,255,.035);
+}
+
+.detail-total strong{
+    font-size:55px;
+}
+
+.detail-total span{
+    display:block;
+
+    color:#315B8A;
+
+    font-size:9px;
+
+    letter-spacing:2px;
+
+    text-transform:uppercase;
+}
+
+
+/* =========================================================
+   DETAIL GRAPH
+========================================================= */
+
+.detail-graph{
+
+    height:220px;
+
+    display:flex;
+
+    justify-content:center;
+
+    align-items:flex-end;
+
+    gap:80px;
+
+    padding-bottom:20px;
+
+    border-bottom:
+        1px solid
+        rgba(27,42,33,.1);
+}
+
+.detail-column{
+    height:100%;
+
+    display:flex;
+    flex-direction:column;
+    justify-content:flex-end;
+    align-items:center;
+}
+
+.detail-bar{
+    width:90px;
+
+    border-radius:
+        9px 9px 3px 3px;
+
+    transition:
+        height 1s
+        cubic-bezier(.2,.8,.2,1);
+}
+
+.detail-bar.blue{
+    background:
+        linear-gradient(
+            to top,
+            #315B8A,
+            #315B8A
+        );
+}
+
+.detail-bar.orange{
+    background:
+        linear-gradient(
+            to top,
+            #A33A3A,
+            #A33A3A
+        );
+}
+
+.detail-bar-number{
+    margin-bottom:7px;
+
+    font-size:15px;
+    font-weight:700;
+}
+
+.detail-column-label{
+    margin-top:12px;
+
+    color:#315B8A;
+
+    font-size:9px;
+
+    text-transform:uppercase;
+
+    letter-spacing:1px;
+}
+
+
+/* =========================================================
+   DETAIL STATS
+========================================================= */
+
+.detail-stats{
+    display:grid;
+
+    grid-template-columns:
+        repeat(3,1fr);
+
+    gap:12px;
+
+    margin-top:22px;
+}
+
+.detail-stat{
+    padding:16px;
+
+    border-radius:13px;
+
+    background:
+        rgba(255,255,255,.035);
+
+    text-align:center;
+}
+
+.detail-stat strong{
+    font-size:21px;
+}
+
+.detail-stat span{
+    display:block;
+
+    margin-top:4px;
+
+    color:#315B8A;
+
+    font-size:8px;
+
+    text-transform:uppercase;
+
+    letter-spacing:1px;
+}
+
+
+/* =========================================================
+   RESPONSIVE
+========================================================= */
+
+@media(max-width:1100px){
+
+    .columns{
+        gap:5px;
+    }
+
+    .building{
+        width:38px;
+    }
+
+    .department-label{
+        font-size:7px;
+    }
+
+}
+
+@media(max-width:800px){
+
+    .dashboard{
+        width:95%;
+    }
+
+    .header{
+        flex-direction:column;
+        align-items:flex-start;
+    }
+
+    .header-right{
+        text-align:left;
+    }
+
+    .kpis{
+        grid-template-columns:
+            repeat(2,1fr);
+    }
+
+    .skyline{
+        overflow-x:auto;
+    }
+
+    .chart-area{
+        min-width:900px;
+    }
+
+    .detail-stats{
+        grid-template-columns:1fr;
+    }
+
+}
+
+@media(max-width:500px){
+
+    .header h1{
+        font-size:27px;
+    }
+
+    .kpis{
+        grid-template-columns:1fr;
+    }
+
+    .detail-box{
+        padding:22px;
+    }
+
+    .detail-graph{
+        gap:35px;
+    }
+
+    .detail-bar{
+        width:65px;
+    }
+
+}
+
+</style>
+</head>
+
+
+<body>
+
+
+<div class="dashboard">
+
+
+<!-- =====================================================
+     HEADER
+===================================================== -->
+
+<header class="header">
+
+    <div>
+
+        <div class="eyebrow">
+            INSTITUTIONAL ANALYTICS / STUDENT ENGAGEMENT
+        </div>
+
+        <h1>
+            Student Participation
+        </h1>
+
+        <p>
+            Department-wise participation across technical,
+            sports & cultural events
+        </p>
+
+    </div>
+
+    <div class="header-right">
+
+        <span>
+            Dashboard
+        </span>
+
+        <strong>
+            2025–26
+        </strong>
+
+    </div>
+
+</header>
+
+
+<!-- =====================================================
+     KPI SECTION
+===================================================== -->
+
+<div class="kpis">
+
+    <div class="kpi">
+
+        <div class="kpi-label">
+            Technical Participation
+        </div>
+
+        <div
+            class="kpi-value"
+            id="techKPI">
+            0
+        </div>
+
+        <div class="kpi-sub">
+            Students
+        </div>
+
+    </div>
+
+
+    <div class="kpi orange">
+
+        <div class="kpi-label">
+            Sports & Cultural
+        </div>
+
+        <div
+            class="kpi-value"
+            id="sportsKPI">
+            0
+        </div>
+
+        <div class="kpi-sub">
+            Students
+        </div>
+
+    </div>
+
+
+    <div class="kpi">
+
+        <div class="kpi-label">
+            Highest Technical
+        </div>
+
+        <div
+            class="kpi-value"
+            id="techTop">
+            —
+        </div>
+
+        <div
+            class="kpi-sub"
+            id="techTopValue">
+            —
+        </div>
+
+    </div>
+
+
+    <div class="kpi orange">
+
+        <div class="kpi-label">
+            Highest Sports & Cultural
+        </div>
+
+        <div
+            class="kpi-value"
+            id="sportsTop">
+            —
+        </div>
+
+        <div
+            class="kpi-sub"
+            id="sportsTopValue">
+            —
+        </div>
+
+    </div>
+
+</div>
+
+
+<!-- =====================================================
+     TECHNICAL EVENTS
+===================================================== -->
+
+<section class="event-section">
+
+
+    <div class="event-header">
+
+        <div class="event-title">
+
+            <div>
+
+                <div class="event-number">
+                    01 / TECHNICAL EVENTS
+                </div>
+
+                <h2>
+                    Student Participation
+                </h2>
+
+                <p>
+                    Institutional & external technical participation
+                </p>
+
+            </div>
+
+        </div>
+
+
+        <div class="event-total">
+
+            <strong id="technicalTotal">
+                0
+            </strong>
+
+            <span>
+                Total Participation
+            </span>
+
+        </div>
+
+    </div>
+
+
+    <div class="skyline">
+
+
+        <div
+            class="chart-area"
+            id="technicalChart">
+
+
+            <!-- GRID -->
+
+            <div
+                class="grid-line"
+                style="top:0%">
+                <span class="grid-label">
+                    35
+                </span>
+            </div>
+
+            <div
+                class="grid-line"
+                style="top:28.5%">
+                <span class="grid-label">
+                    25
+                </span>
+            </div>
+
+            <div
+                class="grid-line"
+                style="top:57%">
+                <span class="grid-label">
+                    15
+                </span>
+            </div>
+
+            <div
+                class="grid-line"
+                style="top:85.5%">
+                <span class="grid-label">
+                    5
+                </span>
+            </div>
+
+
+            <div
+                class="columns"
+                id="technicalColumns">
+            </div>
+
+        </div>
+
+
+        <div class="legend">
+
+            <div class="legend-item">
+
+                <span
+                    class="legend-box blue">
+                </span>
+
+                SVGOI Organized Events
+
+            </div>
+
+            <div class="legend-item">
+
+                <span
+                    class="legend-box orange">
+                </span>
+
+                Other Institutions
+
+            </div>
+
+            <div class="legend-item">
+
+                <span
+                    class="legend-box zero">
+                </span>
+
+                No Participation (0)
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+
+<!-- =====================================================
+     SPORTS & CULTURAL
+===================================================== -->
+
+<section class="event-section">
+
+
+    <div class="event-header">
+
+        <div class="event-title">
+
+            <div>
+
+                <div class="event-number">
+                    02 / SPORTS & CULTURAL
+                </div>
+
+                <h2>
+                    Student Participation
+                </h2>
+
+                <p>
+                    Institutional & external sports and cultural participation
+                </p>
+
+            </div>
+
+        </div>
+
+
+        <div class="event-total">
+
+            <strong id="sportsTotal">
+                0
+            </strong>
+
+            <span>
+                Total Participation
+            </span>
+
+        </div>
+
+    </div>
+
+
+    <div class="skyline">
+
+
+        <div
+            class="chart-area"
+            id="sportsChart">
+
+
+            <div
+                class="grid-line"
+                style="top:0%">
+                <span class="grid-label">
+                    60
+                </span>
+            </div>
+
+            <div
+                class="grid-line"
+                style="top:25%">
+                <span class="grid-label">
+                    45
+                </span>
+            </div>
+
+            <div
+                class="grid-line"
+                style="top:50%">
+                <span class="grid-label">
+                    30
+                </span>
+            </div>
+
+            <div
+                class="grid-line"
+                style="top:75%">
+                <span class="grid-label">
+                    15
+                </span>
+            </div>
+
+
+            <div
+                class="columns"
+                id="sportsColumns">
+            </div>
+
+        </div>
+
+
+        <div class="legend">
+
+            <div class="legend-item">
+
+                <span
+                    class="legend-box blue">
+                </span>
+
+                SVGOI Participation
+
+            </div>
+
+            <div class="legend-item">
+
+                <span
+                    class="legend-box orange">
+                </span>
+
+                Other Institutions
+
+            </div>
+
+            <div class="legend-item">
+
+                <span
+                    class="legend-box zero">
+                </span>
+
+                No Participation (0)
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+</div>
+
+
+<!-- =====================================================
+     DETAIL SCREEN
+===================================================== -->
+
+<div
+    class="detail-screen"
+    id="detailScreen">
+
+
+    <div class="detail-box">
+
+
+        <div class="detail-top">
+
+            <div>
+
+                <div
+                    class="detail-category"
+                    id="detailCategory">
+                    TECHNICAL EVENTS
+                </div>
+
+                <h2
+                    id="detailName">
+                    CSE
+                </h2>
+
+                <p>
+                    Department-wise participation analysis
+                </p>
+
+            </div>
+
+
+            <button
+                class="close"
+                onclick="closeDetail()">
+
+                ×
+
+            </button>
+
+        </div>
+
+
+        <div class="detail-total">
+
+            <strong
+                id="detailTotal">
+                19
+            </strong>
+
+            <span>
+                Total Students Participated
+            </span>
+
+        </div>
+
+
+        <div class="detail-graph">
+
+
+            <div class="detail-column">
+
+                <div
+                    class="detail-bar-number"
+                    id="detailBlueNumber">
+                    10
+                </div>
+
+                <div
+                    class="detail-bar blue"
+                    id="detailBlueBar">
+                </div>
+
+                <div class="detail-column-label">
+                    SVGOI Events
+                </div>
+
+            </div>
+
+
+            <div class="detail-column">
+
+                <div
+                    class="detail-bar-number"
+                    id="detailOrangeNumber">
+                    9
+                </div>
+
+                <div
+                    class="detail-bar orange"
+                    id="detailOrangeBar">
+                </div>
+
+                <div class="detail-column-label">
+                    Other Institutions
+                </div>
+
+            </div>
+
+
+        </div>
+
+
+        <div class="detail-stats">
+
+
+            <div class="detail-stat">
+
+                <strong
+                    id="bluePercent">
+                    53%
+                </strong>
+
+                <span>
+                    SVGOI Share
+                </span>
+
+            </div>
+
+
+            <div class="detail-stat">
+
+                <strong
+                    id="orangePercent">
+                    47%
+                </strong>
+
+                <span>
+                    External Share
+                </span>
+
+            </div>
+
+
+            <div class="detail-stat">
+
+                <strong
+                    id="detailRank">
+                    #1
+                </strong>
+
+                <span>
+                    Department Rank
+                </span>
+
+            </div>
+
+
+        </div>
+
+
+    </div>
+
+</div>
+
+
+
+<script>
+
+/* =========================================================
+   DATA
+   Format: [name, SVGOI count, Other-institution count]
+========================================================= */
+
+const technicalData = [
+
+    ["Computer Applications",3,0],
+    ["EE / ECE",18,0],
+    ["Mechanical",13,0],
+    ["Civil",5,3],
+    ["Pharmacy",0,0],
+    ["Business Administration",31,4],
+    ["Applied Sciences",0,0],
+    ["Law",0,0],
+    ["CSE",10,9],
+    ["Allied Health Sciences",0,0],
+    ["Radiology",0,0]
+
+];
+
+
+const sportsData = [
+
+    ["Applied Sciences",3,2],
+    ["Pharmacy",0,0],
+    ["Business Administration",7,4],
+    ["Computer Applications",10,5],
+    ["CSE",53,1],
+    ["Civil",7,0],
+    ["ME",1,0],
+    ["EE / ECE",0,0],
+    ["HM",0,0],
+    ["Law",17,0],
+    ["Radiology",19,3],
+    ["Allied Health Sciences",13,1],
+    ["Education",0,0]
+
+];
+
+
+/* =========================================================
+   TOTAL FUNCTION
+========================================================= */
+
+function total(data){
+
+    return data.reduce(
+        (sum,item)=>
+        sum + item[1] + item[2],
+        0
+    );
+
+}
+
+
+/* =========================================================
+   TOP DEPARTMENT
+========================================================= */
+
+function topDepartment(data){
+
+    return [...data].sort(
+        (a,b)=>
+        (b[1]+b[2]) -
+        (a[1]+a[2])
+    )[0];
+
+}
+
+
+/* =========================================================
+   BAR SIZING CONSTANTS
+========================================================= */
+
+const MAX_BAR_PX   = 335;   // tallest possible building
+const MIN_VALUE_PX = 20;    // minimum height for a real (>0) segment, so its label fits
+const ZERO_PX       = 14;    // fixed flat height used to display an explicit "0"
+
+
+/* =========================================================
+   CREATE SKYLINE
+========================================================= */
+
+function createSkyline(
+
+    data,
+    containerId,
+    maxValue,
+    category
+
+){
+
+    const container =
+        document.getElementById(
+            containerId
+        );
+
+
+    const sorted =
+        [...data].sort(
+            (a,b)=>
+            (b[1]+b[2]) -
+            (a[1]+a[2])
+        );
+
+
+    const pxPerUnit =
+        MAX_BAR_PX / maxValue;
+
+
+    data.forEach(
+
+        (item,index)=>{
+
+
+            const name =
+                item[0];
+
+            const svgoi =
+                item[1];
+
+            const other =
+                item[2];
+
+            const totalValue =
+                svgoi + other;
+
+
+            const department =
+                document.createElement(
+                    "div"
+                );
+
+            department.className =
+                "department";
+
+
+            department.style.animationDelay =
+                (index * .06) + "s";
+
+
+            /*
+               Total, always shown above the bar
+            */
+
+            const columnTotal =
+                document.createElement(
+                    "div"
+                );
+
+            columnTotal.className =
+                "column-total";
+
+            columnTotal.textContent =
+                totalValue;
+
+
+            /*
+               Segment pixel heights.
+               Real (>0) values are scaled to the true
+               count but never shrink below MIN_VALUE_PX,
+               so the number inside always stays readable.
+               Zero values get a fixed short flat bar so
+               "0" is explicitly visible rather than
+               disappearing from the chart.
+            */
+
+            const svgoiPx =
+                svgoi > 0
+                ? Math.max(
+                    svgoi * pxPerUnit,
+                    MIN_VALUE_PX
+                  )
+                : ZERO_PX;
+
+            const otherPx =
+                other > 0
+                ? Math.max(
+                    other * pxPerUnit,
+                    MIN_VALUE_PX
+                  )
+                : ZERO_PX;
+
+
+            const building =
+                document.createElement(
+                    "div"
+                );
+
+            building.className =
+                "building";
+
+            building.style.height =
+                (svgoiPx + otherPx) + "px";
+
+
+            /*
+               SVGOI (blue) segment
+            */
+
+            const blue =
+                document.createElement(
+                    "div"
+                );
+
+            blue.className =
+                "svgoi-bar" +
+                (svgoi === 0 ? " zero" : "");
+
+            blue.style.height =
+                svgoiPx + "px";
+
+
+            const blueValue =
+                document.createElement(
+                    "span"
+                );
+
+            blueValue.className =
+                "bar-value";
+
+            blueValue.textContent =
+                svgoi;
+
+            blue.appendChild(
+                blueValue
+            );
+
+
+            /*
+               Other-institution (orange) segment
+            */
+
+            const orange =
+                document.createElement(
+                    "div"
+                );
+
+            orange.className =
+                "other-bar" +
+                (other === 0 ? " zero" : "");
+
+            orange.style.height =
+                otherPx + "px";
+
+
+            const orangeValue =
+                document.createElement(
+                    "span"
+                );
+
+            orangeValue.className =
+                "bar-value";
+
+            orangeValue.textContent =
+                other;
+
+            orange.appendChild(
+                orangeValue
+            );
+
+
+            building.appendChild(
+                blue
+            );
+
+            building.appendChild(
+                orange
+            );
+
+
+            /*
+               Department label
+            */
+
+            const label =
+                document.createElement(
+                    "div"
+                );
+
+            label.className =
+                "department-label";
+
+            label.textContent =
+                name;
+
+
+            department.appendChild(
+                columnTotal
+            );
+
+            department.appendChild(
+                building
+            );
+
+            department.appendChild(
+                label
+            );
+
+
+            /*
+               CLICK
+            */
+
+            department.addEventListener(
+                "click",
+                ()=>{
+                    openDetail(
+                        item,
+                        category,
+                        sorted.findIndex(
+                            x =>
+                            x[0] === name
+                        ) + 1
+                    );
+                }
+            );
+
+
+            container.appendChild(
+                department
+            );
+
+        }
+
+    );
+
+}
+
+
+/* =========================================================
+   OPEN DETAIL
+========================================================= */
+
+function openDetail(
+    item,
+    category,
+    rank
+){
+
+    const name =
+        item[0];
+
+    const svgoi =
+        item[1];
+
+    const other =
+        item[2];
+
+    const totalValue =
+        svgoi + other;
+
+
+    document.getElementById(
+        "detailCategory"
+    ).textContent =
+        category;
+
+
+    document.getElementById(
+        "detailName"
+    ).textContent =
+        name;
+
+
+    document.getElementById(
+        "detailTotal"
+    ).textContent =
+        totalValue;
+
+
+    document.getElementById(
+        "detailBlueNumber"
+    ).textContent =
+        svgoi;
+
+
+    document.getElementById(
+        "detailOrangeNumber"
+    ).textContent =
+        other;
+
+
+    document.getElementById(
+        "detailRank"
+    ).textContent =
+        "#" + rank;
+
+
+    const bluePercent =
+        totalValue
+        ? Math.round(
+            svgoi /
+            totalValue *
+            100
+        )
+        : 0;
+
+
+    const orangePercent =
+        totalValue
+        ? Math.round(
+            other /
+            totalValue *
+            100
+        )
+        : 0;
+
+
+    document.getElementById(
+        "bluePercent"
+    ).textContent =
+        bluePercent + "%";
+
+
+    document.getElementById(
+        "orangePercent"
+    ).textContent =
+        orangePercent + "%";
+
+
+    /*
+       Animate detail bars
+    */
+
+    const blueBar =
+        document.getElementById(
+            "detailBlueBar"
+        );
+
+    const orangeBar =
+        document.getElementById(
+            "detailOrangeBar"
+        );
+
+
+    blueBar.style.height =
+        "0px";
+
+    orangeBar.style.height =
+        "0px";
+
+
+    setTimeout(()=>{
+
+        const max =
+            Math.max(
+                svgoi,
+                other,
+                1
+            );
+
+
+        blueBar.style.height =
+            Math.max(
+                svgoi/max*150,
+                svgoi > 0 ? 20 : 6
+            ) +
+            "px";
+
+
+        orangeBar.style.height =
+            Math.max(
+                other/max*150,
+                other > 0 ? 20 : 6
+            ) +
+            "px";
+
+    },100);
+
+
+    document.getElementById(
+        "detailScreen"
+    ).classList.add(
+        "active"
+    );
+
+}
+
+
+/* =========================================================
+   CLOSE DETAIL
+========================================================= */
+
+function closeDetail(){
+
+    document.getElementById(
+        "detailScreen"
+    ).classList.remove(
+        "active"
+    );
+
+}
+
+
+/* =========================================================
+   CLOSE ON BACKGROUND
+========================================================= */
+
+document.getElementById(
+    "detailScreen"
+).addEventListener(
+    "click",
+    function(e){
+
+        if(
+            e.target === this
+        ){
+            closeDetail();
+        }
+
+    }
+);
+
+
+/* =========================================================
+   ESCAPE
+========================================================= */
+
+document.addEventListener(
+    "keydown",
+    function(e){
+
+        if(
+            e.key === "Escape"
+        ){
+            closeDetail();
+        }
+
+    }
+);
+
+
+/* =========================================================
+   COUNTER
+========================================================= */
+
+function animateCounter(
+    element,
+    target
+){
+
+    let current = 0;
+
+    const duration = 900;
+
+    const start =
+        performance.now();
+
+
+    function update(time){
+
+        const progress =
+            Math.min(
+                (time-start) /
+                duration,
+                1
+            );
+
+
+        const eased =
+            1 -
+            Math.pow(
+                1-progress,
+                3
+            );
+
+
+        current =
+            Math.round(
+                target*eased
+            );
+
+
+        element.textContent =
+            current;
+
+
+        if(progress < 1){
+
+            requestAnimationFrame(
+                update
+            );
+
+        }
+
+    }
+
+
+    requestAnimationFrame(
+        update
+    );
+
+}
+
+
+/* =========================================================
+   INITIALIZE
+========================================================= */
+
+createSkyline(
+    technicalData,
+    "technicalColumns",
+    35,
+    "TECHNICAL EVENTS"
+);
+
+
+createSkyline(
+    sportsData,
+    "sportsColumns",
+    60,
+    "SPORTS & CULTURAL EVENTS"
+);
+
+
+/* =========================================================
+   TOTALS
+========================================================= */
+
+const technicalTotal =
+    total(
+        technicalData
+    );
+
+const sportsTotal =
+    total(
+        sportsData
+    );
+
+
+animateCounter(
+    document.getElementById(
+        "technicalTotal"
+    ),
+    technicalTotal
+);
+
+
+animateCounter(
+    document.getElementById(
+        "sportsTotal"
+    ),
+    sportsTotal
+);
+
+
+animateCounter(
+    document.getElementById(
+        "techKPI"
+    ),
+    technicalTotal
+);
+
+
+animateCounter(
+    document.getElementById(
+        "sportsKPI"
+    ),
+    sportsTotal
+);
+
+
+/* =========================================================
+   TOP DEPARTMENT
+========================================================= */
+
+const techTop =
+    topDepartment(
+        technicalData
+    );
+
+const sportsTop =
+    topDepartment(
+        sportsData
+    );
+
+
+document.getElementById(
+    "techTop"
+).textContent =
+    techTop[0];
+
+
+document.getElementById(
+    "techTopValue"
+).textContent =
+    (techTop[1]+techTop[2]) +
+    " students";
+
+
+document.getElementById(
+    "sportsTop"
+).textContent =
+    sportsTop[0];
+
+
+document.getElementById(
+    "sportsTopValue"
+).textContent =
+    (sportsTop[1]+sportsTop[2]) +
+    " students";
+
+</script>
+
+</body>
+</html>
+
+<style id="sl-theme-override">
+/* =========================================================
+   SL MASTER THEME
+   Applied to S0-S8 to match the SL visual language.
+========================================================= */
+:root{
+    --sl-bg:#F6F9F6;
+    --sl-white:#FFFFFF;
+    --sl-green:#14532D;
+    --sl-green2:#198754;
+    --sl-green3:#2F6B45;
+    --sl-gold:#C9A227;
+    --sl-gold-light:#E7D58A;
+    --sl-red:#A33A3A;
+    --sl-text:#1B2A21;
+    --sl-muted:#718077;
+    --sl-border:#DDE8DF;
+    --sl-purple:#7356A8;
+    --sl-blue:#315B8A;
+}
+html,body{
+    background-color:var(--sl-bg) !important;
+    color:var(--sl-text) !important;
+}
+body{
+    background-image:
+      radial-gradient(circle at 8% 8%, rgba(25,135,84,.08), transparent 30%),
+      radial-gradient(circle at 92% 92%, rgba(201,162,39,.07), transparent 28%) !important;
+}
+h1,h2,h3,h4,h5,h6{
+    color:var(--sl-green);
+}
+a{color:var(--sl-green2);}
+button{
+    background:var(--sl-green) !important;
+    color:#fff !important;
+    border-color:var(--sl-green3) !important;
+}
+.card,.panel,.chart-card,.detail-card,.main-card,.achievement-card,
+.activity-card,.summary-card,.kpi,.bigcard,.stat,.faculty-card,
+.department-card,.visual-panel,.detail-box,.detail-screen,.event-section,
+.chart,.graph,.right-panel,.left-panel,.values,.summary,.directory,
+.detail-total-box,.detail-panel{
+    border-color:var(--sl-border);
+}
+.badge,.section-tag,.tag,.eyebrow,.overline{
+    color:var(--sl-green2) !important;
+    border-color:rgba(25,135,84,.30) !important;
+    background:rgba(25,135,84,.07) !important;
+}
+.header-line,.divider,.card-line{
+    background:linear-gradient(90deg,transparent,var(--sl-gold),transparent) !important;
+}
+.icon,.card-icon,.summary-icon,.value-icon,.achievement-icon{
+    background:#EDF6F0 !important;
+    color:var(--sl-green) !important;
+    border-color:var(--sl-border) !important;
+}
+.bar,.fill,.detail-bar-fill,.svgoi-bar{
+    background:linear-gradient(90deg,var(--sl-green2),var(--sl-green3)) !important;
+}
+.bar-conference,.conference{
+    background:var(--sl-gold) !important;
+}
+.bar-fdp,.fdp{
+    background:var(--sl-blue) !important;
+}
+.bar-seminar,.seminar{
+    background:var(--sl-green2) !important;
+}
+.track,.bar-container,.detail-bar-track{
+    background:#EDF1ED !important;
+}
+.legend-dot,.legend-color,.panel-dot,.badge-dot,.tag-dot{
+    background:var(--sl-gold) !important;
+    box-shadow:0 0 10px rgba(201,162,39,.25) !important;
+}
+.orange{color:var(--sl-gold) !important;}
+.blue{color:var(--sl-green2) !important;}
+.green{color:var(--sl-green2) !important;}
+.purple{color:var(--sl-purple) !important;}
+.pink{color:var(--sl-pink,#A94D75) !important;}
+.red{color:var(--sl-red) !important;}
+[style*="color: white"],[style*="color:#fff"],[style*="color: #fff"]{
+    color:var(--sl-text) !important;
+}
+</style>

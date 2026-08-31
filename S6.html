@@ -1,0 +1,505 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Student Research & Learning Dashboard</title>
+
+<style>
+
+/* =====================================================
+   TOKENS (unchanged palette)
+===================================================== */
+:root{
+    --bg:#F6F9F6;
+    --text:#1B2A21;
+    --heading:#14532D;
+    --blue:#198754;
+    --purple:#2F6B45;
+    --line:rgba(27,42,33,.10);
+    --line-soft:rgba(27,42,33,.07);
+}
+
+*{ margin:0; padding:0; box-sizing:border-box; }
+
+body{
+    font-family:"Segoe UI", Arial, sans-serif;
+    background:
+        radial-gradient(circle at 10% 10%, rgba(49,91,138,.10), transparent 30%),
+        radial-gradient(circle at 90% 90%, rgba(115,86,168,.07), transparent 30%),
+        var(--bg);
+    color:var(--text);
+    min-height:100vh;
+    padding:40px;
+}
+
+/* =====================================================
+   HEADER
+===================================================== */
+.page-header{
+    max-width:1450px;
+    margin:0 auto 28px;
+    display:flex;
+    justify-content:space-between;
+    align-items:flex-end;
+    border-bottom:1px solid var(--line);
+    padding-bottom:20px;
+    gap:20px;
+    flex-wrap:wrap;
+}
+.header-left small{ color:var(--blue); letter-spacing:3px; font-size:12px; font-weight:700; }
+.header-left h1{ font-size:30px; margin-top:8px; letter-spacing:.3px; color:var(--heading); }
+.header-left p{ margin-top:7px; color:var(--blue); font-size:14px; }
+.badge{
+    padding:10px 18px;
+    border:1px solid rgba(49,91,138,.35);
+    background:rgba(49,91,138,.10);
+    border-radius:30px;
+    color:var(--blue);
+    font-size:13px;
+    white-space:nowrap;
+}
+
+/* =====================================================
+   CONTAINER
+===================================================== */
+.wrap{ max-width:1450px; margin:0 auto; }
+
+/* =====================================================
+   STAT STRIP
+===================================================== */
+.stat-strip{
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+    gap:16px;
+    margin-bottom:22px;
+}
+.stat-tile{
+    background:rgba(255,255,255,.5);
+    border:1px solid var(--line-soft);
+    border-radius:16px;
+    padding:16px 18px;
+}
+.stat-tile small{
+    display:block;
+    color:var(--blue);
+    font-size:10px;
+    text-transform:uppercase;
+    letter-spacing:1px;
+    margin-bottom:6px;
+}
+.stat-tile strong{ font-size:22px; display:block; }
+.stat-tile span.sub{ display:block; margin-top:4px; font-size:12px; color:var(--blue); }
+.stat-tile.pub strong{ color:var(--blue); }
+.stat-tile.course strong{ color:var(--purple); }
+
+/* =====================================================
+   DASHBOARD — TWO SEPARATE CHARTS
+===================================================== */
+.dashboard{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:22px;
+}
+
+.chart-card{
+    position:relative;
+    background:linear-gradient(145deg, rgba(255,255,255,.55), rgba(255,255,255,.25));
+    border:1px solid var(--line);
+    border-radius:24px;
+    padding:26px;
+    overflow:hidden;
+    box-shadow:0 20px 60px rgba(27,42,33,.10), inset 0 1px rgba(27,42,33,.03);
+}
+.chart-card::before{
+    content:"";
+    position:absolute;
+    width:200px; height:200px;
+    opacity:.06;
+    filter:blur(65px);
+    border-radius:50%;
+    top:-90px; right:-70px;
+}
+.chart-card.pub-card::before{ background:var(--blue); }
+.chart-card.course-card::before{ background:var(--purple); }
+
+.card-header{
+    position:relative; z-index:2;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    margin-bottom:18px;
+    gap:12px;
+}
+.card-title{ display:flex; gap:12px; align-items:center; }
+.icon{
+    width:42px; height:42px;
+    border-radius:13px;
+    display:flex; align-items:center; justify-content:center;
+    font-size:20px;
+    flex-shrink:0;
+}
+.pub-card .icon{ background:rgba(49,91,138,.12); }
+.course-card .icon{ background:rgba(115,86,168,.12); }
+.card-title h2{ font-size:17px; }
+.card-title span{ display:block; color:var(--blue); font-size:11.5px; margin-top:3px; }
+
+.total{ text-align:right; flex-shrink:0; }
+.total strong{ display:block; font-size:26px; }
+.pub-card .total strong{ color:var(--blue); }
+.course-card .total strong{ color:var(--purple); }
+.total span{ color:var(--blue); font-size:9.5px; text-transform:uppercase; letter-spacing:1px; }
+
+/* RANKED PILL BARS */
+.rank-list{
+    position:relative; z-index:2;
+    display:flex;
+    flex-direction:column;
+    gap:11px;
+}
+
+.h-row{
+    display:grid;
+    grid-template-columns:24px 185px 1fr;
+    align-items:center;
+    gap:10px;
+}
+
+.h-rank{
+    font-size:11px;
+    font-weight:700;
+    color:var(--blue);
+    text-align:center;
+    opacity:.6;
+}
+
+.h-dept{
+    display:flex;
+    align-items:center;
+    gap:8px;
+    min-width:0;
+}
+.h-dept .dept-icon{
+    width:24px; height:24px;
+    border-radius:7px;
+    display:flex; align-items:center; justify-content:center;
+    font-size:12.5px;
+    flex-shrink:0;
+}
+.pub-card .h-dept .dept-icon{ background:rgba(49,91,138,.10); }
+.course-card .h-dept .dept-icon{ background:rgba(115,86,168,.10); }
+.h-dept span.name{
+    font-size:11.5px;
+    font-weight:600;
+    white-space:normal;
+    line-height:1.2;
+    overflow:visible;
+    text-overflow:clip;
+}
+
+.h-track{
+    position:relative;
+    height:22px;
+    background:rgba(27,42,33,.05);
+    border-radius:11px;
+    overflow:hidden;
+}
+.h-fill{
+    position:absolute;
+    left:0; top:0; bottom:0;
+    width:0%;
+    border-radius:11px;
+    display:flex;
+    align-items:center;
+    justify-content:flex-end;
+    padding-right:8px;
+    transition:width 1s cubic-bezier(.2,.8,.2,1);
+}
+.pub-card .h-fill{ background:linear-gradient(to right, rgba(49,91,138,.55), var(--blue)); }
+.course-card .h-fill{ background:linear-gradient(to right, rgba(115,86,168,.55), var(--purple)); }
+.h-fill .h-val{
+    font-size:10.5px;
+    font-weight:700;
+    color:#fff;
+    white-space:nowrap;
+}
+.h-val.outside{
+    position:absolute;
+    left:calc(100% + 8px);
+    top:50%;
+    transform:translateY(-50%);
+    color:var(--text) !important;
+}
+
+.h-row:hover .h-fill{ filter:brightness(1.12); }
+
+.h-row.zero .h-val.outside{ left:8px !important; color:var(--blue) !important; }
+.h-track.zero{
+    background:rgba(27,42,33,.05);
+}
+
+.rank-footnote{
+    position:relative; z-index:2;
+    margin-top:14px;
+    padding-top:12px;
+    border-top:1px solid var(--line-soft);
+    font-size:11px;
+    color:var(--blue);
+}
+
+/* =====================================================
+   INSIGHT
+===================================================== */
+.insight{
+    max-width:1450px;
+    margin:22px auto 0;
+    padding:20px 25px;
+    background:linear-gradient(100deg, rgba(49,91,138,.10), rgba(115,86,168,.08));
+    border:1px solid rgba(49,91,138,.12);
+    border-radius:18px;
+    display:flex;
+    align-items:center;
+    gap:18px;
+}
+.insight-icon{
+    width:42px; height:42px;
+    border-radius:12px;
+    display:flex; justify-content:center; align-items:center;
+    background:rgba(49,91,138,.15);
+    color:var(--blue);
+    font-size:20px;
+    flex-shrink:0;
+}
+.insight p{ color:var(--blue); font-size:13px; line-height:1.6; }
+.insight strong{ color:var(--text); }
+
+/* =====================================================
+   RESPONSIVE
+===================================================== */
+@media(max-width:1000px){
+    .dashboard{ grid-template-columns:1fr; }
+}
+@media(max-width:600px){
+    body{ padding:20px; }
+    .stat-strip{ grid-template-columns:1fr 1fr; }
+    .h-row{ grid-template-columns:18px 130px 1fr; }
+    .h-dept span.name{ font-size:10.5px; }
+}
+
+</style>
+</head>
+
+<body>
+
+<header class="page-header">
+    <div class="header-left">
+        <small>INSTITUTIONAL ACADEMIC FRAMEWORK</small>
+        <h1>Student Research & Learning Dashboard</h1>
+        <p>Two ranked views — research output and course completion</p>
+    </div>
+    <div class="badge">JULY 2025 — JUNE 2026</div>
+</header>
+
+<div class="wrap">
+
+    <!-- SUMMARY STRIP -->
+    <div class="stat-strip">
+        <div class="stat-tile pub">
+            <small>Total Publications</small>
+            <strong id="pubTotal">0</strong>
+            <span class="sub">Allied Health Sciences leads — 15</span>
+        </div>
+        <div class="stat-tile course">
+            <small>Total Course Completions</small>
+            <strong id="courseTotal">0</strong>
+            <span class="sub">Business Administration leads — 25</span>
+        </div>
+        <div class="stat-tile pub">
+            <small>Departments Publishing</small>
+            <strong id="pubActive">0</strong>
+            <span class="sub">out of 14 departments</span>
+        </div>
+        <div class="stat-tile course">
+            <small>Departments Completing Courses</small>
+            <strong id="courseActive">0</strong>
+            <span class="sub">out of 14 departments</span>
+        </div>
+    </div>
+
+    <!-- TWO SEPARATE RANKED CHARTS -->
+    <section class="dashboard">
+
+        <!-- RESEARCH PUBLICATIONS -->
+        <div class="chart-card pub-card">
+            <div class="card-header">
+                <div class="card-title">
+                    <div class="icon">📚</div>
+                    <div>
+                        <h2>Student Research Publications</h2>
+                        <span>Ranked, highest first</span>
+                    </div>
+                </div>
+                <div class="total">
+                    <strong id="pubCardTotal">0</strong>
+                    <span>Total</span>
+                </div>
+            </div>
+
+            <div class="rank-list" id="pubList"></div>
+
+            <div class="rank-footnote" id="pubFootnote"></div>
+        </div>
+
+        <!-- COURSE COMPLETION -->
+        <div class="chart-card course-card">
+            <div class="card-header">
+                <div class="card-title">
+                    <div class="icon">🎓</div>
+                    <div>
+                        <h2>Student Online Course Completion</h2>
+                        <span>Ranked, highest first</span>
+                    </div>
+                </div>
+                <div class="total">
+                    <strong id="courseCardTotal">0</strong>
+                    <span>Total</span>
+                </div>
+            </div>
+
+            <div class="rank-list" id="courseList"></div>
+
+            <div class="rank-footnote" id="courseFootnote"></div>
+        </div>
+
+    </section>
+
+</div>
+
+<div class="insight">
+    <div class="insight-icon">✦</div>
+    <p>
+        <strong>Institutional Insight:</strong>
+        Each chart ranks departments highest-to-lowest on its own metric, so the leaders
+        in research and the leaders in course completion can be read straight down the
+        list without scanning across a shared axis.
+    </p>
+</div>
+
+<script>
+
+/* =====================================================
+   DATA (unchanged)
+===================================================== */
+const departments = [
+    "Allied Health Sciences","Applied Sciences","Business Administration",
+    "Civil Engineering","Computer Applications","CSE","ECE","Education",
+    "EE","HM","LAW","ME","Pharmacy","Radiology"
+];
+
+const icons = {
+    "Allied Health Sciences":"🩺","Applied Sciences":"🔬","Business Administration":"💼",
+    "Civil Engineering":"🏗️","Computer Applications":"💻","CSE":"🖥️","ECE":"📡",
+    "Education":"🎓","EE":"⚡","HM":"🏨","LAW":"⚖️","ME":"⚙️","Pharmacy":"💊","Radiology":"🩻"
+};
+
+const publications = [15,0,1,3,0,7,0,0,0,0,0,0,7,3];
+const courses = [0,0,25,0,0,1,0,0,0,0,0,7,0,0];
+
+const pubTotal = publications.reduce((s,v) => s+v, 0);
+const courseTotal = courses.reduce((s,v) => s+v, 0);
+const pubActive = publications.filter(v => v > 0).length;
+const courseActive = courses.filter(v => v > 0).length;
+
+/* =====================================================
+   BUILD ONE RANKED LIST
+===================================================== */
+function buildRankedChart(listId, footnoteId, values, cardTotalId){
+
+    const records = departments.map((name, i) => ({ name, value: values[i] }));
+    const sorted = [...records].sort((a,b) => b.value - a.value);
+    const zeroCount = records.filter(r => r.value === 0).length;
+    const maxVal = Math.max(...records.map(r => r.value)) || 1;
+
+    const listEl = document.getElementById(listId);
+    listEl.innerHTML = "";
+
+    sorted.forEach((rec, index) => {
+
+        const isZero = rec.value === 0;
+        const pct = (rec.value / maxVal) * 100;
+        const showInside = pct > 22;
+
+        const row = document.createElement("div");
+        row.className = "h-row" + (isZero ? " zero" : "");
+
+        row.innerHTML = `
+            <div class="h-rank">${index + 1}</div>
+            <div class="h-dept">
+                <span class="dept-icon">${icons[rec.name]}</span>
+                <span class="name">${rec.name}</span>
+            </div>
+            <div class="h-track${isZero ? " zero" : ""}">
+                <div class="h-fill" data-width="${pct}">
+                    ${showInside ? `<span class="h-val">${rec.value}</span>` : ""}
+                </div>
+                ${showInside ? "" : `<span class="h-val outside" style="left:0">${rec.value}</span>`}
+            </div>
+        `;
+
+        listEl.appendChild(row);
+    });
+
+    /* animate fills after insertion */
+    requestAnimationFrame(() => {
+        listEl.querySelectorAll(".h-fill").forEach((fill, i) => {
+            const w = fill.getAttribute("data-width");
+            setTimeout(() => { fill.style.width = w + "%"; }, 120 + i * 70);
+        });
+        /* reposition "outside" labels once fill width is known */
+        listEl.querySelectorAll(".h-row").forEach(row => {
+            const outside = row.querySelector(".h-val.outside");
+            const fill = row.querySelector(".h-fill");
+            if(outside && fill){
+                const w = fill.getAttribute("data-width");
+                setTimeout(() => { outside.style.left = w + "%"; }, 120);
+            }
+        });
+    });
+
+    document.getElementById(footnoteId).textContent =
+        zeroCount > 0
+            ? `All 14 departments shown — ${zeroCount} recorded 0 in this category.`
+            : `All 14 departments shown — every one recorded activity in this category.`;
+
+    document.getElementById(cardTotalId).textContent = values.reduce((s,v) => s+v, 0);
+}
+
+buildRankedChart("pubList", "pubFootnote", publications, "pubCardTotal");
+buildRankedChart("courseList", "courseFootnote", courses, "courseCardTotal");
+
+/* =====================================================
+   ANIMATED TOTAL COUNTERS (top strip)
+===================================================== */
+function animateCounter(elementId, target){
+    const element = document.getElementById(elementId);
+    const duration = 1100;
+    const start = performance.now();
+
+    function update(time){
+        const progress = Math.min((time - start) / duration, 1);
+        const eased = 1 - Math.pow(1 - progress, 3);
+        element.textContent = Math.floor(target * eased);
+        if(progress < 1) requestAnimationFrame(update);
+    }
+    requestAnimationFrame(update);
+}
+
+animateCounter("pubTotal", pubTotal);
+animateCounter("courseTotal", courseTotal);
+animateCounter("pubActive", pubActive);
+animateCounter("courseActive", courseActive);
+
+</script>
+
+</body>
+</html>

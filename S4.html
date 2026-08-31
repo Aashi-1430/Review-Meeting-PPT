@@ -1,0 +1,409 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Departmental Contribution to Academic Activities</title>
+<style>
+:root{
+  --bg:#F6F9F6; --white:#FFFFFF;
+  --green:#14532D; --green2:#198754; --green3:#2F6B45;
+  --gold:#C9A227; --gold-light:#E7D58A;
+  --red:#A33A3A; --red-light:#F8EAEA;
+  --text:#1B2A21; --muted:#718077; --border:#DDE8DF;
+  --blue:#315B8A; --purple:#7356A8;
+  --shadow:0 15px 40px rgba(20,83,45,.09);
+  --deptColor:var(--green2);
+}
+*{box-sizing:border-box}
+html,body{
+  margin:0;width:100%;height:100%;overflow:hidden;
+  font-family:"Segoe UI",Arial,sans-serif;
+  background:
+    radial-gradient(circle at 8% 8%,rgba(25,135,84,.08),transparent 30%),
+    radial-gradient(circle at 92% 92%,rgba(201,162,39,.07),transparent 28%),
+    var(--bg);
+  color:var(--text);
+}
+#app{
+  position:relative;width:100vw;height:100vh;overflow:hidden;
+  background:
+    radial-gradient(circle at 8% 8%,rgba(25,135,84,.06),transparent 30%),
+    radial-gradient(circle at 92% 92%,rgba(201,162,39,.05),transparent 28%),
+    var(--bg);
+}
+header{
+  position:absolute;left:5vw;right:5vw;top:4vh;z-index:20;
+  display:flex;align-items:flex-end;justify-content:space-between;gap:24px;
+}
+.htext{position:relative;padding-left:18px}
+.htext:before{
+  content:"";position:absolute;left:0;top:2px;bottom:2px;width:4px;
+  border-radius:10px;background:linear-gradient(180deg,var(--green2),var(--gold));
+}
+.htext .kicker{
+  font-size:10.5px;letter-spacing:3px;color:var(--green2);
+  text-transform:uppercase;font-weight:700;
+}
+.htext h1{
+  font:700 clamp(22px,2.6vw,38px)/1.1 Georgia,serif;
+  margin:8px 0 0;letter-spacing:-.5px;color:var(--green);
+}
+.htext .subtitle{
+  font-size:10px;letter-spacing:1.2px;color:var(--muted);margin-top:8px;
+}
+.totalPod{
+  flex:0 0 auto;text-align:right;padding:12px 22px;border-radius:16px;
+  background:var(--white);border:1px solid var(--border);box-shadow:var(--shadow);
+}
+.totalPod .cap{
+  font-size:9px;letter-spacing:2.5px;color:var(--green2);
+  text-transform:uppercase;font-weight:700;
+}
+.totalPod .num{
+  font:700 clamp(30px,3.2vw,46px)/1 Georgia,serif;
+  margin-top:4px;color:var(--green);
+}
+.stage{position:absolute;left:0;right:0;top:17vh;bottom:0;overflow:hidden}
+.floor{
+  position:absolute;left:0;right:0;bottom:8vh;height:1px;
+  background:linear-gradient(90deg,transparent,var(--border) 8%,var(--border) 92%,transparent);
+}
+.gridlines{position:absolute;left:0;right:0;bottom:8vh;top:6%;pointer-events:none}
+.gridlines div{position:absolute;left:5vw;right:5vw;border-top:1px dashed rgba(20,83,45,.10)}
+.skyline{
+  position:absolute;left:0;right:0;bottom:8vh;top:6%;
+  display:flex;align-items:flex-end;gap:clamp(6px,1.6vw,22px);
+  padding:0 5vw;overflow-x:auto;overflow-y:hidden;
+}
+.skyline::-webkit-scrollbar{height:6px}
+.skyline::-webkit-scrollbar-thumb{background:rgba(20,83,45,.20);border-radius:4px}
+.bldg{
+  flex:1 1 0;min-width:56px;max-width:110px;height:100%;
+  display:flex;flex-direction:column;align-items:center;justify-content:flex-end;
+  cursor:pointer;
+}
+.bldg .badge{
+  width:50px;height:50px;border-radius:9px;display:flex;align-items:center;
+  justify-content:center;font-size:30px;background:#EDF6F0;
+  color:var(--green);border:1px solid var(--border);
+  box-shadow:0 6px 18px rgba(20,83,45,.10);
+  margin-bottom:8px;flex:0 0 auto;
+}
+.bldg.empty .badge{background:#FFF8F8;border-color:rgba(163,58,58,.25);box-shadow:none}
+.bldg .bar{
+  width:100%;border-radius:10px 10px 4px 4px;position:relative;
+  background:linear-gradient(180deg,var(--green2),var(--green3));
+  box-shadow:0 0 0 1px rgba(20,83,45,.06) inset,0 -6px 22px -6px rgba(25,135,84,.32);
+  transition:filter .25s ease,box-shadow .25s ease,transform .25s ease,height .7s cubic-bezier(.2,.8,.2,1);
+  transform-origin:bottom center;overflow:hidden;
+}
+.bldg:hover .bar,.bldg.active .bar{
+  filter:brightness(1.06);
+  box-shadow:0 0 0 1px rgba(20,83,45,.12) inset,0 0 26px rgba(25,135,84,.28);
+  transform:scaleX(1.06);
+}
+.bldg.empty .bar{
+  background:#FFFFFF;border:1px dashed rgba(163,58,58,.38);
+  min-height:0;overflow:hidden;transform:scaleY(0);opacity:0;
+  transform-origin:bottom center;
+  transition:transform .85s cubic-bezier(.22,.8,.25,1),opacity .35s ease;
+}
+.bldg.empty .bar.animate-in{transform:scaleY(1);opacity:1}
+.bldg.empty .bar:after{
+  content:"";position:absolute;left:0;right:0;bottom:-35px;height:32px;
+  background:linear-gradient(180deg,transparent,rgba(201,162,39,.20),transparent);
+  opacity:0;pointer-events:none;
+}
+.bldg.empty .bar.animate-in:after{animation:emptyLightSweep 1.15s cubic-bezier(.2,.7,.2,1) forwards}
+@keyframes emptyLightSweep{
+  0%{bottom:-35px;opacity:0}20%{opacity:.9}65%{opacity:.55}100%{bottom:100%;opacity:0}
+}
+.bldg.empty:hover .bar.animate-in,.bldg.empty.active .bar.animate-in{
+  transform:scaleY(1.03);filter:brightness(1.02);
+  box-shadow:0 0 18px rgba(163,58,58,.16),0 0 0 1px rgba(163,58,58,.12) inset;
+}
+.bldg .topStat{
+  position:absolute;top:9px;left:4px;right:4px;text-align:center;
+  z-index:5;line-height:1.1;
+}
+.bldg .pct{
+  font-size:12px;font-weight:800;color:#FFFFFF;
+  text-shadow:0 1px 4px rgba(20,83,45,.55);margin:0;
+}
+.bldg .cnt{
+  font-size:8px;color:rgba(255,255,255,.88);font-weight:600;
+  margin-top:6px;white-space:nowrap;line-height:1.2;
+}
+.bldg .name{
+  position:absolute;top:50%;left:50%;transform:translate(-50%,-50%) rotate(180deg);
+  writing-mode:vertical-rl;font-size:10px;font-weight:750;letter-spacing:.4px;
+  color:#FFFFFF;text-shadow:0 1px 4px rgba(20,83,45,.55);
+  max-height:80%;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;z-index:4;
+}
+.bldg.empty .topStat{top:5px;left:2px;right:2px;line-height:1}
+.bldg.empty .topStat .pct{
+  display:block;font-size:12px;color:var(--red);text-shadow:none;
+}
+.bldg.empty .topStat .cnt{
+  display:block;font-size:8px;color:var(--red);margin-top:16px;white-space:nowrap;
+}
+.bldg.empty .name{
+  top:auto;bottom:5px;left:50%;transform:translateX(-50%);
+  writing-mode:horizontal-tb;font-size:10px;font-weight:800;letter-spacing:.6px;
+  color:var(--red);text-shadow:none;white-space:nowrap;overflow:visible;
+}
+.overlay{
+  position:absolute;inset:0;background:rgba(246,249,246,.82);
+  backdrop-filter:blur(7px);z-index:60;opacity:0;pointer-events:none;
+  transition:opacity .35s ease;display:flex;align-items:center;justify-content:center;
+}
+.overlay.show{opacity:1;pointer-events:auto}
+.detail{
+  width:min(1000px,90vw);max-height:86vh;overflow:auto;background:var(--white);
+  border:1px solid var(--border);border-radius:24px;padding:36px 46px;
+  position:relative;box-shadow:0 35px 110px rgba(20,83,45,.20);
+  transform:scale(.94) translateY(20px);transition:.45s cubic-bezier(.2,.8,.2,1);
+}
+.show .detail{transform:none}
+.detail:after{
+  content:"";position:absolute;width:320px;height:320px;border-radius:50%;
+  right:-150px;top:-150px;background:var(--deptColor);opacity:.07;filter:blur(5px);
+  pointer-events:none;
+}
+.close{
+  position:absolute;right:26px;top:22px;font-size:10px;letter-spacing:1.5px;
+  color:var(--muted);cursor:pointer;z-index:5;padding:6px 10px;
+  border:1px solid var(--border);border-radius:8px;transition:.2s;
+}
+.close:hover{color:var(--green);border-color:var(--deptColor)}
+.detail .kicker{
+  font-size:10px;letter-spacing:3px;color:var(--green2);
+  text-transform:uppercase;font-weight:700;
+}
+.detail h2{font:700 clamp(26px,4vw,40px)/1 Georgia,serif;margin:8px 0 6px;color:var(--green)}
+.total{font-size:12px;color:var(--muted)}
+.total b{font-size:20px;color:var(--green)}
+.detailGrid{display:grid;grid-template-columns:270px 1fr;gap:38px;align-items:center;margin-top:30px}
+.bigcard{
+  min-height:270px;border-radius:18px;background:#FAFCFA;border:1px solid var(--border);
+  padding:24px;display:flex;flex-direction:column;justify-content:center;
+}
+.big{font:700 80px/.85 Georgia,serif;color:var(--green2)}
+.biglabel{font-size:10.5px;color:var(--text);margin-top:12px;font-weight:700;letter-spacing:.5px}
+.note{font-size:10.5px;line-height:1.6;color:var(--muted);margin-top:9px}
+.stats{display:flex;flex-direction:column;gap:18px}
+.stat{display:grid;grid-template-columns:190px 1fr 32px;gap:12px;align-items:center;font-size:11.5px}
+.track{height:11px;background:#EDF1ED;border-radius:20px;overflow:hidden}
+.fill{
+  height:100%;width:0;border-radius:20px;
+  background:linear-gradient(90deg,var(--green2),var(--green3));
+  box-shadow:0 0 18px rgba(25,135,84,.20);transition:width .9s cubic-bezier(.2,.8,.2,1);
+}
+.numv{text-align:right;color:var(--green2);font-weight:800}
+.noData{font-size:11px;color:var(--muted);margin-top:8px;font-style:italic}
+@media(max-width:900px){
+  header{flex-direction:column;align-items:flex-start;gap:14px}
+  .totalPod{align-self:flex-start;text-align:left}
+  .stage{top:22vh}.bldg{min-width:52px}
+  .bldg .name,.bldg.empty .name{font-size:9px}
+  .bldg.empty .bar{min-height:82px}
+  .detail{padding:24px}.detailGrid{grid-template-columns:1fr;gap:16px}
+  .bigcard{min-height:auto}.big{font-size:56px}
+  .stat{grid-template-columns:150px 1fr 30px}
+}
+</style>
+</head>
+<body>
+
+<div id="app">
+<header>
+ <div class="htext">
+  <div class="kicker">Academic Engagement • January–June 2026</div>
+  <h1>Departmental Contribution to Academic Activities</h1>
+  <div class="subtitle">🎤 GUEST LECTURES &nbsp;•&nbsp; 🧑‍🏫 SEMINARS / WORKSHOPS &nbsp;•&nbsp; 🏭 INDUSTRIAL VISITS / TOURS &nbsp;•&nbsp; ⛺ CAMPS ORGANIZED</div>
+ </div>
+ <div class="totalPod">
+  <div class="cap">Total Activities</div>
+  <div class="num" id="institutionTotal">0</div>
+ </div>
+</header>
+
+<section class="stage">
+ <div class="gridlines" id="gridlines"></div>
+ <div class="skyline" id="skyline"></div>
+ <div class="floor"></div>
+</section>
+
+<div class="overlay" id="overlay">
+ <div class="detail" id="detail">
+  <div class="close" id="close">ESC / CLOSE</div>
+  <div class="kicker">Department Activity Profile</div>
+  <h2 id="dname"></h2>
+  <div class="total">Total activities conducted <b id="dtotal"></b></div>
+
+  <div class="detailGrid">
+   <div class="bigcard">
+    <div class="big" id="big">0</div>
+    <div class="biglabel">TOTAL ACTIVITIES</div>
+    <div class="note">January–June 2026<br>Academic activities organized by the department.</div>
+   </div>
+   <div class="stats" id="statsWrap">
+    <div class="stat"><span>🎤 Guest Lectures</span><div class="track"><div class="fill" id="fill-lectures"></div></div><b class="numv" id="lectures">0</b></div>
+    <div class="stat"><span>🧑‍🏫 Seminars / Workshops</span><div class="track"><div class="fill" id="fill-seminars"></div></div><b class="numv" id="seminars">0</b></div>
+    <div class="stat"><span>🏭 Industrial Visits / Tours</span><div class="track"><div class="fill" id="fill-visits"></div></div><b class="numv" id="visits">0</b></div>
+    <div class="stat"><span>⛺ Camps Organized</span><div class="track"><div class="fill" id="fill-camps"></div></div><b class="numv" id="camps">0</b></div>
+    <div class="noData" id="noData" style="display:none">No academic activities recorded for this department in the period.</div>
+   </div>
+  </div>
+ </div>
+</div>
+</div>
+<script>
+/* ================= DATA =================
+   [Department, Guest Lectures, Seminars/Workshops, Industrial Visits/Tours, Camps Organized]
+*/
+const data=[
+ ["A.S",0,0,0,0],
+ ["Business Administration",2,4,1,0],
+ ["Computer Applications",1,5,0,0],
+ ["Law",6,2,3,0],
+ ["HM",0,2,1,0],
+ ["Civil / Mechanical / EE",1,1,4,1],
+ ["Pharmacy",2,1,2,0],
+ ["Radiology",0,0,1,0],
+ ["CSE",3,3,1,0],
+ ["Allied Health Sciences",0,1,1,1],
+ ["B.Ed",0,0,0,0],
+ ["Research Department",0,1,0,0]
+];
+
+const colors=[
+ "#FF7A59","#2F80ED","#9B8AFB","#F7C65D","#5DC2FF","#43D6A3",
+ "#1F3F73","#B5502C","#7A7F87","#8D6CFF","#8A6D1F","#38663A"
+];
+
+const deptIcons={
+ "A.S":"🔬","Business Administration":"💼","Computer Applications":"🖥️",
+ "Law":"⚖️","HM":"🏨","Civil / Mechanical / EE":"🏗️","Pharmacy":"💊",
+ "Radiology":"🩻","CSE":"💻","Allied Health Sciences":"🏥","B.Ed":"🎓",
+ "Research Department":"🧪"
+};
+
+const shortNames={"Allied Health Sciences":"AHS","Civil / Mechanical / EE":"C/M/EE","Business Administration":"Business Administration","Research Department":"Research"};
+
+const totals=data.map(d=>d.slice(1).reduce((a,b)=>a+b,0));
+const institutionTotal=totals.reduce((a,b)=>a+b,0);
+document.getElementById("institutionTotal").textContent=institutionTotal;
+const maxTotal=Math.max(...totals,1);
+
+/* faint background gridlines for a skyline horizon feel */
+const gridlines=document.getElementById("gridlines");
+[15,32,50,68,86].forEach(t=>{
+ const d=document.createElement("div");
+ d.style.top=t+"%";
+ gridlines.appendChild(d);
+});
+
+/* sort tallest-to-shortest, like a skyline silhouette, without losing dept identity */
+const order=data.map((d,i)=>i).sort((a,b)=>totals[b]-totals[a]);
+
+const skyline=document.getElementById("skyline");
+
+order.forEach(i=>{
+ const d=data[i], total=totals[i], hasData=total>0;
+ const pct=institutionTotal?Math.round(total/institutionTotal*100):0;
+ const hPct = hasData ? 30 + 66*Math.sqrt(total/maxTotal) : 10;
+
+ const bldg=document.createElement("div");
+ bldg.className="bldg"+(hasData?"":" empty");
+ bldg.dataset.index=i;
+ bldg.style.setProperty("--c",colors[i]);
+ bldg.title=`${d[0]}: ${total} activit${total===1?"y":"ies"}`;
+
+ const displayName = shortNames[d[0]] || d[0];
+
+ bldg.innerHTML=`
+  <div class="badge">${deptIcons[d[0]]||"🏛️"}</div>
+  <div class="bar" data-target="${hasData?hPct:10}" style="height:0%">
+    <div class="topStat">
+      <div class="pct">${hasData?pct+"%":"0%"}</div>
+      <div class="cnt">${hasData?total+" activit"+(total===1?"y":"ies"):"no activity"}</div>
+    </div>
+    <div class="name">${displayName}</div>
+  </div>
+ `;
+ bldg.onclick=()=>openDetail(i);
+ skyline.appendChild(bldg);
+});
+
+/* =========================================================
+   BAR ANIMATION — bars rise one by one, staggered
+========================================================= */
+const bars=[...skyline.querySelectorAll(".bar")];
+
+bars.forEach((bar,idx)=>{
+ const building=bar.closest(".bldg");
+ const isEmpty=building.classList.contains("empty");
+
+ setTimeout(()=>{
+
+   if(isEmpty){
+     /* Empty departments: reveal via scaleY, then bottom-up animation */
+     bar.style.height="82px";
+     void bar.offsetWidth; // force reflow so the transition registers
+     bar.classList.add("animate-in");
+   }else{
+     /* Normal departments: rise to their target height */
+     bar.style.height=bar.dataset.target+"%";
+   }
+
+ },250+idx*250);
+});
+
+/* ---------------- DETAIL OVERLAY ---------------- */
+const overlay=document.getElementById("overlay");
+const detail=document.getElementById("detail");
+const statsWrap=document.getElementById("statsWrap");
+const noData=document.getElementById("noData");
+
+function openDetail(i){
+ const d=data[i], total=totals[i], max=Math.max(1,...d.slice(1));
+ document.documentElement.style.setProperty("--deptColor",colors[i]);
+ document.getElementById("dname").textContent=d[0];
+ document.getElementById("dtotal").textContent=total;
+ document.getElementById("big").textContent=total;
+ document.getElementById("lectures").textContent=d[1];
+ document.getElementById("seminars").textContent=d[2];
+ document.getElementById("visits").textContent=d[3];
+ document.getElementById("camps").textContent=d[4];
+
+ statsWrap.querySelectorAll(".stat").forEach(s=>s.style.display=total?"grid":"none");
+ noData.style.display=total?"none":"block";
+
+ document.querySelectorAll(".bldg").forEach(x=>x.classList.remove("active"));
+ const selected=document.querySelector(`.bldg[data-index="${i}"]`);
+ if(selected)selected.classList.add("active");
+
+ const fills=[document.getElementById("fill-lectures"),document.getElementById("fill-seminars"),
+              document.getElementById("fill-visits"),document.getElementById("fill-camps")];
+ fills.forEach(x=>x.style.width="0");
+ overlay.classList.add("show");
+
+ requestAnimationFrame(()=>setTimeout(()=>{
+   fills[0].style.width=(d[1]/max*100)+"%";
+   fills[1].style.width=(d[2]/max*100)+"%";
+   fills[2].style.width=(d[3]/max*100)+"%";
+   fills[3].style.width=(d[4]/max*100)+"%";
+ },120));
+}
+function closeDetail(){
+ overlay.classList.remove("show");
+ document.querySelectorAll(".bldg").forEach(x=>x.classList.remove("active"));
+}
+document.getElementById("close").onclick=closeDetail;
+overlay.onclick=e=>{if(e.target===overlay)closeDetail()};
+document.addEventListener("keydown",e=>{if(e.key==="Escape")closeDetail()});
+</script>
+</body>
+</html>

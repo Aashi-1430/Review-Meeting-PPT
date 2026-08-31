@@ -1,0 +1,411 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Academic Review Meeting</title>
+
+<style>
+
+/* =========================================================
+   RESET
+========================================================= */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+
+/* =========================================================
+   PRESENTATION CANVAS
+========================================================= */
+
+body {
+    width: 100vw;
+    height: 100vh;
+    overflow: hidden;
+    background: #000;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+.slide {
+    position: relative;
+
+    width: 100vw;
+    height: 100vh;
+
+    overflow: hidden;
+
+    background: #000;
+}
+
+
+/* =========================================================
+   BACKGROUND IMAGE
+========================================================= */
+
+.background {
+    position: absolute;
+
+    inset: 0;
+
+    width: 100%;
+    height: 100%;
+
+    object-fit: cover;
+
+    opacity: 0;
+
+    transform: scale(1);
+
+    animation:
+        backgroundAppear 1.2s ease forwards,
+        cinematicZoom 8s cubic-bezier(.22, .61, .36, 1) 1.2s forwards;
+}
+
+
+/* Fade background from black */
+
+@keyframes backgroundAppear {
+
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+}
+
+
+/*
+    Cinematic camera movement
+
+    1. Start normal
+    2. Slowly zoom in
+    3. Hold
+    4. Slowly zoom back out
+*/
+
+@keyframes cinematicZoom {
+
+    0% {
+        transform: scale(1);
+    }
+
+    45% {
+        transform: scale(1.075);
+    }
+
+    65% {
+        transform: scale(1.075);
+    }
+
+    100% {
+        transform: scale(1.025);
+    }
+}
+
+
+/* =========================================================
+   DARK OVERLAY
+========================================================= */
+
+.overlay {
+    position: absolute;
+
+    inset: 0;
+
+    pointer-events: none;
+
+    background:
+        linear-gradient(
+            90deg,
+            rgba(1, 17, 35, 0.97) 0%,
+            rgba(1, 17, 35, 0.88) 20%,
+            rgba(1, 17, 35, 0.48) 43%,
+            rgba(1, 17, 35, 0.08) 70%,
+            rgba(1, 17, 35, 0.15) 100%
+        );
+
+    opacity: 0;
+
+    animation: overlayAppear 1.5s ease 0.8s forwards;
+}
+
+
+@keyframes overlayAppear {
+
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+}
+
+
+/* =========================================================
+   CONTENT CONTAINER
+========================================================= */
+
+.content {
+    position: absolute;
+
+    left: 0;
+    top: 0;
+
+    width: 100%;
+    height: 100%;
+
+    z-index: 10;
+}
+
+
+/* =========================================================
+   LOGO
+========================================================= */
+
+.logo {
+    position: absolute;
+
+    left: 5.8%;
+    top: 10.5%;
+
+    width: 205px;
+
+    opacity: 0;
+
+    transform: translateX(-120px);
+
+    animation:
+        emergeLeft 1s cubic-bezier(.16, 1, .3, 1)
+        1.5s forwards;
+}
+
+
+/* =========================================================
+   MAIN TITLE
+========================================================= */
+
+.title {
+    position: absolute;
+
+    left: 5.8%;
+    top: 50%;
+
+    color: white;
+
+    font-family:
+        "Arial Narrow",
+        "Roboto Condensed",
+        Arial,
+        sans-serif;
+
+    font-weight: 600;
+
+    font-size: clamp(42px, 4.1vw, 78px);
+
+    line-height: 0.92;
+
+    letter-spacing: -1px;
+
+    opacity: 0;
+
+    transform: translateX(-140px);
+
+    animation:
+        emergeLeft 1s cubic-bezier(.16, 1, .3, 1)
+        2.0s forwards;
+}
+
+
+/* =========================================================
+   MEETING
+========================================================= */
+
+.meeting {
+    display: block;
+
+    margin-top: 1px;
+
+    color: #df650f;
+}
+
+
+/* =========================================================
+   SESSION
+========================================================= */
+
+.session {
+    position: absolute;
+
+    left: 5.8%;
+    top: 80%;
+
+    color: #287dc0;
+
+    font-family:
+        "Arial Narrow",
+        "Roboto Condensed",
+        Arial,
+        sans-serif;
+
+    font-weight: 800;
+
+    font-size: clamp(20px, 1.8vw, 34px);
+
+    letter-spacing: 1px;
+
+    opacity: 0;
+
+    transform: translateX(-120px);
+
+    animation:
+        emergeLeft 1s cubic-bezier(.16, 1, .3, 1)
+        2.55s forwards;
+}
+
+
+/* =========================================================
+   SLIDE-IN ANIMATION
+========================================================= */
+
+@keyframes emergeLeft {
+
+    0% {
+        opacity: 0;
+        transform: translateX(-140px);
+    }
+
+    60% {
+        opacity: 1;
+    }
+
+    100% {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+
+/* =========================================================
+   OPTIONAL SUBTLE LIGHT
+========================================================= */
+
+.light {
+    position: absolute;
+
+    width: 500px;
+    height: 500px;
+
+    left: -250px;
+    top: 30%;
+
+    border-radius: 50%;
+
+    background: rgba(20, 100, 170, 0.08);
+
+    filter: blur(80px);
+
+    opacity: 0;
+
+    animation:
+        lightAppear 2s ease 9s forwards;
+}
+
+
+@keyframes lightAppear {
+
+    from {
+        opacity: 0;
+        transform: translateX(-100px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+
+/* =========================================================
+   RESPONSIVE
+========================================================= */
+
+@media (max-width: 900px) {
+
+    .logo {
+        width: 160px;
+    }
+
+    .title {
+        top: 50%;
+    }
+
+    .session {
+        top: 86%;
+    }
+}
+
+</style>
+</head>
+
+
+<body>
+
+<div class="slide">
+
+    <!-- BACKGROUND -->
+    <img
+        class="background"
+        src="background.png"
+        alt=""
+    >
+
+    <!-- DARK LEFT GRADIENT -->
+    <div class="overlay"></div>
+
+    <!-- OPTIONAL LIGHT EFFECT -->
+    <div class="light"></div>
+
+
+    <!-- ALL CONTENT -->
+    <div class="content">
+
+        <!-- LOGO -->
+        <img
+            class="logo"
+            src="logo.png"
+            alt="Swami Vivekanand Group of Institutes"
+        >
+
+
+        <!-- TITLE -->
+        <div class="title">
+
+            ACADEMIC<br>
+            REVIEW
+
+            <span class="meeting">
+                MEETING
+            </span>
+
+        </div>
+
+
+        <!-- SESSION -->
+        <div class="session">
+            SESSION JAN-JUNE, 2026
+        </div>
+
+    </div>
+
+</div>
+
+</body>
+</html>

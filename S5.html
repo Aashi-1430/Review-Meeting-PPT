@@ -1,0 +1,4585 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Faculty Participation & Achievements</title>
+
+<style>
+
+/* =========================================================
+   RESET
+========================================================= */
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+
+/* =========================================================
+   BODY
+========================================================= */
+
+body{
+
+    font-family:
+        "Segoe UI",
+        Arial,
+        sans-serif;
+
+    min-height:100vh;
+
+    background:
+
+        radial-gradient(
+            circle at 10% 10%,
+            rgba(49,91,138,.16),
+            transparent 30%
+        ),
+
+        radial-gradient(
+            circle at 90% 90%,
+            rgba(201,162,39,.13),
+            transparent 30%
+        ),
+
+        linear-gradient(
+            135deg,
+            #F6F9F6 0%,
+            #F6F9F6 50%,
+            #F6F9F6 100%
+        );
+
+    color:#1B2A21;
+
+    overflow-x:hidden;
+}
+
+
+/* =========================================================
+   PAGE
+========================================================= */
+
+.faculty-page{
+
+    min-height:100vh;
+
+    padding:
+        42px 4vw 60px;
+
+    position:relative;
+
+    overflow:hidden;
+}
+
+
+.grid{
+
+    position:absolute;
+
+    inset:0;
+
+    pointer-events:none;
+
+    opacity:.035;
+
+    background-image:
+
+        linear-gradient(
+            rgba(255,255,255,.5) 1px,
+            transparent 1px
+        ),
+
+        linear-gradient(
+            90deg,
+            rgba(255,255,255,.5) 1px,
+            transparent 1px
+        );
+
+    background-size:45px 45px;
+}
+
+
+/* =========================================================
+   BACKGROUND GLOWS
+========================================================= */
+
+.glow{
+
+    position:absolute;
+
+    border-radius:50%;
+
+    filter:blur(100px);
+
+    pointer-events:none;
+}
+
+
+.glow-blue{
+
+    width:450px;
+    height:450px;
+
+    background:#315B8A;
+
+    left:-260px;
+    top:-220px;
+
+    opacity:.18;
+}
+
+
+.glow-orange{
+
+    width:420px;
+    height:420px;
+
+    background:#A33A3A;
+
+    right:-250px;
+    bottom:-240px;
+
+    opacity:.15;
+}
+
+
+/* =========================================================
+   HEADER
+========================================================= */
+
+.header{
+
+    position:relative;
+
+    z-index:5;
+
+    text-align:center;
+
+    margin-bottom:35px;
+}
+
+
+.badge{
+
+    display:inline-flex;
+
+    align-items:center;
+
+    gap:8px;
+
+    padding:8px 17px;
+
+    border-radius:50px;
+
+    background:
+        rgba(49,91,138,.08);
+
+    border:
+        1px solid
+        rgba(49,91,138,.35);
+
+    color:#315B8A;
+
+    font-size:11px;
+
+    font-weight:600;
+
+    letter-spacing:2.5px;
+
+    text-transform:uppercase;
+
+    margin-bottom:15px;
+
+    animation:
+        fadeDown .8s ease both;
+}
+
+
+.badge-dot{
+
+    width:7px;
+    height:7px;
+
+    border-radius:50%;
+
+    background:#315B8A;
+
+    box-shadow:
+        0 0 12px #315B8A;
+
+    animation:pulse 1.5s infinite;
+}
+
+
+.header h1{
+
+    font-family:
+        Georgia,
+        "Times New Roman",
+        serif;
+
+    font-size:
+        clamp(30px,4vw,52px);
+
+    letter-spacing:2px;
+
+    line-height:1.1;
+
+    animation:
+        titleReveal 1s ease both;
+}
+
+
+.header h1 span{
+
+    color:#C9A227;
+
+    text-shadow:
+        0 0 25px
+        rgba(201,162,39,.25);
+}
+
+
+.header p{
+
+    margin-top:13px;
+
+    color:#315B8A;
+
+    font-size:13px;
+
+    letter-spacing:1.5px;
+
+    animation:
+        fadeUp 1s .2s ease both;
+}
+
+
+.header-line{
+
+    width:260px;
+
+    height:2px;
+
+    margin:20px auto 0;
+
+    background:
+        linear-gradient(
+            90deg,
+            transparent,
+            #315B8A,
+            #C9A227,
+            transparent
+        );
+
+    position:relative;
+}
+
+
+.header-line::after{
+
+    content:"";
+
+    position:absolute;
+
+    width:8px;
+    height:8px;
+
+    left:50%;
+    top:-3px;
+
+    transform:
+        translateX(-50%)
+        rotate(45deg);
+
+    background:#C9A227;
+
+    box-shadow:
+        0 0 15px #C9A227;
+}
+
+
+/* =========================================================
+   SECTION HEADINGS
+========================================================= */
+
+.section-heading{
+
+    text-align:center;
+
+    margin-bottom:22px;
+}
+
+
+.section-heading .mini{
+
+    color:#315B8A;
+
+    font-size:10px;
+
+    letter-spacing:2.5px;
+
+    text-transform:uppercase;
+
+    font-weight:600;
+}
+
+
+.section-heading h2{
+
+    margin-top:5px;
+
+    font-family:
+        Georgia,
+        "Times New Roman",
+        serif;
+
+    font-size:
+        clamp(25px,3vw,38px);
+
+    letter-spacing:1px;
+}
+
+
+.section-heading p{
+
+    color:#315B8A;
+
+    font-size:11px;
+
+    margin-top:7px;
+
+    letter-spacing:.8px;
+}
+
+
+/* =========================================================
+   MAIN CARD
+========================================================= */
+
+.main-card{
+
+    position:relative;
+
+    z-index:5;
+
+    max-width:1500px;
+
+    min-height:710px;
+
+    margin:auto;
+
+    padding:
+        28px 30px 72px;
+
+    border-radius:30px;
+
+    background:
+
+        linear-gradient(
+            145deg,
+            rgba(246,249,246,.95),
+            rgba(246,249,246,.98)
+        );
+
+    border:
+        1px solid
+        rgba(49,91,138,.25);
+
+    box-shadow:
+
+        0 30px 80px
+        rgba(27,42,33,.45),
+
+        inset 0 0 70px
+        rgba(49,91,138,.025);
+
+    animation:
+        cardReveal .9s .25s ease both;
+}
+
+
+.main-card::before{
+
+    content:"";
+
+    position:absolute;
+
+    left:12%;
+    right:12%;
+
+    top:0;
+
+    height:1px;
+
+    background:
+
+        linear-gradient(
+            90deg,
+            transparent,
+            #315B8A,
+            #C9A227,
+            transparent
+        );
+
+    box-shadow:
+        0 0 15px
+        rgba(49,91,138,.6);
+}
+
+
+/* =========================================================
+   PARTICIPATION CONTENT
+========================================================= */
+
+.content{
+
+    display:grid;
+
+    grid-template-columns:
+        minmax(500px,1fr)
+        minmax(340px,.58fr);
+
+    align-items:center;
+
+    gap:25px;
+
+    min-height:620px;
+}
+
+
+/* =========================================================
+   CHART AREA
+========================================================= */
+
+.chart-area{
+
+    position:relative;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    min-height:620px;
+}
+
+
+#facultyChart{
+
+    width:min(620px,100%);
+
+    height:auto;
+
+    overflow:visible;
+
+    transform:rotate(-90deg);
+}
+
+
+/* =========================================================
+   DONUT
+========================================================= */
+
+.chart-bg{
+
+    fill:none;
+
+    stroke:
+        rgba(27,42,33,.045);
+
+    stroke-width:43;
+}
+
+
+.segment{
+
+    fill:none;
+
+    stroke-width:43;
+
+    stroke-linecap:butt;
+
+    cursor:pointer;
+
+    transition:
+        stroke-width .25s ease,
+        opacity .25s ease,
+        filter .25s ease;
+}
+
+
+.segment:hover{
+
+    stroke-width:53;
+
+    filter:
+        drop-shadow(
+            0 0 10px currentColor
+        );
+}
+
+
+/* =========================================================
+   CENTER
+========================================================= */
+
+.center{
+
+    position:absolute;
+
+    width:250px;
+    height:250px;
+
+    border-radius:50%;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    flex-direction:column;
+
+    text-align:center;
+
+    background:
+
+        radial-gradient(
+            circle,
+            #315B8A 0%,
+            #F6F9F6 55%,
+            #F6F9F6 100%
+        );
+
+    border:
+        1px solid
+        rgba(49,91,138,.38);
+
+    box-shadow:
+
+        inset 0 0 40px
+        rgba(49,91,138,.14),
+
+        0 0 35px
+        rgba(49,91,138,.10);
+}
+
+
+.center-icon{
+
+    font-size:30px;
+
+    margin-bottom:6px;
+}
+
+
+.center-small{
+
+    font-size:10px;
+
+    letter-spacing:2px;
+
+    color:#315B8A;
+}
+
+
+.center-title{
+
+    font-size:17px;
+
+    font-weight:700;
+
+    margin-top:5px;
+
+    color:#1B2A21;
+
+    letter-spacing:1px;
+}
+
+
+.center-number{
+
+    font-size:47px;
+
+    line-height:1;
+
+    margin-top:9px;
+
+    color:#315B8A;
+
+    font-weight:800;
+
+    text-shadow:
+        0 0 20px
+        rgba(49,91,138,.45);
+}
+
+
+.center-caption{
+
+    margin-top:7px;
+
+    color:#315B8A;
+
+    font-size:9px;
+
+    letter-spacing:1px;
+}
+
+
+/* =========================================================
+   RIGHT PANEL
+========================================================= */
+
+.right-panel{
+
+    position:relative;
+
+    min-height:580px;
+
+    display:flex;
+
+    flex-direction:column;
+
+    justify-content:center;
+}
+
+
+.legend-area{
+
+    display:flex;
+
+    flex-direction:column;
+
+    gap:8px;
+
+    max-height:575px;
+
+    overflow-y:auto;
+
+    padding-right:6px;
+}
+
+
+.legend-area::-webkit-scrollbar{
+
+    width:4px;
+}
+
+
+.legend-area::-webkit-scrollbar-thumb{
+
+    background:
+        rgba(49,91,138,.35);
+
+    border-radius:10px;
+}
+
+
+.legend-heading{
+
+    padding-bottom:12px;
+
+    border-bottom:
+        1px solid
+        rgba(27,42,33,.08);
+
+    margin-bottom:2px;
+}
+
+
+.legend-heading small{
+
+    color:#315B8A;
+
+    font-size:10px;
+
+    letter-spacing:2px;
+
+    text-transform:uppercase;
+}
+
+
+.legend-heading h3{
+
+    margin-top:4px;
+
+    font-size:20px;
+
+    color:#1B2A21;
+}
+
+
+.legend-item{
+
+    display:grid;
+
+    grid-template-columns:
+        13px 1fr auto;
+
+    align-items:center;
+
+    gap:10px;
+
+    padding:9px 12px;
+
+    border-radius:11px;
+
+    background:
+        rgba(255,255,255,.025);
+
+    border:
+        1px solid
+        rgba(27,42,33,.055);
+
+    cursor:pointer;
+
+    transition:
+        all .22s ease;
+
+    animation:
+        legendAppear .45s ease both;
+}
+
+
+.legend-item:hover{
+
+    transform:
+        translateX(-5px);
+
+    background:
+        rgba(49,91,138,.09);
+
+    border-color:
+        rgba(49,91,138,.35);
+}
+
+
+.legend-dot{
+
+    width:10px;
+    height:10px;
+
+    border-radius:3px;
+
+    box-shadow:
+        0 0 9px currentColor;
+}
+
+
+.legend-name{
+
+    font-size:12px;
+
+    color:#1B2A21;
+
+    line-height:1.25;
+}
+
+
+.legend-faculty{
+
+    display:block;
+
+    font-size:9px;
+
+    color:#315B8A;
+
+    letter-spacing:.3px;
+
+    margin-top:1px;
+}
+
+
+.legend-value{
+
+    font-size:14px;
+
+    font-weight:800;
+
+    color:#1B2A21;
+
+    min-width:32px;
+
+    text-align:right;
+}
+
+
+/* =========================================================
+   DETAIL PANEL
+========================================================= */
+
+.detail-panel{
+
+    display:none;
+
+    flex-direction:column;
+
+    animation:
+        detailIn .5s ease both;
+}
+
+
+.detail-panel.active{
+
+    display:flex;
+}
+
+
+.detail-top{
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:space-between;
+
+    margin-bottom:14px;
+}
+
+
+.detail-label{
+
+    color:#315B8A;
+
+    font-size:10px;
+
+    letter-spacing:2px;
+
+    text-transform:uppercase;
+}
+
+
+.back-btn{
+
+    border:none;
+
+    background:
+        rgba(49,91,138,.09);
+
+    border:
+        1px solid
+        rgba(49,91,138,.25);
+
+    color:#315B8A;
+
+    padding:8px 13px;
+
+    border-radius:8px;
+
+    cursor:pointer;
+
+    font-size:11px;
+
+    transition:.2s;
+}
+
+
+.back-btn:hover{
+
+    background:
+        rgba(49,91,138,.18);
+
+    transform:
+        translateX(-3px);
+}
+
+
+.detail-title{
+
+    font-size:29px;
+
+    font-weight:800;
+
+    color:#1B2A21;
+
+    line-height:1.15;
+
+    margin-bottom:5px;
+}
+
+
+.detail-subtitle{
+
+    color:#315B8A;
+
+    font-size:11px;
+
+    margin-bottom:17px;
+}
+
+
+.detail-total{
+
+    display:grid;
+
+    grid-template-columns:
+        repeat(3,1fr);
+
+    align-items:center;
+
+    padding:14px 8px;
+
+    margin-bottom:15px;
+
+    border-radius:14px;
+
+    background:
+
+        linear-gradient(
+            100deg,
+            rgba(49,91,138,.10),
+            rgba(201,162,39,.08)
+        );
+
+    border:
+        1px solid
+        rgba(49,91,138,.22);
+}
+
+
+.detail-total-box{
+
+    text-align:center;
+
+    padding:0 6px;
+
+    border-right:
+        1px solid
+        rgba(27,42,33,.09);
+}
+
+
+.detail-total-box:last-child{
+
+    border-right:none;
+}
+
+
+.detail-total-label{
+
+    color:#315B8A;
+
+    font-size:9px;
+
+    letter-spacing:1.2px;
+
+    text-transform:uppercase;
+}
+
+
+.detail-total-value{
+
+    font-size:26px;
+
+    font-weight:900;
+
+    color:#315B8A;
+
+    margin-top:4px;
+
+    text-shadow:
+        0 0 18px
+        rgba(49,91,138,.3);
+}
+
+
+.detail-total-value.faculty-value{
+
+    color:#198754;
+
+    text-shadow:
+        0 0 18px
+        rgba(25,135,84,.3);
+}
+
+
+.detail-total-value.achievement-value{
+
+    color:#C9A227;
+
+    text-shadow:
+        0 0 18px
+        rgba(201,162,39,.3);
+}
+
+
+.detail-total-value.na{
+
+    font-size:16px;
+
+    color:#315B8A;
+
+    text-shadow:none;
+}
+
+
+.activity-cards{
+
+    display:grid;
+
+    grid-template-columns:
+        repeat(3,1fr);
+
+    gap:8px;
+
+    margin-bottom:21px;
+}
+
+
+.activity-card{
+
+    padding:12px 8px;
+
+    border-radius:12px;
+
+    background:
+        rgba(255,255,255,.035);
+
+    border:
+        1px solid
+        rgba(27,42,33,.07);
+
+    text-align:center;
+
+    transition:.25s;
+}
+
+
+.activity-card:hover{
+
+    transform:
+        translateY(-3px);
+
+    background:
+        rgba(255,255,255,.055);
+}
+
+
+.activity-card .icon{
+
+    font-size:18px;
+
+    margin-bottom:4px;
+}
+
+
+.activity-card .number{
+
+    font-size:25px;
+
+    font-weight:800;
+
+    color:#1B2A21;
+}
+
+
+.activity-card .label{
+
+    color:#315B8A;
+
+    font-size:9px;
+
+    letter-spacing:.7px;
+
+    text-transform:uppercase;
+
+    margin-top:3px;
+}
+
+
+.graph-title{
+
+    color:#1B2A21;
+
+    font-size:12px;
+
+    font-weight:700;
+
+    margin-bottom:14px;
+
+    letter-spacing:.5px;
+}
+
+
+.graph{
+
+    display:flex;
+
+    flex-direction:column;
+
+    gap:17px;
+}
+
+
+.graph-row{
+
+    display:grid;
+
+    grid-template-columns:
+        118px 1fr 32px;
+
+    align-items:center;
+
+    gap:10px;
+}
+
+
+.graph-label{
+
+    font-size:11px;
+
+    color:#315B8A;
+}
+
+
+.bar-container{
+
+    height:13px;
+
+    background:
+        rgba(255,255,255,.055);
+
+    border-radius:20px;
+
+    overflow:hidden;
+
+    position:relative;
+}
+
+
+.bar{
+
+    height:100%;
+
+    width:0%;
+
+    border-radius:20px;
+
+    transition:
+        width 1.2s
+        cubic-bezier(.22,1,.36,1);
+}
+
+
+.bar-fdp{
+
+    background:
+        linear-gradient(
+            90deg,
+            #315B8A,
+            #315B8A
+        );
+}
+
+
+.bar-seminar{
+
+    background:
+        linear-gradient(
+            90deg,
+            #315B8A,
+            #7356A8
+        );
+}
+
+
+.bar-conference{
+
+    background:
+        linear-gradient(
+            90deg,
+            #C9A227,
+            #C9A227
+        );
+}
+
+
+.graph-value{
+
+    font-size:12px;
+
+    font-weight:800;
+
+    color:#1B2A21;
+
+    text-align:right;
+}
+
+
+.activity-total{
+
+    margin-top:22px;
+
+    padding:14px 16px;
+
+    border-radius:13px;
+
+    background:
+
+        linear-gradient(
+            90deg,
+            rgba(49,91,138,.08),
+            rgba(201,162,39,.06)
+        );
+
+    border:
+        1px solid
+        rgba(49,91,138,.15);
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:space-between;
+}
+
+
+.activity-total span{
+
+    color:#315B8A;
+
+    font-size:10px;
+
+    letter-spacing:1px;
+
+    text-transform:uppercase;
+}
+
+
+.activity-total strong{
+
+    font-size:24px;
+
+    color:#315B8A;
+}
+
+
+.directory{
+
+    margin-top:20px;
+
+    padding-top:16px;
+
+    border-top:
+        1px solid
+        rgba(27,42,33,.07);
+}
+
+
+.directory-title{
+
+    color:#315B8A;
+
+    font-size:9px;
+
+    letter-spacing:1.5px;
+
+    text-transform:uppercase;
+
+    margin-bottom:9px;
+}
+
+
+.directory-list{
+
+    display:flex;
+
+    flex-wrap:wrap;
+
+    gap:5px;
+}
+
+
+.directory-btn{
+
+    border:
+        1px solid
+        rgba(27,42,33,.08);
+
+    background:
+        rgba(255,255,255,.025);
+
+    color:#315B8A;
+
+    padding:6px 8px;
+
+    border-radius:6px;
+
+    font-size:9px;
+
+    cursor:pointer;
+
+    transition:.2s;
+}
+
+
+.directory-btn:hover{
+
+    color:#1B2A21;
+
+    border-color:
+        rgba(49,91,138,.35);
+
+    background:
+        rgba(49,91,138,.08);
+}
+
+
+/* =========================================================
+   PARTICIPATION SUMMARY
+========================================================= */
+
+.summary{
+
+    position:absolute;
+
+    bottom:22px;
+
+    left:30px;
+    right:30px;
+
+    display:flex;
+
+    justify-content:center;
+
+    align-items:center;
+
+    gap:14px;
+
+    padding:11px;
+
+    border-radius:14px;
+
+    background:
+
+        linear-gradient(
+            90deg,
+            transparent,
+            rgba(49,91,138,.07),
+            transparent
+        );
+
+    border:
+        1px solid
+        rgba(49,91,138,.13);
+}
+
+
+.summary-icon{
+
+    font-size:19px;
+}
+
+
+.summary-text{
+
+    color:#315B8A;
+
+    font-size:10px;
+
+    letter-spacing:1px;
+
+    text-transform:uppercase;
+}
+
+
+.summary-number{
+
+    color:#315B8A;
+
+    font-size:21px;
+
+    font-weight:800;
+
+    margin-left:7px;
+}
+
+
+/* =========================================================
+   FACULTY ACHIEVEMENTS SECTION
+========================================================= */
+
+.achievements-section{
+
+    position:relative;
+
+    z-index:5;
+
+    max-width:1500px;
+
+    margin:45px auto 0;
+}
+
+
+/* =========================================================
+   ACHIEVEMENT CARD
+========================================================= */
+
+.achievement-card{
+
+    position:relative;
+
+    padding:35px 38px 38px;
+
+    border-radius:30px;
+
+    background:
+
+        linear-gradient(
+            145deg,
+            rgba(246,249,246,.96),
+            rgba(246,249,246,.99)
+        );
+
+    border:
+        1px solid
+        rgba(201,162,39,.22);
+
+    box-shadow:
+
+        0 30px 80px
+        rgba(27,42,33,.42),
+
+        inset 0 0 70px
+        rgba(163,58,58,.018);
+
+    overflow:hidden;
+
+    animation:
+        cardReveal .9s .45s ease both;
+}
+
+
+.achievement-card::before{
+
+    content:"";
+
+    position:absolute;
+
+    left:15%;
+    right:15%;
+
+    top:0;
+
+    height:1px;
+
+    background:
+
+        linear-gradient(
+            90deg,
+            transparent,
+            #C9A227,
+            #C9A227,
+            transparent
+        );
+
+    box-shadow:
+        0 0 15px
+        rgba(201,162,39,.5);
+}
+
+
+/* =========================================================
+   ACHIEVEMENT HEADER
+========================================================= */
+
+.achievement-header{
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:space-between;
+
+    margin-bottom:30px;
+}
+
+
+.achievement-title-box{
+
+    display:flex;
+
+    align-items:center;
+
+    gap:15px;
+}
+
+
+.achievement-icon{
+
+    width:52px;
+    height:52px;
+
+    border-radius:15px;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    font-size:25px;
+
+    background:
+        linear-gradient(
+            145deg,
+            rgba(201,162,39,.20),
+            rgba(201,162,39,.06)
+        );
+
+    border:
+        1px solid
+        rgba(201,162,39,.28);
+
+    box-shadow:
+        0 0 25px
+        rgba(201,162,39,.08);
+}
+
+
+.achievement-title-box h2{
+
+    font-family:
+        Georgia,
+        "Times New Roman",
+        serif;
+
+    font-size:
+        clamp(24px,3vw,34px);
+
+    letter-spacing:1px;
+}
+
+
+.achievement-title-box p{
+
+    color:#315B8A;
+
+    font-size:10px;
+
+    margin-top:4px;
+
+    letter-spacing:.8px;
+}
+
+
+.achievement-total{
+
+    display:flex;
+
+    align-items:center;
+
+    gap:12px;
+
+    padding:
+        10px 18px;
+
+    border-radius:13px;
+
+    background:
+        rgba(201,162,39,.06);
+
+    border:
+        1px solid
+        rgba(201,162,39,.20);
+}
+
+
+.achievement-total span{
+
+    color:#315B8A;
+
+    font-size:9px;
+
+    letter-spacing:1.5px;
+
+    text-transform:uppercase;
+}
+
+
+.achievement-total strong{
+
+    color:#C9A227;
+
+    font-size:30px;
+
+    font-weight:900;
+
+    text-shadow:
+        0 0 17px
+        rgba(201,162,39,.25);
+}
+
+
+/* =========================================================
+   ACHIEVEMENT GRAPH
+========================================================= */
+
+.achievement-graph{
+
+    display:flex;
+
+    flex-direction:column;
+
+    gap:13px;
+}
+
+
+.achievement-row{
+
+    display:grid;
+
+    grid-template-columns:
+        210px 1fr 45px;
+
+    align-items:center;
+
+    gap:14px;
+
+    padding:
+        6px 0;
+
+    cursor:pointer;
+}
+
+
+.achievement-department{
+
+    color:#315B8A;
+
+    font-size:12px;
+
+    font-weight:500;
+
+    text-align:right;
+
+    transition:.2s;
+}
+
+
+.achievement-row:hover
+.achievement-department{
+
+    color:#1B2A21;
+
+    transform:
+        translateX(-4px);
+}
+
+
+.achievement-bar-track{
+
+    height:25px;
+
+    border-radius:7px;
+
+    background:
+        rgba(255,255,255,.045);
+
+    overflow:hidden;
+
+    position:relative;
+
+    border:
+        1px solid
+        rgba(27,42,33,.045);
+}
+
+
+.achievement-bar{
+
+    height:100%;
+
+    width:0%;
+
+    border-radius:6px;
+
+    background:
+
+        linear-gradient(
+            90deg,
+            #A33A3A,
+            #C9A227,
+            #C9A227
+        );
+
+    box-shadow:
+
+        0 0 14px
+        rgba(163,58,58,.25);
+
+    transition:
+        width 1.2s
+        cubic-bezier(.22,1,.36,1);
+
+    position:relative;
+
+    overflow:hidden;
+}
+
+
+.achievement-bar::after{
+
+    content:"";
+
+    position:absolute;
+
+    top:0;
+    bottom:0;
+
+    width:80px;
+
+    background:
+        linear-gradient(
+            90deg,
+            transparent,
+            rgba(255,255,255,.3),
+            transparent
+        );
+
+    animation:
+        barShine 2.2s
+        ease-in-out
+        infinite;
+}
+
+
+.achievement-value{
+
+    font-size:15px;
+
+    font-weight:800;
+
+    color:#C9A227;
+
+    text-align:left;
+}
+
+
+.achievement-zero{
+
+    background:
+        rgba(255,255,255,.07);
+
+    box-shadow:none;
+
+    width:3px !important;
+}
+
+
+.achievement-row:hover
+.achievement-bar{
+
+    filter:
+        brightness(1.2);
+
+    box-shadow:
+        0 0 18px
+        rgba(201,162,39,.5);
+}
+
+
+/* =========================================================
+   ACHIEVEMENT FOOTER
+========================================================= */
+
+.achievement-footer{
+
+    display:flex;
+
+    justify-content:space-between;
+
+    align-items:center;
+
+    margin-top:28px;
+
+    padding-top:17px;
+
+    border-top:
+        1px solid
+        rgba(27,42,33,.07);
+}
+
+
+.achievement-footer-left{
+
+    color:#315B8A;
+
+    font-size:10px;
+
+    letter-spacing:.7px;
+}
+
+
+.achievement-footer-left span{
+
+    color:#C9A227;
+
+    font-weight:700;
+}
+
+
+.achievement-footer-right{
+
+    color:#315B8A;
+
+    font-size:9px;
+
+    letter-spacing:1px;
+
+    text-transform:uppercase;
+}
+
+
+/* =========================================================
+   TOOLTIP
+========================================================= */
+
+.tooltip{
+
+    position:fixed;
+
+    z-index:100;
+
+    pointer-events:none;
+
+    opacity:0;
+
+    padding:10px 14px;
+
+    border-radius:9px;
+
+    background:
+        rgba(246,249,246,.97);
+
+    border:
+        1px solid
+        rgba(49,91,138,.45);
+
+    box-shadow:
+        0 10px 30px
+        rgba(27,42,33,.4);
+
+    transform:
+        translateY(5px);
+
+    transition:
+        opacity .15s ease,
+        transform .15s ease;
+}
+
+
+.tooltip.show{
+
+    opacity:1;
+
+    transform:
+        translateY(0);
+}
+
+
+.tooltip-name{
+
+    color:#315B8A;
+
+    font-size:12px;
+
+    font-weight:700;
+}
+
+
+.tooltip-value{
+
+    color:#1B2A21;
+
+    font-size:11px;
+
+    margin-top:3px;
+}
+
+
+/* =========================================================
+   ANIMATIONS
+========================================================= */
+
+@keyframes titleReveal{
+
+    from{
+
+        opacity:0;
+
+        transform:translateY(-20px);
+
+        letter-spacing:10px;
+    }
+
+    to{
+
+        opacity:1;
+
+        transform:translateY(0);
+
+        letter-spacing:2px;
+    }
+}
+
+
+@keyframes fadeDown{
+
+    from{
+
+        opacity:0;
+
+        transform:translateY(-12px);
+    }
+
+    to{
+
+        opacity:1;
+
+        transform:translateY(0);
+    }
+}
+
+
+@keyframes fadeUp{
+
+    from{
+
+        opacity:0;
+
+        transform:translateY(12px);
+    }
+
+    to{
+
+        opacity:1;
+
+        transform:translateY(0);
+    }
+}
+
+
+@keyframes cardReveal{
+
+    from{
+
+        opacity:0;
+
+        transform:
+            translateY(35px)
+            scale(.97);
+    }
+
+    to{
+
+        opacity:1;
+
+        transform:
+            translateY(0)
+            scale(1);
+    }
+}
+
+
+@keyframes detailIn{
+
+    from{
+
+        opacity:0;
+
+        transform:
+            translateX(30px);
+    }
+
+    to{
+
+        opacity:1;
+
+        transform:
+            translateX(0);
+    }
+}
+
+
+@keyframes legendAppear{
+
+    from{
+
+        opacity:0;
+
+        transform:
+            translateX(15px);
+    }
+
+    to{
+
+        opacity:1;
+
+        transform:
+            translateX(0);
+    }
+}
+
+
+@keyframes pulse{
+
+    0%,100%{
+
+        transform:scale(.8);
+
+        opacity:.5;
+    }
+
+    50%{
+
+        transform:scale(1.2);
+
+        opacity:1;
+    }
+}
+
+
+@keyframes barShine{
+
+    0%{
+
+        left:-100px;
+    }
+
+    50%{
+
+        left:110%;
+    }
+
+    100%{
+
+        left:110%;
+    }
+}
+
+
+/* =========================================================
+   RESPONSIVE
+========================================================= */
+
+@media(max-width:1100px){
+
+    .content{
+
+        grid-template-columns:1fr;
+    }
+
+    .chart-area{
+
+        min-height:500px;
+    }
+
+    .right-panel{
+
+        min-height:auto;
+    }
+
+    .legend-area{
+
+        display:grid;
+
+        grid-template-columns:
+            repeat(2,1fr);
+
+        max-height:none;
+    }
+
+}
+
+
+@media(max-width:750px){
+
+    .faculty-page{
+
+        padding:
+            30px 10px;
+    }
+
+    .main-card{
+
+        padding:
+            18px 15px 70px;
+
+        border-radius:20px;
+    }
+
+    .chart-area{
+
+        min-height:370px;
+    }
+
+    #facultyChart{
+
+        width:360px;
+    }
+
+    .center{
+
+        width:165px;
+        height:165px;
+    }
+
+    .center-number{
+
+        font-size:32px;
+    }
+
+    .center-title{
+
+        font-size:13px;
+    }
+
+    .legend-area{
+
+        grid-template-columns:1fr;
+    }
+
+    .graph-row{
+
+        grid-template-columns:
+            90px 1fr 25px;
+    }
+
+    .achievement-card{
+
+        padding:
+            25px 18px 28px;
+    }
+
+    .achievement-header{
+
+        align-items:flex-start;
+
+        flex-direction:column;
+
+        gap:15px;
+    }
+
+    .achievement-total{
+
+        align-self:stretch;
+
+        justify-content:space-between;
+    }
+
+    .achievement-row{
+
+        grid-template-columns:
+            105px 1fr 28px;
+
+        gap:8px;
+    }
+
+    .achievement-department{
+
+        font-size:9px;
+    }
+
+    .achievement-bar-track{
+
+        height:20px;
+    }
+
+    .achievement-value{
+
+        font-size:12px;
+    }
+
+    .achievement-footer{
+
+        flex-direction:column;
+
+        align-items:flex-start;
+
+        gap:8px;
+    }
+
+}
+
+
+</style>
+</head>
+
+
+<body>
+
+
+<section class="faculty-page">
+
+
+<div class="grid"></div>
+
+<div class="glow glow-blue"></div>
+
+<div class="glow glow-orange"></div>
+
+
+<!-- =====================================================
+     MAIN HEADER
+====================================================== -->
+
+<header class="header">
+
+
+<div class="badge">
+
+<span class="badge-dot"></span>
+
+INSTITUTIONAL ACADEMIC DATA
+
+</div>
+
+
+<h1>
+
+<span>FACULTY</span>
+
+PARTICIPATION & ACHIEVEMENTS
+
+</h1>
+
+
+<p>
+
+DEPARTMENT-WISE ACADEMIC ENGAGEMENT & FACULTY EXCELLENCE
+
+</p>
+
+
+<div class="header-line"></div>
+
+
+</header>
+
+
+
+<!-- =====================================================
+     SECTION 1
+     FACULTY PARTICIPATION
+====================================================== -->
+
+<div class="section-heading">
+
+<div class="mini">
+
+01 / Faculty Engagement
+
+</div>
+
+<h2>
+
+DEPARTMENT WISE FACULTY PARTICIPATION
+
+</h2>
+
+<p>
+
+Click any department to explore FDP, Seminar / Workshop and Conference participation
+
+</p>
+
+</div>
+
+
+
+<main class="main-card">
+
+
+<div class="content">
+
+
+<!-- =====================================================
+     DONUT CHART
+====================================================== -->
+
+<div class="chart-area">
+
+
+<svg
+    id="facultyChart"
+    viewBox="0 0 500 500">
+</svg>
+
+
+<div class="center">
+
+
+<div class="center-icon">
+
+🎓
+
+</div>
+
+
+<div class="center-small">
+
+FACULTY
+
+</div>
+
+
+<div class="center-title">
+
+PARTICIPATION
+
+</div>
+
+
+<div
+    class="center-number"
+    id="totalFaculty">
+
+156
+
+</div>
+
+
+<div class="center-caption">
+
+TOTAL PARTICIPATIONS
+
+</div>
+
+
+</div>
+
+
+</div>
+
+
+
+<!-- =====================================================
+     RIGHT PANEL
+====================================================== -->
+
+<div class="right-panel">
+
+
+<div
+    class="legend-area"
+    id="legend">
+
+
+<div class="legend-heading">
+
+<small>
+
+Participation Distribution
+
+</small>
+
+
+<h3>
+
+Department-wise Participation
+
+</h3>
+
+
+</div>
+
+
+</div>
+
+
+
+<div
+    class="detail-panel"
+    id="detailPanel">
+
+
+<div class="detail-top">
+
+
+<div class="detail-label">
+
+SELECTED DEPARTMENT
+
+</div>
+
+
+<button
+    class="back-btn"
+    onclick="showDepartments()">
+
+← All Departments
+
+</button>
+
+
+</div>
+
+
+<div
+    class="detail-title"
+    id="detailTitle">
+</div>
+
+
+<div class="detail-subtitle">
+
+Faculty development and academic participation
+
+</div>
+
+
+<div class="detail-total">
+
+
+<div class="detail-total-box">
+
+<div class="detail-total-label">
+
+TEACHING FACULTY
+
+</div>
+
+<div
+    class="detail-total-value faculty-value"
+    id="detailFacultyValue">
+
+0
+
+</div>
+
+</div>
+
+
+<div class="detail-total-box">
+
+<div class="detail-total-label">
+
+PARTICIPATION
+
+</div>
+
+<div
+    class="detail-total-value"
+    id="detailTotalValue">
+
+0
+
+</div>
+
+</div>
+
+
+<div class="detail-total-box">
+
+<div class="detail-total-label">
+
+ACHIEVEMENTS
+
+</div>
+
+<div
+    class="detail-total-value achievement-value"
+    id="detailAchievementValue">
+
+0
+
+</div>
+
+</div>
+
+
+</div>
+
+
+<div class="activity-cards">
+
+
+<div class="activity-card">
+
+<div class="icon">📘</div>
+
+<div
+    class="number"
+    id="fdpValue">
+0
+</div>
+
+<div class="label">
+
+FDP
+
+</div>
+
+</div>
+
+
+<div class="activity-card">
+
+<div class="icon">🎤</div>
+
+<div
+    class="number"
+    id="seminarValue">
+0
+</div>
+
+<div class="label">
+
+Seminar / Workshop
+
+</div>
+
+</div>
+
+
+<div class="activity-card">
+
+<div class="icon">🌐</div>
+
+<div
+    class="number"
+    id="conferenceValue">
+0
+</div>
+
+<div class="label">
+
+Conferences
+
+</div>
+
+</div>
+
+
+</div>
+
+
+
+<div class="graph-title">
+
+PARTICIPATION BREAKDOWN
+
+</div>
+
+
+<div class="graph">
+
+
+<div class="graph-row">
+
+<div class="graph-label">
+
+FDP
+
+</div>
+
+<div class="bar-container">
+
+<div
+    class="bar bar-fdp"
+    id="fdpBar">
+</div>
+
+</div>
+
+<div
+    class="graph-value"
+    id="fdpGraphValue">
+0
+</div>
+
+</div>
+
+
+<div class="graph-row">
+
+<div class="graph-label">
+
+Seminar / Workshop
+
+</div>
+
+<div class="bar-container">
+
+<div
+    class="bar bar-seminar"
+    id="seminarBar">
+</div>
+
+</div>
+
+<div
+    class="graph-value"
+    id="seminarGraphValue">
+0
+</div>
+
+</div>
+
+
+<div class="graph-row">
+
+<div class="graph-label">
+
+Conferences
+
+</div>
+
+<div class="bar-container">
+
+<div
+    class="bar bar-conference"
+    id="conferenceBar">
+</div>
+
+</div>
+
+<div
+    class="graph-value"
+    id="conferenceGraphValue">
+0
+</div>
+
+</div>
+
+
+</div>
+
+
+<div class="activity-total">
+
+<span>
+
+Total Academic Participation
+
+</span>
+
+<strong
+    id="activityTotal">
+
+0
+
+</strong>
+
+</div>
+
+
+<div class="directory">
+
+<div class="directory-title">
+
+All Departments
+
+</div>
+
+
+<div
+    class="directory-list"
+    id="directoryList">
+</div>
+
+
+</div>
+
+
+</div>
+
+
+</div>
+
+</div>
+
+
+
+<div class="summary">
+
+
+<div class="summary-icon">
+
+🎓
+
+</div>
+
+
+<div class="summary-text">
+
+TOTAL FACULTY PARTICIPATION
+
+<span
+    class="summary-number"
+    id="summaryTotal">
+
+156
+
+</span>
+
+
+</div>
+
+
+</div>
+
+
+</main>
+
+
+
+<!-- =====================================================
+     SECTION 2
+     FACULTY ACHIEVEMENTS
+====================================================== -->
+
+<section class="achievements-section">
+
+
+<div class="section-heading">
+
+<div class="mini">
+
+02 / Faculty Excellence
+
+</div>
+
+
+<h2>
+
+DEPARTMENT WISE FACULTY ACHIEVEMENTS
+
+</h2>
+
+
+<p>
+
+Recognition, accomplishments and professional achievements across departments
+
+</p>
+
+</div>
+
+
+
+<div class="achievement-card">
+
+
+<div class="achievement-header">
+
+
+<div class="achievement-title-box">
+
+
+<div class="achievement-icon">
+
+🏆
+
+</div>
+
+
+<div>
+
+<h2>
+
+Faculty Achievements
+
+</h2>
+
+
+<p>
+
+Department-wise distribution of faculty achievements
+
+</p>
+
+</div>
+
+
+</div>
+
+
+
+<div class="achievement-total">
+
+
+<span>
+
+TOTAL ACHIEVEMENTS
+
+</span>
+
+
+<strong
+    id="achievementTotal">
+
+56
+
+</strong>
+
+
+</div>
+
+
+</div>
+
+
+
+<!-- =====================================================
+     ACHIEVEMENT GRAPH
+====================================================== -->
+
+<div
+    class="achievement-graph"
+    id="achievementGraph">
+</div>
+
+
+
+<div class="achievement-footer">
+
+
+<div class="achievement-footer-left">
+
+Highest achievement count:
+
+<span id="highestAchievement">
+
+LAW — 13
+
+</span>
+
+</div>
+
+
+<div class="achievement-footer-right">
+
+Faculty Excellence Dashboard
+
+</div>
+
+
+</div>
+
+
+</div>
+
+
+</section>
+
+
+</section>
+
+
+
+<!-- =====================================================
+     TOOLTIP
+====================================================== -->
+
+<div
+    class="tooltip"
+    id="tooltip">
+
+
+<div
+    class="tooltip-name"
+    id="tooltipName">
+</div>
+
+
+<div
+    class="tooltip-value"
+    id="tooltipValue">
+</div>
+
+
+</div>
+
+
+
+<script>
+
+
+/* =========================================================
+   FACULTY PARTICIPATION DATA
+========================================================= */
+
+const departmentData = [
+
+{
+    name:"Applied Sciences",
+    fdp:1,
+    seminar:1,
+    conference:22,
+    total:24,
+    color:"#4777cf"
+},
+
+{
+    name:"Business Administration",
+    fdp:6,
+    seminar:0,
+    conference:18,
+    total:24,
+    color:"#ef7b2c"
+},
+
+{
+    name:"Computer Applications",
+    fdp:0,
+    seminar:0,
+    conference:13,
+    total:13,
+    color:"#a5a5a5"
+},
+
+{
+    name:"LAW",
+    fdp:5,
+    seminar:0,
+    conference:8,
+    total:13,
+    color:"#ffbd00"
+},
+
+{
+    name:"Allied Health Sciences",
+    fdp:2,
+    seminar:10,
+    conference:1,
+    total:13,
+    color:"#b08a00"
+},
+
+{
+    name:"Radiology",
+    fdp:3,
+    seminar:4,
+    conference:3,
+    total:10,
+    color:"#7551c9"
+},
+
+{
+    name:"Civil Engineering",
+    fdp:4,
+    seminar:0,
+    conference:4,
+    total:8,
+    color:"#b65b12"
+},
+
+{
+    name:"HM",
+    fdp:4,
+    seminar:0,
+    conference:0,
+    total:4,
+    color:"#d94b82"
+},
+
+{
+    name:"ME",
+    fdp:1,
+    seminar:0,
+    conference:1,
+    total:2,
+    color:"#315c8c"
+},
+
+{
+    name:"EE & ECE",
+    fdp:0,
+    seminar:0,
+    conference:1,
+    total:1,
+    color:"#707070"
+},
+
+{
+    name:"CSE",
+    fdp:13,
+    seminar:1,
+    conference:13,
+    total:27,
+    color:"#286395"
+},
+
+{
+    name:"Pharmacy",
+    fdp:9,
+    seminar:3,
+    conference:0,
+    total:12,
+    color:"#5b99d1"
+},
+
+{
+    name:"B.Ed.",
+    fdp:0,
+    seminar:0,
+    conference:5,
+    total:5,
+    color:"#4e7e2e"
+}
+
+];
+
+
+const TOTAL_PARTICIPATION = 156;
+
+
+
+/* =========================================================
+   FACULTY ACHIEVEMENT DATA
+========================================================= */
+
+const achievementData = [
+
+{
+    name:"Applied Sciences",
+    value:7
+},
+
+{
+    name:"CSE",
+    value:7
+},
+
+{
+    name:"LAW",
+    value:13
+},
+
+{
+    name:"Civil Engineering",
+    value:6
+},
+
+{
+    name:"HM",
+    value:4
+},
+
+{
+    name:"MBA",
+    value:13
+},
+
+{
+    name:"MCA",
+    value:1
+},
+
+{
+    name:"Mechanical Engineering",
+    value:1
+},
+
+{
+    name:"Radiology",
+    value:2
+},
+
+{
+    name:"Pharmacy",
+    value:2
+},
+
+{
+    name:"Allied Health Sciences",
+    value:0
+},
+
+{
+    name:"EE & ECE",
+    value:0
+},
+
+{
+    name:"Education",
+    value:0
+}
+
+];
+
+
+/* =========================================================
+   TEACHING FACULTY STRENGTH (per department)
+========================================================= */
+
+const facultyStrength = {
+
+    "applied sciences":17,
+    "business administration":9,
+    "mba":9,
+    "computer applications":14,
+    "mca":14,
+    "hm":8,
+    "pharmacy":29,
+    "law":6,
+    "me":2,
+    "mechanical engineering":2,
+    "civil":4,
+    "civil engineering":4,
+    "ee/ece":3,
+    "ee & ece":3,
+    "allied health sciences":23,
+    "cse":11,
+    "education":8,
+    "b.ed.":8
+
+};
+
+
+/* =========================================================
+   NAME ALIASES
+   (achievement / faculty lists use slightly
+   different department names than the
+   participation list)
+========================================================= */
+
+const nameAliases = {
+
+    "business administration":"mba",
+    "computer applications":"mca",
+    "me":"mechanical engineering",
+    "b.ed.":"education"
+
+};
+
+
+function getFacultyCount(
+    name
+){
+
+    const key =
+        name.toLowerCase().trim();
+
+    return facultyStrength.hasOwnProperty(key)
+        ? facultyStrength[key]
+        : null;
+
+}
+
+
+function getAchievementValue(
+    name
+){
+
+    const key =
+        name.toLowerCase().trim();
+
+    const aliasKey =
+        nameAliases[key] || key;
+
+    const match =
+        achievementData.find(
+            item =>{
+
+                const itemKey =
+                    item.name
+                        .toLowerCase()
+                        .trim();
+
+                return (
+                    itemKey === key ||
+                    itemKey === aliasKey
+                );
+
+            }
+        );
+
+    return match
+        ? match.value
+        : null;
+
+}
+
+
+/* =========================================================
+   CALCULATE TOTAL ACHIEVEMENTS
+========================================================= */
+
+const TOTAL_ACHIEVEMENTS =
+    achievementData.reduce(
+        (sum,item) =>
+            sum + item.value,
+        0
+    );
+
+
+document.getElementById(
+    "achievementTotal"
+).textContent =
+    TOTAL_ACHIEVEMENTS;
+
+
+/* =========================================================
+   FIND HIGHEST ACHIEVEMENT
+========================================================= */
+
+const highest =
+    [...achievementData]
+        .sort(
+            (a,b) =>
+                b.value -
+                a.value
+        )[0];
+
+
+document.getElementById(
+    "highestAchievement"
+).textContent =
+    `${highest.name} — ${highest.value}`;
+
+
+/* =========================================================
+   SVG DONUT
+========================================================= */
+
+const svg =
+    document.getElementById(
+        "facultyChart"
+    );
+
+
+const cx = 250;
+
+const cy = 250;
+
+const radius = 165;
+
+const circumference =
+    2 * Math.PI * radius;
+
+
+const background =
+    document.createElementNS(
+        "http://www.w3.org/2000/svg",
+        "circle"
+    );
+
+
+background.setAttribute(
+    "cx",
+    cx
+);
+
+background.setAttribute(
+    "cy",
+    cy
+);
+
+background.setAttribute(
+    "r",
+    radius
+);
+
+background.setAttribute(
+    "class",
+    "chart-bg"
+);
+
+
+svg.appendChild(
+    background
+);
+
+
+let offset = 0;
+
+const segments = [];
+
+
+/* =========================================================
+   CREATE PARTICIPATION SEGMENTS
+========================================================= */
+
+departmentData.forEach(
+    (item,index)=>{
+
+
+        const percentage =
+            item.total /
+            TOTAL_PARTICIPATION;
+
+
+        const length =
+            percentage *
+            circumference;
+
+
+        const segment =
+            document.createElementNS(
+                "http://www.w3.org/2000/svg",
+                "circle"
+            );
+
+
+        segment.setAttribute(
+            "cx",
+            cx
+        );
+
+        segment.setAttribute(
+            "cy",
+            cy
+        );
+
+        segment.setAttribute(
+            "r",
+            radius
+        );
+
+        segment.setAttribute(
+            "class",
+            "segment"
+        );
+
+        segment.setAttribute(
+            "stroke",
+            item.color
+        );
+
+        segment.setAttribute(
+            "stroke-dasharray",
+            `${length} ${circumference}`
+        );
+
+        segment.setAttribute(
+            "stroke-dashoffset",
+            -offset
+        );
+
+
+        segment.dataset.name =
+            item.name;
+
+
+        segment.dataset.value =
+            item.total;
+
+
+        segment.style.strokeDasharray =
+            `0 ${circumference}`;
+
+
+        segment.style.opacity =
+            "0";
+
+
+        svg.appendChild(
+            segment
+        );
+
+
+        segments.push(
+            segment
+        );
+
+
+        setTimeout(
+            ()=>{
+
+                segment.style.opacity =
+                    "1";
+
+                segment.style.strokeDasharray =
+                    `${length} ${circumference}`;
+
+            },
+
+            300 +
+            index * 100
+        );
+
+
+        offset += length;
+
+    }
+);
+
+
+/* =========================================================
+   LEGEND
+========================================================= */
+
+const legend =
+    document.getElementById(
+        "legend"
+    );
+
+
+departmentData.forEach(
+    (item,index)=>{
+
+
+        const legendItem =
+            document.createElement(
+                "div"
+            );
+
+
+        legendItem.className =
+            "legend-item";
+
+
+        legendItem.style.animationDelay =
+            `${index * .05}s`;
+
+
+        legendItem.innerHTML = `
+
+            <span
+                class="legend-dot"
+                style="
+                    background:${item.color};
+                    color:${item.color};
+                ">
+            </span>
+
+            <span class="legend-name">
+                ${item.name}
+                <span class="legend-faculty">
+                    ${
+                        getFacultyCount(item.name) !== null
+                        ? `${getFacultyCount(item.name)} teaching faculty`
+                        : "faculty count N/A"
+                    }
+                </span>
+            </span>
+
+            <span class="legend-value">
+                ${item.total}
+            </span>
+
+        `;
+
+
+        legend.appendChild(
+            legendItem
+        );
+
+
+        legendItem.addEventListener(
+            "mouseenter",
+            ()=>{
+                highlight(
+                    segments[index]
+                );
+            }
+        );
+
+
+        legendItem.addEventListener(
+            "mouseleave",
+            ()=>{
+                resetSegments();
+            }
+        );
+
+
+        legendItem.addEventListener(
+            "click",
+            ()=>{
+                openDepartment(
+                    item.name
+                );
+            }
+        );
+
+    }
+);
+
+
+/* =========================================================
+   HIGHLIGHT DONUT
+========================================================= */
+
+function highlight(
+    selected
+){
+
+    segments.forEach(
+        segment=>{
+
+            if(
+                segment === selected
+            ){
+
+                segment.style.opacity =
+                    "1";
+
+                segment.style.strokeWidth =
+                    "53";
+
+                segment.style.filter =
+                    `drop-shadow(
+                        0 0 14px
+                        ${segment.getAttribute("stroke")}
+                    )`;
+
+            }
+
+            else{
+
+                segment.style.opacity =
+                    ".18";
+
+                segment.style.strokeWidth =
+                    "43";
+
+                segment.style.filter =
+                    "none";
+
+            }
+
+        }
+    );
+
+}
+
+
+function resetSegments(){
+
+    segments.forEach(
+        segment=>{
+
+            segment.style.opacity =
+                "1";
+
+            segment.style.strokeWidth =
+                "43";
+
+            segment.style.filter =
+                "none";
+
+        }
+    );
+
+}
+
+
+/* =========================================================
+   PARTICIPATION TOOLTIP
+========================================================= */
+
+const tooltip =
+    document.getElementById(
+        "tooltip"
+    );
+
+
+const tooltipName =
+    document.getElementById(
+        "tooltipName"
+    );
+
+
+const tooltipValue =
+    document.getElementById(
+        "tooltipValue"
+    );
+
+
+segments.forEach(
+    segment=>{
+
+
+        segment.addEventListener(
+            "mouseenter",
+            ()=>{
+
+                highlight(
+                    segment
+                );
+
+
+                tooltipName.textContent =
+                    segment.dataset.name;
+
+
+                tooltipValue.textContent =
+                    `${segment.dataset.value} total participation`;
+
+
+                tooltip.classList.add(
+                    "show"
+                );
+
+            }
+        );
+
+
+        segment.addEventListener(
+            "mousemove",
+            event=>{
+
+                tooltip.style.left =
+                    event.clientX +
+                    16 +
+                    "px";
+
+
+                tooltip.style.top =
+                    event.clientY +
+                    16 +
+                    "px";
+
+            }
+        );
+
+
+        segment.addEventListener(
+            "mouseleave",
+            ()=>{
+
+                resetSegments();
+
+                tooltip.classList.remove(
+                    "show"
+                );
+
+            }
+        );
+
+
+        segment.addEventListener(
+            "click",
+            ()=>{
+
+                openDepartment(
+                    segment.dataset.name
+                );
+
+            }
+        );
+
+    }
+);
+
+
+/* =========================================================
+   OPEN PARTICIPATION DETAILS
+========================================================= */
+
+function openDepartment(
+    departmentName
+){
+
+    const department =
+        departmentData.find(
+            item =>
+                item.name ===
+                departmentName
+        );
+
+
+    if(!department){
+
+        return;
+
+    }
+
+
+    document
+        .getElementById(
+            "legend"
+        )
+        .style.display =
+            "none";
+
+
+    const detailPanel =
+        document.getElementById(
+            "detailPanel"
+        );
+
+
+    detailPanel.classList.add(
+        "active"
+    );
+
+
+    document
+        .getElementById(
+            "detailTitle"
+        )
+        .textContent =
+            department.name;
+
+
+    document
+        .getElementById(
+            "detailTotalValue"
+        )
+        .textContent =
+            department.total;
+
+
+    document
+        .getElementById(
+            "activityTotal"
+        )
+        .textContent =
+            department.total;
+
+
+    const facultyCount =
+        getFacultyCount(
+            department.name
+        );
+
+
+    const facultyEl =
+        document.getElementById(
+            "detailFacultyValue"
+        );
+
+
+    facultyEl.textContent =
+        facultyCount !== null
+            ? facultyCount
+            : "N/A";
+
+
+    facultyEl.classList.toggle(
+        "na",
+        facultyCount === null
+    );
+
+
+    const achievementValue =
+        getAchievementValue(
+            department.name
+        );
+
+
+    const achievementEl =
+        document.getElementById(
+            "detailAchievementValue"
+        );
+
+
+    achievementEl.textContent =
+        achievementValue !== null
+            ? achievementValue
+            : "N/A";
+
+
+    achievementEl.classList.toggle(
+        "na",
+        achievementValue === null
+    );
+
+
+    document
+        .getElementById(
+            "fdpValue"
+        )
+        .textContent =
+            department.fdp;
+
+
+    document
+        .getElementById(
+            "fdpGraphValue"
+        )
+        .textContent =
+            department.fdp;
+
+
+    document
+        .getElementById(
+            "seminarValue"
+        )
+        .textContent =
+            department.seminar;
+
+
+    document
+        .getElementById(
+            "seminarGraphValue"
+        )
+        .textContent =
+            department.seminar;
+
+
+    document
+        .getElementById(
+            "conferenceValue"
+        )
+        .textContent =
+            department.conference;
+
+
+    document
+        .getElementById(
+            "conferenceGraphValue"
+        )
+        .textContent =
+            department.conference;
+
+
+    const maxValue =
+        Math.max(
+            department.fdp,
+            department.seminar,
+            department.conference,
+            1
+        );
+
+
+    document
+        .getElementById(
+            "fdpBar"
+        )
+        .style.width =
+            "0%";
+
+
+    document
+        .getElementById(
+            "seminarBar"
+        )
+        .style.width =
+            "0%";
+
+
+    document
+        .getElementById(
+            "conferenceBar"
+        )
+        .style.width =
+            "0%";
+
+
+    setTimeout(
+        ()=>{
+
+            document
+                .getElementById(
+                    "fdpBar"
+                )
+                .style.width =
+                    (
+                        department.fdp /
+                        maxValue *
+                        100
+                    ) +
+                    "%";
+
+
+            document
+                .getElementById(
+                    "seminarBar"
+                )
+                .style.width =
+                    (
+                        department.seminar /
+                        maxValue *
+                        100
+                    ) +
+                    "%";
+
+
+            document
+                .getElementById(
+                    "conferenceBar"
+                )
+                .style.width =
+                    (
+                        department.conference /
+                        maxValue *
+                        100
+                    ) +
+                    "%";
+
+        },
+        100
+    );
+
+
+    const index =
+        departmentData.findIndex(
+            item =>
+                item.name ===
+                departmentName
+        );
+
+
+    if(index >= 0){
+
+        highlight(
+            segments[index]
+        );
+
+    }
+
+}
+
+
+/* =========================================================
+   SHOW ALL PARTICIPATION DEPARTMENTS
+========================================================= */
+
+function showDepartments(){
+
+    document
+        .getElementById(
+            "detailPanel"
+        )
+        .classList.remove(
+            "active"
+        );
+
+
+    document
+        .getElementById(
+            "legend"
+        )
+        .style.display =
+            "flex";
+
+
+    resetSegments();
+
+}
+
+
+/* =========================================================
+   DIRECTORY
+========================================================= */
+
+const directory =
+    document.getElementById(
+        "directoryList"
+    );
+
+
+departmentData.forEach(
+    item=>{
+
+        const button =
+            document.createElement(
+                "button"
+            );
+
+
+        button.className =
+            "directory-btn";
+
+
+        button.textContent =
+            item.name;
+
+
+        button.onclick =
+            ()=>{
+                openDepartment(
+                    item.name
+                );
+            };
+
+
+        directory.appendChild(
+            button
+        );
+
+    }
+);
+
+
+/* =========================================================
+   NUMBER ANIMATION
+========================================================= */
+
+function animateNumber(
+    element,
+    target,
+    duration
+){
+
+    const startTime =
+        performance.now();
+
+
+    function animate(
+        currentTime
+    ){
+
+        const progress =
+            Math.min(
+                (
+                    currentTime -
+                    startTime
+                ) /
+                duration,
+                1
+            );
+
+
+        const eased =
+            1 -
+            Math.pow(
+                1-progress,
+                3
+            );
+
+
+        element.textContent =
+            Math.floor(
+                target *
+                eased
+            );
+
+
+        if(progress < 1){
+
+            requestAnimationFrame(
+                animate
+            );
+
+        }
+
+    }
+
+
+    requestAnimationFrame(
+        animate
+    );
+
+}
+
+
+animateNumber(
+
+    document.getElementById(
+        "totalFaculty"
+    ),
+
+    TOTAL_PARTICIPATION,
+
+    1500
+
+);
+
+
+animateNumber(
+
+    document.getElementById(
+        "summaryTotal"
+    ),
+
+    TOTAL_PARTICIPATION,
+
+    1500
+
+);
+
+
+/* =========================================================
+   CREATE ACHIEVEMENT GRAPH
+========================================================= */
+
+const achievementGraph =
+    document.getElementById(
+        "achievementGraph"
+    );
+
+
+const maxAchievement =
+    Math.max(
+        ...achievementData.map(
+            item => item.value
+        )
+    );
+
+
+achievementData.forEach(
+    (item,index)=>{
+
+
+        const row =
+            document.createElement(
+                "div"
+            );
+
+
+        row.className =
+            "achievement-row";
+
+
+        row.style.animationDelay =
+            `${index * .08}s`;
+
+
+        row.innerHTML = `
+
+            <div class="
+                achievement-department
+            ">
+                ${item.name}
+            </div>
+
+
+            <div class="
+                achievement-bar-track
+            ">
+
+                <div
+                    class="
+                        achievement-bar
+                        ${item.value === 0
+                            ? "achievement-zero"
+                            : ""}
+                    "
+                    data-value="${item.value}">
+                </div>
+
+            </div>
+
+
+            <div class="
+                achievement-value
+            ">
+
+                ${item.value}
+
+            </div>
+
+        `;
+
+
+        achievementGraph.appendChild(
+            row
+        );
+
+
+        /* =================================================
+           HOVER TOOLTIP
+        ================================================= */
+
+        row.addEventListener(
+            "mouseenter",
+            event=>{
+
+                tooltipName.textContent =
+                    item.name;
+
+
+                const facultyCount =
+                    getFacultyCount(
+                        item.name
+                    );
+
+
+                tooltipValue.textContent =
+                    `${item.value} faculty achievement${
+                        item.value === 1
+                        ? ""
+                        : "s"
+                    }` +
+                    (
+                        facultyCount !== null
+                        ? ` • ${facultyCount} teaching faculty`
+                        : ""
+                    );
+
+
+                tooltip.classList.add(
+                    "show"
+                );
+
+
+                tooltip.style.left =
+                    event.clientX +
+                    15 +
+                    "px";
+
+
+                tooltip.style.top =
+                    event.clientY +
+                    15 +
+                    "px";
+
+            }
+        );
+
+
+        row.addEventListener(
+            "mousemove",
+            event=>{
+
+                tooltip.style.left =
+                    event.clientX +
+                    15 +
+                    "px";
+
+
+                tooltip.style.top =
+                    event.clientY +
+                    15 +
+                    "px";
+
+            }
+        );
+
+
+        row.addEventListener(
+            "mouseleave",
+            ()=>{
+
+                tooltip.classList.remove(
+                    "show"
+                );
+
+            }
+        );
+
+
+        /* =================================================
+           CLICK EFFECT
+        ================================================= */
+
+        row.addEventListener(
+            "click",
+            ()=>{
+
+                achievementGraph
+                    .querySelectorAll(
+                        ".achievement-row"
+                    )
+                    .forEach(
+                        r=>{
+                            r.style.opacity =
+                                ".35";
+                        }
+                    );
+
+
+                row.style.opacity =
+                    "1";
+
+
+                row.style.transform =
+                    "translateX(8px)";
+
+
+                setTimeout(
+                    ()=>{
+
+                        row.style.transform =
+                            "";
+
+                    },
+                    500
+                );
+
+            }
+        );
+
+
+        /* =================================================
+           ANIMATE BAR
+        ================================================= */
+
+        setTimeout(
+            ()=>{
+
+                const bar =
+                    row.querySelector(
+                        ".achievement-bar"
+                    );
+
+
+                if(item.value > 0){
+
+                    bar.style.width =
+                        (
+                            item.value /
+                            maxAchievement *
+                            100
+                        ) +
+                        "%";
+
+                }
+                else{
+
+                    bar.style.width =
+                        "3px";
+
+                }
+
+            },
+
+            500 +
+            index * 100
+        );
+
+    }
+);
+
+
+/* =========================================================
+   CARD MOUSE EFFECT
+========================================================= */
+
+const card =
+    document.querySelector(
+        ".main-card"
+    );
+
+
+card.addEventListener(
+    "mousemove",
+    event=>{
+
+        if(
+            window.innerWidth < 1000
+        ){
+
+            return;
+
+        }
+
+
+        const rect =
+            card.getBoundingClientRect();
+
+
+        const x =
+            event.clientX -
+            rect.left;
+
+
+        const y =
+            event.clientY -
+            rect.top;
+
+
+        const rotateY =
+            (
+                x -
+                rect.width / 2
+            ) /
+            rect.width *
+            .7;
+
+
+        const rotateX =
+            -(
+                y -
+                rect.height / 2
+            ) /
+            rect.height *
+            .7;
+
+
+        card.style.transform = `
+
+            perspective(1200px)
+
+            rotateX(${rotateX}deg)
+
+            rotateY(${rotateY}deg)
+
+            translateY(-2px)
+
+        `;
+
+    }
+);
+
+
+card.addEventListener(
+    "mouseleave",
+    ()=>{
+
+        card.style.transform =
+            "";
+
+    }
+);
+
+
+/* =========================================================
+   ACHIEVEMENT CARD MOUSE EFFECT
+========================================================= */
+
+const achievementCard =
+    document.querySelector(
+        ".achievement-card"
+    );
+
+
+achievementCard.addEventListener(
+    "mousemove",
+    event=>{
+
+        if(
+            window.innerWidth < 1000
+        ){
+
+            return;
+
+        }
+
+
+        const rect =
+            achievementCard.getBoundingClientRect();
+
+
+        const x =
+            event.clientX -
+            rect.left;
+
+
+        const y =
+            event.clientY -
+            rect.top;
+
+
+        const rotateY =
+            (
+                x -
+                rect.width / 2
+            ) /
+            rect.width *
+            .35;
+
+
+        const rotateX =
+            -(
+                y -
+                rect.height / 2
+            ) /
+            rect.height *
+            .35;
+
+
+        achievementCard.style.transform = `
+
+            perspective(1200px)
+
+            rotateX(${rotateX}deg)
+
+            rotateY(${rotateY}deg)
+
+            translateY(-2px)
+
+        `;
+
+    }
+);
+
+
+achievementCard.addEventListener(
+    "mouseleave",
+    ()=>{
+
+        achievementCard.style.transform =
+            "";
+
+    }
+);
+
+
+</script>
+
+</body>
+</html>
+
+<style id="sl-theme-override">
+/* =========================================================
+   SL MASTER THEME
+   Applied to S0-S8 to match the SL visual language.
+========================================================= */
+:root{
+    --sl-bg:#F6F9F6;
+    --sl-white:#FFFFFF;
+    --sl-green:#14532D;
+    --sl-green2:#198754;
+    --sl-green3:#2F6B45;
+    --sl-gold:#C9A227;
+    --sl-gold-light:#E7D58A;
+    --sl-red:#A33A3A;
+    --sl-text:#1B2A21;
+    --sl-muted:#718077;
+    --sl-border:#DDE8DF;
+    --sl-purple:#7356A8;
+    --sl-blue:#315B8A;
+}
+html,body{
+    background-color:var(--sl-bg) !important;
+    color:var(--sl-text) !important;
+}
+body{
+    background-image:
+      radial-gradient(circle at 8% 8%, rgba(25,135,84,.08), transparent 30%),
+      radial-gradient(circle at 92% 92%, rgba(201,162,39,.07), transparent 28%) !important;
+}
+h1,h2,h3,h4,h5,h6{
+    color:var(--sl-green);
+}
+a{color:var(--sl-green2);}
+button{
+    background:var(--sl-green) !important;
+    color:#fff !important;
+    border-color:var(--sl-green3) !important;
+}
+.card,.panel,.chart-card,.detail-card,.main-card,.achievement-card,
+.activity-card,.summary-card,.kpi,.bigcard,.stat,.faculty-card,
+.department-card,.visual-panel,.detail-box,.detail-screen,.event-section,
+.chart,.graph,.right-panel,.left-panel,.values,.summary,.directory,
+.detail-total-box,.detail-panel{
+    border-color:var(--sl-border);
+}
+.badge,.section-tag,.tag,.eyebrow,.overline{
+    color:var(--sl-green2) !important;
+    border-color:rgba(25,135,84,.30) !important;
+    background:rgba(25,135,84,.07) !important;
+}
+.header-line,.divider,.card-line{
+    background:linear-gradient(90deg,transparent,var(--sl-gold),transparent) !important;
+}
+.icon,.card-icon,.summary-icon,.value-icon,.achievement-icon{
+    background:#EDF6F0 !important;
+    color:var(--sl-green) !important;
+    border-color:var(--sl-border) !important;
+}
+.bar,.fill,.detail-bar-fill,.svgoi-bar{
+    background:linear-gradient(90deg,var(--sl-green2),var(--sl-green3)) !important;
+}
+.bar-conference,.conference{
+    background:var(--sl-gold) !important;
+}
+.bar-fdp,.fdp{
+    background:var(--sl-blue) !important;
+}
+.bar-seminar,.seminar{
+    background:var(--sl-green2) !important;
+}
+.track,.bar-container,.detail-bar-track{
+    background:#EDF1ED !important;
+}
+.legend-dot,.legend-color,.panel-dot,.badge-dot,.tag-dot{
+    background:var(--sl-gold) !important;
+    box-shadow:0 0 10px rgba(201,162,39,.25) !important;
+}
+.orange{color:var(--sl-gold) !important;}
+.blue{color:var(--sl-green2) !important;}
+.green{color:var(--sl-green2) !important;}
+.purple{color:var(--sl-purple) !important;}
+.pink{color:var(--sl-pink,#A94D75) !important;}
+.red{color:var(--sl-red) !important;}
+[style*="color: white"],[style*="color:#fff"],[style*="color: #fff"]{
+    color:var(--sl-text) !important;
+}
+</style>

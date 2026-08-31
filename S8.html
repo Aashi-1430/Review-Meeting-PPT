@@ -1,0 +1,576 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Industrial Training & Major Project</title>
+
+<style>
+
+*{margin:0;padding:0;box-sizing:border-box;}
+
+body{
+    font-family:"Segoe UI",Arial,sans-serif;
+    background:#F6F9F6;
+    color:#1B2A21;
+    min-height:100vh;
+    overflow-x:hidden;
+}
+
+body::before{
+    content:"";
+    position:fixed;
+    width:700px;height:700px;
+    top:-350px;left:-200px;
+    background:radial-gradient(circle,rgba(49,91,138,.14),transparent 68%);
+    pointer-events:none;
+}
+
+body::after{
+    content:"";
+    position:fixed;
+    width:600px;height:600px;
+    bottom:-300px;right:-150px;
+    background:radial-gradient(circle,rgba(163,58,58,.10),transparent 68%);
+    pointer-events:none;
+}
+
+.page{width:min(1500px,94%);margin:auto;padding:42px 0 70px;}
+
+.header{
+    display:flex;justify-content:space-between;align-items:flex-end;
+    padding-bottom:28px;border-bottom:1px solid rgba(27,42,33,.09);
+}
+
+.overline{font-size:10px;letter-spacing:3px;color:#315B8A;font-weight:700;margin-bottom:10px;}
+h1{font-size:clamp(28px,4vw,48px);font-weight:700;letter-spacing:-1.5px;}
+.subtitle{color:#315B8A;margin-top:9px;font-size:12px;}
+.session{text-align:right;}
+.session small{display:block;color:#315B8A;font-size:8px;letter-spacing:2px;text-transform:uppercase;}
+.session strong{font-size:24px;}
+
+.summary{
+    display:grid;
+    grid-template-columns:1.1fr 1fr 1fr 1fr 1fr;
+    gap:12px;margin:25px 0 35px;
+}
+
+.summary-card{
+    min-height:100px;
+    border:1px solid rgba(27,42,33,.09);
+    border-radius:15px;
+    background:linear-gradient(145deg,rgba(255,255,255,.045),rgba(255,255,255,.012));
+    padding:19px 21px;position:relative;overflow:hidden;
+}
+
+.summary-card::after{
+    content:"";position:absolute;left:0;bottom:0;width:100%;height:2px;
+    background:linear-gradient(90deg,transparent,#315B8A,transparent);
+}
+
+.summary-card.orange::after{background:linear-gradient(90deg,transparent,#A33A3A,transparent);}
+.summary-card.green::after{background:linear-gradient(90deg,transparent,#198754,transparent);}
+
+.summary-label{color:#315B8A;font-size:9px;letter-spacing:1.6px;text-transform:uppercase;}
+.summary-value{font-size:29px;font-weight:800;margin-top:8px;}
+.summary-desc{color:#315B8A;font-size:9px;margin-top:3px;}
+
+.visual-panel{
+    position:relative;
+    border:1px solid rgba(27,42,33,.10);
+    border-radius:23px;overflow:hidden;
+    background:linear-gradient(145deg,#F6F9F6,#F6F9F6);
+    box-shadow:0 30px 80px rgba(27,42,33,.30);
+}
+
+.panel-top{
+    padding:25px 28px 19px;
+    display:flex;justify-content:space-between;align-items:center;
+    border-bottom:1px solid rgba(27,42,33,.07);
+    flex-wrap:wrap;gap:12px;
+}
+
+.panel-title{display:flex;align-items:center;gap:12px;}
+.panel-dot{width:9px;height:9px;border-radius:50%;background:#315B8A;box-shadow:0 0 15px rgba(49,91,138,.6);}
+.panel-title h2{font-size:18px;font-weight:600;}
+.panel-title span{color:#315B8A;font-size:9px;margin-left:8px;}
+
+.legend{display:flex;gap:18px;font-size:9px;color:#315B8A;flex-wrap:wrap;}
+.legend-item{display:flex;align-items:center;gap:6px;}
+.legend-dot{width:8px;height:8px;border-radius:2px;}
+.legend-dot.blue{background:#315B8A;}
+.legend-dot.orange{background:#A33A3A;}
+
+.chart{height:600px;position:relative;padding:40px 35px 30px 65px;overflow:hidden;}
+
+.grid{position:absolute;left:65px;right:35px;top:40px;bottom:85px;pointer-events:none;}
+.grid-line{position:absolute;left:0;right:0;border-top:1px dashed rgba(27,42,33,.065);}
+.grid-label{position:absolute;left:-34px;transform:translateY(-50%);color:#315B8A;font-size:9px;}
+
+.floor{
+    position:absolute;left:65px;right:35px;bottom:83px;height:1px;
+    background:linear-gradient(90deg,transparent,rgba(255,255,255,.28),transparent);
+}
+
+.towers{
+    height:100%;display:flex;align-items:flex-end;justify-content:space-around;
+    gap:16px;position:relative;z-index:2;
+}
+
+.department{
+    height:100%;flex:1;min-width:55px;max-width:115px;
+    display:flex;flex-direction:column;justify-content:flex-end;align-items:center;
+    cursor:pointer;position:relative;opacity:0;
+    animation:towerAppear .9s cubic-bezier(.2,.8,.2,1) forwards;
+    animation-delay:calc(var(--index) * .08s);
+}
+
+@keyframes towerAppear{
+    from{opacity:0;transform:translateY(70px) scaleY(.5);}
+    to{opacity:1;transform:translateY(0) scaleY(1);}
+}
+
+.value{font-size:13px;font-weight:800;margin-bottom:7px;opacity:.9;transition:.25s;}
+.department:hover .value{color:#1B2A21;transform:translateY(-5px) scale(1.12);}
+
+.tower{
+    width:58px;height:var(--tower-height);max-height:420px;min-height:2px;
+    position:relative;border-radius:7px 7px 3px 3px;
+    background:linear-gradient(90deg,#315B8A,#315B8A);
+    box-shadow:0 15px 35px rgba(49,91,138,.17);
+    transition:.35s cubic-bezier(.2,.8,.2,1);overflow:visible;
+}
+
+.tower::after{
+    content:"";position:absolute;right:-10px;top:7px;width:10px;height:calc(100% - 7px);
+    border-radius:0 5px 3px 0;background:#315B8A;
+    transform:skewY(-35deg);transform-origin:top left;opacity:.8;
+}
+
+.tower::before{
+    content:"";position:absolute;left:0;top:-7px;width:100%;height:14px;
+    border-radius:5px;background:linear-gradient(180deg,#315B8A,#315B8A);
+    transform:skewX(-20deg);opacity:.95;
+}
+
+.department:hover .tower{
+    transform:translateY(-9px) scaleX(1.08);
+    box-shadow:0 20px 55px rgba(49,91,138,.38);
+    filter:brightness(1.18);
+}
+
+.tower.orange{background:linear-gradient(90deg,#A33A3A,#A33A3A);box-shadow:0 15px 35px rgba(163,58,58,.16);}
+.tower.orange::after{background:#A33A3A;}
+.tower.orange::before{background:linear-gradient(180deg,#A33A3A,#A33A3A);}
+
+.department-label{
+    width:105px;text-align:center;margin-top:18px;color:#315B8A;
+    font-size:9px;line-height:1.25;min-height:32px;transition:.25s;
+}
+
+.department:hover .department-label{color:#1B2A21;transform:translateY(3px);}
+
+.department.zero .tower{width:42px;height:3px !important;background:rgba(255,255,255,.18);box-shadow:none;}
+.department.zero .tower::before,
+.department.zero .tower::after{display:none;}
+
+.rank{
+    position:absolute;top:10px;right:4px;width:19px;height:19px;
+    display:flex;justify-content:center;align-items:center;border-radius:50%;
+    background:rgba(255,255,255,.07);border:1px solid rgba(27,42,33,.08);
+    color:#315B8A;font-size:7px;opacity:0;transition:.25s;
+}
+
+.department:hover .rank{opacity:1;}
+
+.bottom-info{
+    border-top:1px solid rgba(27,42,33,.07);
+    padding:17px 28px;display:flex;justify-content:space-between;
+    color:#315B8A;font-size:9px;flex-wrap:wrap;gap:8px;
+}
+
+.bottom-info strong{color:#315B8A;font-weight:600;}
+
+.detail-overlay{
+    position:fixed;inset:0;z-index:100;
+    display:flex;align-items:center;justify-content:center;padding:25px;
+    background:rgba(246,249,246,.86);backdrop-filter:blur(14px);
+    opacity:0;visibility:hidden;transition:.35s;
+}
+
+.detail-overlay.active{opacity:1;visibility:visible;}
+
+.detail-box{
+    width:min(850px,100%);
+    border:1px solid rgba(27,42,33,.12);border-radius:24px;padding:34px;
+    background:linear-gradient(145deg,#F6F9F6,#F6F9F6);
+    box-shadow:0 40px 100px rgba(27,42,33,.6);
+    transform:translateY(30px) scale(.96);transition:.4s;
+}
+
+.detail-overlay.active .detail-box{transform:translateY(0) scale(1);}
+
+.detail-header{display:flex;justify-content:space-between;align-items:flex-start;}
+.detail-small{color:#315B8A;font-size:9px;letter-spacing:2px;text-transform:uppercase;}
+.detail-header h2{margin-top:7px;font-size:34px;}
+.detail-header p{color:#315B8A;font-size:10px;margin-top:6px;}
+
+.close{
+    width:38px;height:38px;border-radius:50%;
+    border:1px solid rgba(27,42,33,.12);background:rgba(255,255,255,.05);
+    color:#1B2A21;font-size:22px;cursor:pointer;
+}
+
+.detail-total{text-align:center;margin:30px 0;padding:23px;border-radius:16px;background:rgba(255,255,255,.035);}
+.detail-total strong{font-size:55px;display:block;}
+.detail-total span{color:#315B8A;font-size:9px;letter-spacing:2px;text-transform:uppercase;}
+
+.detail-stats{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;}
+
+.detail-stat{
+    text-align:center;padding:18px 8px;
+    border:1px solid rgba(27,42,33,.07);border-radius:14px;background:rgba(255,255,255,.025);
+}
+
+.detail-stat strong{font-size:20px;}
+.detail-stat.warn strong{color:#A33A3A;}
+.detail-stat.ok strong{color:#198754;}
+.detail-stat span{display:block;color:#315B8A;font-size:8px;margin-top:5px;text-transform:uppercase;letter-spacing:1px;}
+
+@media(max-width:1100px){
+    .summary{grid-template-columns:repeat(3,1fr);}
+}
+
+@media(max-width:900px){
+    .chart{min-width:1050px;}
+    .visual-panel{overflow-x:auto;}
+}
+
+@media(max-width:600px){
+    .header{flex-direction:column;align-items:flex-start;}
+    .session{text-align:left;}
+    .summary{grid-template-columns:1fr;}
+    .detail-stats{grid-template-columns:repeat(2,1fr);}
+}
+
+</style>
+</head>
+
+
+<body>
+
+
+<div class="page">
+
+
+<header class="header">
+
+    <div>
+        <div class="overline">INSTITUTIONAL ACADEMIC ANALYTICS</div>
+        <h1>Final Year Industrial Training <span style="color:#14532D;">&</span> Major Project</h1>
+        <div class="subtitle">Department-wise student participation and project engagement</div>
+    </div>
+
+    <div class="session">
+        <small>Academic Session</small>
+        <strong>2025 — 26</strong>
+    </div>
+
+</header>
+
+
+<section class="summary">
+
+    <div class="summary-card">
+        <div class="summary-label">Total Student Participation</div>
+        <div class="summary-value" id="totalValue">0</div>
+        <div class="summary-desc">Across all departments</div>
+    </div>
+
+    <div class="summary-card">
+        <div class="summary-label">Highest Participation</div>
+        <div class="summary-value" id="highestValue">0</div>
+        <div class="summary-desc" id="highestDepartment">—</div>
+    </div>
+
+    <div class="summary-card">
+        <div class="summary-label">Active Departments</div>
+        <div class="summary-value" id="activeDepartments">0</div>
+        <div class="summary-desc">Departments with participation</div>
+    </div>
+
+    <div class="summary-card green">
+        <div class="summary-label">Certificates Available / Verified</div>
+        <div class="summary-value" id="certValue">0</div>
+        <div class="summary-desc" id="certRate">— of total participants</div>
+    </div>
+
+    <div class="summary-card orange">
+        <div class="summary-label">Total Eligible Students</div>
+        <div class="summary-value" id="eligibleValue">0</div>
+        <div class="summary-desc">Across departments with eligible data</div>
+    </div>
+
+</section>
+
+
+<section class="visual-panel">
+
+    <div class="panel-top">
+
+        <div class="panel-title">
+            <div class="panel-dot"></div>
+            <div>
+                <h2>Department Participation Towers</h2>
+                <span>Final Year Students</span>
+            </div>
+        </div>
+
+        <div class="legend">
+            <div class="legend-item">
+                <div class="legend-dot blue"></div>
+                Student Participation
+            </div>
+            <div class="legend-item">
+                <div class="legend-dot orange"></div>
+                Highlight / Focus
+            </div>
+        </div>
+
+    </div>
+
+
+    <div class="chart">
+
+        <div class="grid">
+            <div class="grid-line" style="top:0%;"><span class="grid-label">50</span></div>
+            <div class="grid-line" style="top:20%;"><span class="grid-label">40</span></div>
+            <div class="grid-line" style="top:40%;"><span class="grid-label">30</span></div>
+            <div class="grid-line" style="top:60%;"><span class="grid-label">20</span></div>
+            <div class="grid-line" style="top:80%;"><span class="grid-label">10</span></div>
+            <div class="grid-line" style="top:100%;"><span class="grid-label">0</span></div>
+        </div>
+
+        <div class="floor"></div>
+
+        <div class="towers" id="towers"></div>
+
+    </div>
+
+
+    <div class="bottom-info">
+        <div><strong>DATA VIEW:</strong> Department-wise count</div>
+        <div><strong>ANALYSIS:</strong> Participation shown against eligible students. Click a department for certificate verification details.</div>
+    </div>
+
+</section>
+
+
+</div>
+
+
+
+<div class="detail-overlay" id="detailOverlay">
+
+    <div class="detail-box">
+
+        <div class="detail-header">
+
+            <div>
+                <div class="detail-small">Department Analysis</div>
+                <h2 id="detailName">CSE</h2>
+                <p>Final Year Industrial Training & Major Project</p>
+            </div>
+
+            <button class="close" onclick="closeDetail()">×</button>
+
+        </div>
+
+        <div class="detail-total">
+            <strong id="detailNumber">50</strong>
+            <span>Students Performed Industrial Training</span>
+        </div>
+
+        <div class="detail-stats">
+
+            <div class="detail-stat">
+                <strong id="detailEligible">—</strong>
+                <span>Total Eligible Students</span>
+            </div>
+
+            <div class="detail-stat">
+                <strong id="detailRate">—</strong>
+                <span>Training Participation</span>
+            </div>
+
+            <div class="detail-stat" id="detailCertBox">
+                <strong id="detailCert">—</strong>
+                <span>Certificate Available / Verified</span>
+            </div>
+
+            <div class="detail-stat" id="detailCertRateBox">
+                <strong id="detailCertRate">—</strong>
+                <span>Verified of Participants</span>
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+
+<script>
+
+/* =========================================================
+   DATA — certificate values are only surfaced in the
+   detail modal (openDetail), never rendered on the chart
+========================================================= */
+
+const departments = [
+    {name:"LAW", value:null, cert:null, eligible:null},
+    {name:"Applied Sciences", value:null, cert:null, eligible:null},
+    {name:"Business Administration", value:42, cert:42, eligible:45},
+    {name:"HM", value:18, cert:0, eligible:18},
+    {name:"Computer Applications", value:null, cert:null, eligible:null},
+    {name:"Civil", value:28, cert:23, eligible:28},
+    {name:"EE / ECE", value:27, cert:16, eligible:27},
+    {name:"Pharmacy", value:29, cert:29, eligible:75},
+    {name:"ME", value:12, cert:10, eligible:15},
+    {name:"CSE", value:50, cert:0, eligible:60},
+    {name:"AHS", value:34, cert:21, eligible:50},
+    {name:"Radiology", value:null, cert:0, eligible:null},
+    {name:"Education", value:null, cert:null, eligible:null}
+];
+
+const total = departments.reduce((sum,item)=>sum + (typeof item.value === "number" ? item.value : 0), 0);
+const totalEligible = departments.reduce((sum,item)=>sum + (typeof item.eligible === "number" ? item.eligible : 0), 0);
+const totalCert = departments.reduce((sum,item)=>sum + (typeof item.cert === "number" ? item.cert : 0), 0);
+
+const ranking = [...departments].sort((a,b)=>(b.value ?? -1)-(a.value ?? -1));
+
+const towerContainer = document.getElementById("towers");
+
+departments.forEach((department,index)=>{
+
+    const numericValue = typeof department.value === "number" ? department.value : 0;
+    const towerHeight = numericValue === 0 ? 3 : (numericValue / 50) * 420;
+
+    const element = document.createElement("div");
+    element.className = "department" + ((department.value === 0 || department.value === null) ? " zero" : "");
+    element.style.setProperty("--tower-height", towerHeight + "px");
+    element.style.setProperty("--index", index);
+
+    const value = document.createElement("div");
+    value.className = "value";
+    value.textContent = department.value === null ? "NA" : department.value;
+
+    const tower = document.createElement("div");
+    tower.className = "tower";
+
+    if(department.value === Math.max(...departments.map(d=>d.value))){
+        tower.classList.add("orange");
+    }
+
+    const rank = ranking.findIndex(item => item.name === department.name) + 1;
+
+    const rankBadge = document.createElement("div");
+    rankBadge.className = "rank";
+    rankBadge.textContent = "#" + rank;
+
+    const label = document.createElement("div");
+    label.className = "department-label";
+    label.textContent = department.name;
+
+    tower.appendChild(rankBadge);
+    element.appendChild(value);
+    element.appendChild(tower);
+    element.appendChild(label);
+
+    element.addEventListener("click", ()=>{ openDetail(department); });
+
+    towerContainer.appendChild(element);
+
+});
+
+function animateNumber(element, target){
+    let startTime = null;
+    function animation(timestamp){
+        if(!startTime) startTime = timestamp;
+        const progress = Math.min((timestamp-startTime) / 1000, 1);
+        const eased = 1 - Math.pow(1-progress, 3);
+        element.textContent = Math.round(target * eased);
+        if(progress < 1){ requestAnimationFrame(animation); }
+    }
+    requestAnimationFrame(animation);
+}
+
+animateNumber(document.getElementById("totalValue"), total);
+animateNumber(document.getElementById("eligibleValue"), totalEligible);
+animateNumber(document.getElementById("certValue"), totalCert);
+
+document.getElementById("certRate").textContent =
+    total > 0 ? Math.round((totalCert/total)*100) + "% of total participants" : "— of total participants";
+
+const highest = ranking[0];
+animateNumber(document.getElementById("highestValue"), highest.value);
+document.getElementById("highestDepartment").textContent = highest.name;
+
+const active = departments.filter(d=>d.value > 0).length;
+animateNumber(document.getElementById("activeDepartments"), active);
+
+function openDetail(department){
+
+    const eligible = typeof department.eligible === "number" ? department.eligible : null;
+    const rate = typeof department.value === "number" && eligible > 0
+        ? Math.round(department.value / eligible * 100) : null;
+
+    const cert = typeof department.cert === "number" ? department.cert : null;
+    const certRate = typeof department.value === "number" && department.value > 0 && cert !== null
+        ? Math.round(cert / department.value * 100) : null;
+
+    document.getElementById("detailName").textContent = department.name;
+    document.getElementById("detailNumber").textContent = department.value === null ? "NA" : department.value;
+    document.getElementById("detailEligible").textContent = eligible === null ? "NA" : eligible;
+    document.getElementById("detailRate").textContent = rate === null ? "NA" : rate + "%";
+    document.getElementById("detailCert").textContent = cert === null ? "NA" : cert;
+    document.getElementById("detailCertRate").textContent = certRate === null ? "NA" : certRate + "%";
+
+    const certBox = document.getElementById("detailCertBox");
+    const certRateBox = document.getElementById("detailCertRateBox");
+
+    certBox.classList.remove("ok","warn");
+    certRateBox.classList.remove("ok","warn");
+
+    if(cert !== null && department.value){
+        if(cert === department.value){
+            certBox.classList.add("ok");
+            certRateBox.classList.add("ok");
+        } else if(cert === 0){
+            certBox.classList.add("warn");
+            certRateBox.classList.add("warn");
+        }
+    }
+
+    document.getElementById("detailOverlay").classList.add("active");
+
+}
+
+function closeDetail(){
+    document.getElementById("detailOverlay").classList.remove("active");
+}
+
+document.getElementById("detailOverlay").addEventListener("click", function(event){
+    if(event.target === this){ closeDetail(); }
+});
+
+document.addEventListener("keydown", function(event){
+    if(event.key === "Escape"){ closeDetail(); }
+});
+
+</script>
+
+</body>
+</html>

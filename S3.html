@@ -1,0 +1,2177 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Departmental Contribution to Research</title>
+
+<style>
+
+:root{
+  --navy:#F6F9F6;
+  --panel:#FFFFFF;
+  --white:#FFFFFF;
+  --muted:#718077;
+  --cyan:#198754;
+  --deptColor:#198754;
+  --green:#14532D;
+  --green2:#198754;
+  --green3:#2F6B45;
+  --gold:#C9A227;
+  --gold-light:#E7D58A;
+  --red:#A33A3A;
+  --text:#1B2A21;
+  --border:#DDE8DF;
+  --blue:#315B8A;
+  --purple:#7356A8;
+}
+
+*{
+ box-sizing:border-box;
+}
+
+html,body{
+ margin:0;
+ width:100%;
+ height:100%;
+ overflow:hidden;
+ background:var(--navy);
+ color:var(--text);
+ font-family:Inter,Segoe UI,Arial,sans-serif;
+}
+
+#app{
+ position:relative;
+ width:100vw;
+ height:100vh;
+ overflow:hidden;
+
+ background:
+ radial-gradient(
+   ellipse 70% 45% at 12% 0%,
+   rgba(49,91,138,.16),
+   transparent 60%
+ ),
+ radial-gradient(
+   ellipse 60% 45% at 100% 100%,
+   rgba(49,91,138,.09),
+   transparent 60%
+ ),
+ var(--navy);
+}
+
+
+/* =========================================================
+   HEADER
+========================================================= */
+
+header{
+ position:absolute;
+ left:5vw;
+ right:5vw;
+ top:4vh;
+ z-index:20;
+
+ display:flex;
+ align-items:flex-end;
+ justify-content:space-between;
+ gap:24px;
+}
+
+.htext .kicker{
+ font-size:10.5px;
+ letter-spacing:4px;
+ color:var(--cyan);
+ text-transform:uppercase;
+}
+
+.htext h1{
+ font:700 clamp(22px,2.6vw,38px)/1.1 Georgia,serif;
+ margin:8px 0 0;
+ letter-spacing:-.5px;
+}
+
+.htext .subtitle{
+ font-size:10px;
+ letter-spacing:2px;
+ color:var(--muted);
+ margin-top:8px;
+}
+
+.totalPod{
+ flex:0 0 auto;
+ text-align:right;
+
+ padding:12px 22px;
+
+ border-radius:16px;
+
+ background:#F6F9F6;
+
+ border:1px solid rgba(49,91,138,.24);
+
+ box-shadow:
+ 0 0 40px rgba(49,91,138,.14);
+}
+
+.totalPod .cap{
+ font-size:9px;
+ letter-spacing:2.5px;
+ color:var(--cyan);
+ text-transform:uppercase;
+}
+
+.totalPod .num{
+ font:700 clamp(30px,3.2vw,46px)/1 Georgia,serif;
+ margin-top:4px;
+}
+
+
+/* =========================================================
+   SKYLINE
+========================================================= */
+
+.stage{
+ position:absolute;
+ left:0;
+ right:0;
+ top:17vh;
+ bottom:0;
+ overflow:hidden;
+}
+
+.floor{
+ position:absolute;
+
+ left:0;
+ right:0;
+
+ bottom:8vh;
+
+ height:1px;
+
+ background:
+ linear-gradient(
+   90deg,
+   transparent,
+   rgba(255,255,255,.18) 8%,
+   rgba(255,255,255,.18) 92%,
+   transparent
+ );
+}
+
+.gridlines{
+ position:absolute;
+
+ left:0;
+ right:0;
+
+ bottom:8vh;
+ top:6%;
+
+ pointer-events:none;
+}
+
+.gridlines div{
+ position:absolute;
+
+ left:5vw;
+ right:5vw;
+
+ border-top:
+ 1px dashed rgba(27,42,33,.06);
+}
+
+.skyline{
+ position:absolute;
+
+ left:0;
+ right:0;
+
+ bottom:8vh;
+ top:6%;
+
+ display:flex;
+ align-items:flex-end;
+
+ gap:clamp(6px,1.6vw,22px);
+
+ padding:0 5vw;
+
+ overflow-x:auto;
+ overflow-y:hidden;
+}
+
+.skyline::-webkit-scrollbar{
+ height:6px;
+}
+
+.skyline::-webkit-scrollbar-thumb{
+ background:rgba(49,91,138,.25);
+ border-radius:4px;
+}
+
+
+/* =========================================================
+   DEPARTMENT BUILDING
+========================================================= */
+
+.bldg{
+ flex:1 1 0;
+
+ min-width:56px;
+ max-width:110px;
+
+ display:flex;
+
+ flex-direction:column;
+
+ align-items:center;
+
+ height:100%;
+
+ justify-content:flex-end;
+
+ cursor:pointer;
+}
+
+
+/* =========================================================
+   DEPARTMENT BADGE
+========================================================= */
+
+.bldg .badge{
+ width:50px;
+ height:50px;
+
+ border-radius:9px;
+
+ display:flex;
+
+ align-items:center;
+ justify-content:center;
+
+ font-size:30px;
+
+ background:
+ radial-gradient(
+   circle at 32% 28%,
+   rgba(255,255,255,.35),
+   rgba(255,255,255,.06) 60%
+ ),
+ color-mix(in srgb,var(--c),#F6F9F6 15%);
+
+ border:
+ 1px solid rgba(27,42,33,.4);
+
+ box-shadow:
+ 0 0 14px
+ color-mix(
+   in srgb,
+   var(--c),
+   transparent 25%
+ ),
+ inset 0 1px 2px rgba(27,42,33,.3);
+
+ margin-bottom:8px;
+
+ flex:0 0 auto;
+}
+
+.bldg.empty .badge{
+ background:#F6F9F6;
+
+ border-color:
+ rgba(163,58,58,.35);
+
+ box-shadow:none;
+}
+
+
+/* =========================================================
+   NORMAL BAR
+========================================================= */
+
+.bldg .bar{
+ width:100%;
+
+ border-radius:
+ 10px 10px 4px 4px;
+
+ position:relative;
+
+ background:
+ linear-gradient(
+   180deg,
+   var(--c),
+   color-mix(
+     in srgb,
+     var(--c),
+     #F6F9F6 35%
+   )
+ );
+
+ box-shadow:
+ 0 0 0 1px
+ rgba(27,42,33,.06) inset,
+
+ 0 -6px 22px -6px
+ var(--c);
+
+ transition:
+ filter .25s ease,
+ box-shadow .25s ease,
+ transform .25s ease,
+ height .7s cubic-bezier(.2,.8,.2,1);
+
+ transform-origin:bottom center;
+
+ overflow:hidden;
+}
+
+.bldg:hover .bar,
+.bldg.active .bar{
+
+ filter:brightness(1.22);
+
+ box-shadow:
+ 0 0 0 1px
+ rgba(27,42,33,.14) inset,
+
+ 0 0 26px
+ var(--c);
+
+ transform:scaleX(1.06);
+}
+
+
+/* =========================================================
+   EMPTY BARS — AHS / ME
+========================================================= */
+
+/*
+   Empty departments need enough height to display:
+
+              0%
+
+           no output
+
+              AHS
+        or
+              ME
+
+   They also animate upward from the bottom.
+*/
+
+.bldg.empty .bar{
+
+ background:
+ linear-gradient(
+   180deg,
+   #F6F9F6 0%,
+   #F6F9F6 100%
+ );
+
+ border:
+ 1px dashed rgba(163,58,58,.42);
+
+ min-height:0px;
+
+ overflow:hidden;
+
+ /*
+    Initial animation state.
+    The bar is compressed vertically at the bottom.
+ */
+ transform:
+ scaleY(0);
+
+ opacity:0;
+
+ transform-origin:bottom center;
+
+ transition:
+ transform .85s cubic-bezier(.22,.8,.25,1),
+ opacity .35s ease,
+ filter .25s ease,
+ box-shadow .3s ease;
+}
+
+
+/* =========================================================
+   EMPTY BAR ANIMATED STATE
+========================================================= */
+
+.bldg.empty .bar.animate-in{
+
+ transform:
+ scaleY(1);
+
+ opacity:1;
+}
+
+
+/* =========================================================
+   EMPTY BAR LIGHT SWEEP
+========================================================= */
+
+.bldg.empty .bar::after{
+
+ content:"";
+
+ position:absolute;
+
+ left:0;
+ right:0;
+
+ bottom:-35px;
+
+ height:32px;
+
+ background:
+ linear-gradient(
+   180deg,
+   transparent,
+   rgba(25,135,84,.18),
+   transparent
+ );
+
+ opacity:0;
+
+ pointer-events:none;
+
+ transform:translateY(0);
+}
+
+
+/*
+   Light travels upward when bar appears.
+*/
+
+.bldg.empty .bar.animate-in::after{
+
+ animation:
+ emptyLightSweep
+ 1.15s
+ cubic-bezier(.2,.7,.2,1)
+ forwards;
+}
+
+@keyframes emptyLightSweep{
+
+ 0%{
+  bottom:-35px;
+  opacity:0;
+ }
+
+ 20%{
+  opacity:.9;
+ }
+
+ 65%{
+  opacity:.55;
+ }
+
+ 100%{
+  bottom:100%;
+  opacity:0;
+ }
+
+}
+
+
+/* =========================================================
+   NORMAL TOP STAT
+========================================================= */
+
+.bldg .topStat{
+
+ position:absolute;
+
+ top:9px;
+
+ left:4px;
+ right:4px;
+
+ text-align:center;
+
+ z-index:5;
+
+ line-height:1.1;
+}
+
+.bldg .pct{
+
+ font-size:12px;
+
+ font-weight:800;
+
+ color:#1B2A21;
+
+ text-shadow:
+ 0 1px 4px rgba(27,42,33,.4);
+
+ margin:0;
+}
+
+.bldg .cnt{
+
+ font-size:8px;
+
+ color:rgba(27,42,33,.85);
+
+ font-weight:600;
+
+ margin-top:6px;
+
+ white-space:nowrap;
+
+ line-height:1.2;
+}
+
+
+/* =========================================================
+   NORMAL DEPARTMENT NAME
+========================================================= */
+
+.bldg .name{
+
+ position:absolute;
+
+ top:50%;
+ left:50%;
+
+ transform:
+ translate(-50%,-50%)
+ rotate(180deg);
+
+ writing-mode:vertical-rl;
+
+ font-size:10px;
+
+ font-weight:750;
+
+ letter-spacing:.4px;
+
+ color:#1B2A21;
+
+ text-shadow:
+ 0 1px 4px rgba(27,42,33,.45);
+
+ max-height:80%;
+
+ white-space:nowrap;
+
+ overflow:hidden;
+
+ text-overflow:ellipsis;
+
+ z-index:4;
+}
+
+
+/* =========================================================
+   EMPTY BAR — 0%
+========================================================= */
+
+.bldg.empty .topStat{
+
+ position:absolute;
+
+ top:5px;
+
+ left:2px;
+ right:2px;
+
+ text-align:center;
+
+ z-index:10;
+
+ line-height:1;
+}
+
+.bldg.empty .topStat .pct{
+
+ display:block;
+
+ font-size:12px;
+
+ font-weight:800;
+
+ color:#198754;
+
+ margin:0;
+
+ padding:0;
+
+ line-height:1;
+}
+
+
+/* =========================================================
+   EMPTY BAR — NO OUTPUT
+========================================================= */
+
+.bldg.empty .topStat .cnt{
+
+ display:block;
+
+ font-size:8px;
+
+ font-weight:600;
+
+ color:#198754;
+
+ margin-top:16px;
+
+ padding:0;
+
+ line-height:1;
+
+ white-space:nowrap;
+}
+
+
+/* =========================================================
+   EMPTY BAR — AHS / ME
+========================================================= */
+
+.bldg.empty .name{
+
+ position:absolute;
+
+ top:auto;
+
+ bottom:5px;
+
+ left:50%;
+
+ transform:
+ translateX(-50%);
+
+ writing-mode:horizontal-tb;
+
+ font-size:10px;
+
+ font-weight:800;
+
+ letter-spacing:.6px;
+
+ color:#198754;
+
+ text-shadow:none;
+
+ white-space:nowrap;
+
+ overflow:visible;
+
+ text-overflow:clip;
+
+ max-height:none;
+
+ z-index:10;
+
+ padding:0;
+
+ margin:0;
+}
+
+
+/* =========================================================
+   EMPTY BAR HOVER
+========================================================= */
+
+.bldg.empty:hover .bar.animate-in,
+.bldg.empty.active .bar.animate-in{
+
+ transform:
+ scaleY(1.03);
+
+ filter:brightness(1.16);
+
+ box-shadow:
+ 0 0 18px
+ rgba(163,58,58,.20),
+
+ 0 0 0 1px
+ rgba(163,58,58,.15) inset;
+}
+
+
+/* =========================================================
+   DETAIL OVERLAY
+========================================================= */
+
+.overlay{
+
+ position:absolute;
+
+ inset:0;
+
+ background:
+ rgba(246,249,246,.72);
+
+ backdrop-filter:blur(6px);
+
+ z-index:60;
+
+ opacity:0;
+
+ pointer-events:none;
+
+ transition:
+ opacity .35s ease;
+
+ display:flex;
+
+ align-items:center;
+
+ justify-content:center;
+}
+
+.overlay.show{
+
+ opacity:1;
+
+ pointer-events:auto;
+}
+
+.detail{
+
+ width:min(1000px,90vw);
+
+ max-height:86vh;
+
+ overflow:auto;
+
+ background:#F6F9F6;
+
+ border:
+ 1px solid rgba(49,91,138,.24);
+
+ border-radius:24px;
+
+ padding:36px 46px;
+
+ position:relative;
+
+ box-shadow:
+ 0 35px 110px
+ rgba(27,42,33,.55);
+
+ transform:
+ scale(.94)
+ translateY(20px);
+
+ transition:
+ .45s cubic-bezier(.2,.8,.2,1);
+}
+
+.show .detail{
+
+ transform:none;
+}
+
+.detail::after{
+
+ content:"";
+
+ position:absolute;
+
+ width:320px;
+ height:320px;
+
+ border-radius:50%;
+
+ right:-150px;
+ top:-150px;
+
+ background:
+ var(--deptColor);
+
+ opacity:.09;
+
+ filter:blur(5px);
+
+ pointer-events:none;
+}
+
+
+/* =========================================================
+   CLOSE BUTTON
+========================================================= */
+
+.close{
+
+ position:absolute;
+
+ right:26px;
+ top:22px;
+
+ font-size:10px;
+
+ letter-spacing:1.5px;
+
+ color:var(--muted);
+
+ cursor:pointer;
+
+ z-index:5;
+
+ padding:6px 10px;
+
+ border:
+ 1px solid rgba(27,42,33,.12);
+
+ border-radius:8px;
+
+ transition:.2s;
+}
+
+.close:hover{
+
+ color:#1B2A21;
+
+ border-color:
+ var(--deptColor);
+}
+
+
+/* =========================================================
+   DETAIL CONTENT
+========================================================= */
+
+.detail .kicker{
+
+ font-size:10px;
+
+ letter-spacing:3px;
+
+ color:var(--deptColor);
+
+ text-transform:uppercase;
+}
+
+.detail h2{
+
+ font:
+ 700 clamp(26px,4vw,40px)/1
+ Georgia,serif;
+
+ margin:8px 0 6px;
+}
+
+.total{
+
+ font-size:12px;
+
+ color:var(--muted);
+}
+
+.total b{
+
+ font-size:20px;
+
+ color:#1B2A21;
+}
+
+.detailGrid{
+
+ display:grid;
+
+ grid-template-columns:270px 1fr;
+
+ gap:38px;
+
+ align-items:center;
+
+ margin-top:30px;
+}
+
+.bigcard{
+
+ min-height:270px;
+
+ border-radius:18px;
+
+ background:#F6F9F6;
+
+ border:
+ 1px solid rgba(27,42,33,.1);
+
+ padding:24px;
+
+ display:flex;
+
+ flex-direction:column;
+
+ justify-content:center;
+}
+
+.big{
+
+ font:
+ 700 80px/.85
+ Georgia,serif;
+
+ color:var(--deptColor);
+}
+
+.biglabel{
+
+ font-size:10.5px;
+
+ color:#1B2A21;
+
+ margin-top:12px;
+
+ font-weight:700;
+
+ letter-spacing:.5px;
+}
+
+.note{
+
+ font-size:10.5px;
+
+ line-height:1.6;
+
+ color:var(--muted);
+
+ margin-top:9px;
+}
+
+
+/* =========================================================
+   DETAIL STATISTICS
+========================================================= */
+
+.stats{
+
+ display:flex;
+
+ flex-direction:column;
+
+ gap:18px;
+}
+
+.stat{
+
+ display:grid;
+
+ grid-template-columns:
+ 130px 1fr 32px;
+
+ gap:12px;
+
+ align-items:center;
+
+ font-size:11.5px;
+}
+
+.track{
+
+ height:11px;
+
+ background:#F6F9F6;
+
+ border-radius:20px;
+
+ overflow:hidden;
+}
+
+.fill{
+
+ height:100%;
+
+ width:0;
+
+ border-radius:20px;
+
+ background:
+ var(--deptColor);
+
+ box-shadow:
+ 0 0 18px
+ var(--deptColor);
+
+ transition:
+ width .9s
+ cubic-bezier(.2,.8,.2,1);
+}
+
+.numv{
+
+ text-align:right;
+
+ color:var(--deptColor);
+
+ font-weight:800;
+}
+
+.noData{
+
+ font-size:11px;
+
+ color:var(--muted);
+
+ margin-top:8px;
+
+ font-style:italic;
+}
+
+
+/* =========================================================
+   RESPONSIVE
+========================================================= */
+
+@media(max-width:900px){
+
+ header{
+
+  flex-direction:column;
+
+  align-items:flex-start;
+
+  gap:14px;
+ }
+
+ .totalPod{
+
+  align-self:flex-start;
+
+  text-align:left;
+ }
+
+ .stage{
+
+  top:22vh;
+ }
+
+ .bldg{
+
+  min-width:52px;
+ }
+
+ .bldg .name{
+
+  font-size:9px;
+ }
+
+ .bldg.empty .name{
+
+  font-size:9px;
+ }
+
+ .bldg.empty .bar{
+
+  min-height:82px;
+ }
+
+ .detail{
+
+  padding:24px;
+ }
+
+ .detailGrid{
+
+  grid-template-columns:1fr;
+
+  gap:16px;
+ }
+
+ .bigcard{
+
+  min-height:auto;
+ }
+
+ .big{
+
+  font-size:56px;
+ }
+
+}
+
+
+:root{
+  --navy:#F6F9F6;
+  --panel:#FFFFFF;
+  --white:#FFFFFF;
+  --muted:#718077;
+  --cyan:#198754;
+  --deptColor:#198754;
+  --green:#14532D;
+  --green2:#198754;
+  --green3:#2F6B45;
+  --gold:#C9A227;
+  --gold-light:#E7D58A;
+  --red:#A33A3A;
+  --text:#1B2A21;
+  --border:#DDE8DF;
+  --blue:#315B8A;
+  --purple:#7356A8;
+}
+
+html,body{
+  background:var(--navy) !important;
+  color:var(--text) !important;
+}
+body{
+  font-family:Inter,"Segoe UI",Arial,sans-serif;
+}
+#app{
+  background:
+    radial-gradient(ellipse 70% 45% at 12% 0%,rgba(25,135,84,.08),transparent 60%),
+    radial-gradient(ellipse 60% 45% at 100% 100%,rgba(201,162,39,.07),transparent 60%),
+    var(--navy) !important;
+}
+
+.htext .kicker{color:var(--green2) !important;}
+.htext h1{color:var(--green) !important;}
+.htext .subtitle{color:var(--muted) !important;}
+
+.totalPod{
+  background:var(--white) !important;
+  border:1px solid var(--border) !important;
+  box-shadow:0 15px 40px rgba(20,83,45,.09) !important;
+}
+.totalPod .cap{color:var(--green2) !important;}
+.totalPod .num{color:var(--green) !important;}
+
+.floor{
+  background:linear-gradient(90deg,transparent,var(--border) 8%,var(--border) 92%,transparent) !important;
+}
+.gridlines div{border-top:1px dashed rgba(20,83,45,.10) !important;}
+.skyline::-webkit-scrollbar-thumb{background:rgba(20,83,45,.20) !important;}
+
+.bldg .badge{
+  background:#EDF6F0 !important;
+  color:var(--green) !important;
+  border:1px solid var(--border) !important;
+  box-shadow:0 6px 18px rgba(20,83,45,.10) !important;
+}
+.bldg.empty .badge{
+  background:#FFF8F8 !important;
+  border-color:rgba(163,58,58,.25) !important;
+}
+
+.bldg .bar{
+  background:linear-gradient(180deg,var(--green2),var(--green3)) !important;
+  box-shadow:0 0 0 1px rgba(20,83,45,.06) inset,
+             0 -6px 22px -6px rgba(25,135,84,.32) !important;
+}
+.bldg:hover .bar,.bldg.active .bar{
+  filter:brightness(1.06) !important;
+  box-shadow:0 0 0 1px rgba(20,83,45,.12) inset,
+             0 0 26px rgba(25,135,84,.28) !important;
+}
+.bldg.empty .bar{
+  background:#FFFFFF !important;
+  border:1px dashed rgba(163,58,58,.38) !important;
+}
+.bldg.empty .bar::after{
+  background:linear-gradient(180deg,transparent,rgba(201,162,39,.20),transparent) !important;
+}
+
+.bldg .pct,.bldg .name{
+  color:#FFFFFF !important;
+  text-shadow:0 1px 4px rgba(20,83,45,.55) !important;
+}
+.bldg .cnt{color:rgba(255,255,255,.88) !important;}
+
+.bldg.empty .topStat .pct,
+.bldg.empty .topStat .cnt,
+.bldg.empty .name{
+  color:var(--red) !important;
+  text-shadow:none !important;
+}
+.bldg.empty:hover .bar.animate-in,
+.bldg.empty.active .bar.animate-in{
+  box-shadow:0 0 18px rgba(163,58,58,.16),
+             0 0 0 1px rgba(163,58,58,.12) inset !important;
+}
+
+.overlay{
+  background:rgba(246,249,246,.82) !important;
+}
+.detail{
+  background:var(--white) !important;
+  border:1px solid var(--border) !important;
+  box-shadow:0 35px 110px rgba(20,83,45,.20) !important;
+}
+.detail .kicker{color:var(--green2) !important;}
+.detail h2{color:var(--green) !important;}
+.total{color:var(--muted) !important;}
+.total b{color:var(--green) !important;}
+
+.close{
+  color:var(--muted) !important;
+  border-color:var(--border) !important;
+}
+.close:hover{
+  color:var(--green) !important;
+  border-color:var(--deptColor) !important;
+}
+
+.bigcard{
+  background:#FAFCFA !important;
+  border:1px solid var(--border) !important;
+}
+.big{color:var(--deptColor) !important;}
+.biglabel{color:var(--text) !important;}
+.note{color:var(--muted) !important;}
+
+.track{
+  background:#EDF1ED !important;
+}
+.fill{
+  background:linear-gradient(90deg,var(--green2),var(--green3)) !important;
+  box-shadow:0 0 18px rgba(25,135,84,.20) !important;
+}
+.numv{color:var(--green2) !important;}
+.noData{color:var(--muted) !important;}
+
+</style>
+</head>
+
+
+<body>
+
+<div id="app">
+
+
+<!-- =====================================================
+     HEADER
+===================================================== -->
+
+<header>
+
+ <div class="htext">
+
+  <div class="kicker">
+   Research Performance • January–June 2026
+  </div>
+
+  <h1>
+   Departmental Contribution to Research
+  </h1>
+
+  <div class="subtitle">
+   📄 PAPERS &nbsp;•&nbsp;
+   💡 PATENTS &nbsp;•&nbsp;
+   📚 BOOKS &nbsp;•&nbsp;
+   📖 BOOK CHAPTERS
+  </div>
+
+ </div>
+
+
+ <div class="totalPod">
+
+  <div class="cap">
+   Total Institutional Research
+  </div>
+
+  <div class="num" id="institutionTotal">
+   0
+  </div>
+
+ </div>
+
+</header>
+
+
+
+<!-- =====================================================
+     SKYLINE
+===================================================== -->
+
+<section class="stage">
+
+ <div
+  class="gridlines"
+  id="gridlines">
+ </div>
+
+ <div
+  class="skyline"
+  id="skyline">
+ </div>
+
+ <div class="floor"></div>
+
+</section>
+
+
+
+<!-- =====================================================
+     DETAIL OVERLAY
+===================================================== -->
+
+<div
+ class="overlay"
+ id="overlay">
+
+ <div
+  class="detail"
+  id="detail">
+
+  <div
+   class="close"
+   id="close">
+   ESC / CLOSE
+  </div>
+
+
+  <div class="kicker">
+   Department Research Profile
+  </div>
+
+
+  <h2 id="dname"></h2>
+
+
+  <div class="total">
+   Total research outputs
+   <b id="dtotal"></b>
+  </div>
+
+
+  <div class="detailGrid">
+
+
+   <div class="bigcard">
+
+    <div
+     class="big"
+     id="big">
+     0
+    </div>
+
+    <div class="biglabel">
+     TOTAL CONTRIBUTIONS
+    </div>
+
+    <div class="note">
+     January–June 2026<br>
+     Research outputs recorded by the department.
+    </div>
+
+   </div>
+
+
+   <div
+    class="stats"
+    id="statsWrap">
+
+
+    <div class="stat">
+
+     <span>
+      📄 Research Papers
+     </span>
+
+     <div class="track">
+
+      <div
+       class="fill"
+       id="fill-papers">
+      </div>
+
+     </div>
+
+     <b
+      class="numv"
+      id="papers">
+      0
+     </b>
+
+    </div>
+
+
+    <div class="stat">
+
+     <span>
+      💡 Patents
+     </span>
+
+     <div class="track">
+
+      <div
+       class="fill"
+       id="fill-patents">
+      </div>
+
+     </div>
+
+     <b
+      class="numv"
+      id="patents">
+      0
+     </b>
+
+    </div>
+
+
+    <div class="stat">
+
+     <span>
+      📚 Books
+     </span>
+
+     <div class="track">
+
+      <div
+       class="fill"
+       id="fill-books">
+      </div>
+
+     </div>
+
+     <b
+      class="numv"
+      id="books">
+      0
+     </b>
+
+    </div>
+
+
+    <div class="stat">
+
+     <span>
+      📖 Book Chapters
+     </span>
+
+     <div class="track">
+
+      <div
+       class="fill"
+       id="fill-chapters">
+      </div>
+
+     </div>
+
+     <b
+      class="numv"
+      id="chapters">
+      0
+     </b>
+
+    </div>
+
+
+    <div
+     class="noData"
+     id="noData"
+     style="display:none">
+
+     No research outputs recorded for this department in the period.
+
+    </div>
+
+
+   </div>
+
+  </div>
+
+ </div>
+
+</div>
+
+
+
+<script>
+
+
+/* =========================================================
+   DATA
+========================================================= */
+
+const data=[
+
+ ["Applied Sciences",2,0,0,0],
+
+ ["CSE",5,2,0,0],
+
+ ["LAW",3,0,1,2],
+
+ ["Allied Health Sciences",0,0,0,0],
+
+ ["Radiology",2,0,0,1],
+
+ ["HM",1,1,0,0],
+
+ ["Pharmacy",5,5,0,0],
+
+ ["Computer Applications",3,2,0,0],
+
+ ["Education",3,0,0,7],
+
+ ["Civil Engg",2,0,0,0],
+
+ ["Mechanical Engg",0,0,0,0],
+
+ ["EE & ECE",0,0,0,1],
+
+ ["Business Administration",1,1,0,5]
+
+];
+
+
+/* =========================================================
+   COLORS
+========================================================= */
+
+const colors=[
+  "#198754","#2F6B45","#C9A227","#A33A3A","#198754",
+  "#315B8A","#198754","#2F6B45","#C9A227","#198754",
+  "#A33A3A","#315B8A","#198754"
+];
+
+
+/* =========================================================
+   TOTALS
+========================================================= */
+
+const totals=data.map(
+ d=>
+  d.slice(1)
+   .reduce(
+    (a,b)=>a+b,
+    0
+   )
+);
+
+const institutionTotal=
+ totals.reduce(
+  (a,b)=>a+b,
+  0
+);
+
+document.getElementById(
+ "institutionTotal"
+).textContent=
+ institutionTotal;
+
+const maxTotal=
+ Math.max(
+  ...totals,
+  1
+);
+
+
+/* =========================================================
+   DEPARTMENT ICONS
+========================================================= */
+
+const deptIcons={
+
+ "Applied Sciences":"🔬",
+
+ "CSE":"💻",
+
+ "LAW":"⚖️",
+
+ "Allied Health Sciences":"🏥",
+
+ "Radiology":"🩻",
+
+ "HM":"🏨",
+
+ "Pharmacy":"💊",
+
+ "Computer Applications":"🖥️",
+
+ "Education":"🎓",
+
+ "Civil Engg":"🏗️",
+
+ "Mechanical Engg":"⚙️",
+
+ "EE & ECE":"🔌",
+
+ "Business Administration":"💼"
+
+};
+
+
+/* =========================================================
+   GRIDLINES
+========================================================= */
+
+const gridlines=
+ document.getElementById(
+  "gridlines"
+ );
+
+[15,32,50,68,86].forEach(
+ t=>{
+
+  const d=
+   document.createElement(
+    "div"
+   );
+
+  d.style.top=
+   t+"%";
+
+  gridlines.appendChild(d);
+
+ }
+);
+
+
+/* =========================================================
+   SORT DEPARTMENTS
+========================================================= */
+
+const order=
+ data
+  .map(
+   (d,i)=>i
+  )
+  .sort(
+   (a,b)=>
+    totals[b]-totals[a]
+  );
+
+
+/* =========================================================
+   CREATE DEPARTMENT BARS
+========================================================= */
+
+const skyline=
+ document.getElementById(
+  "skyline"
+ );
+
+
+order.forEach(
+ i=>{
+
+  const d=
+   data[i];
+
+  const total=
+   totals[i];
+
+  const hasData=
+   total>0;
+
+
+  const pct=
+   institutionTotal
+    ? Math.round(
+       total/
+       institutionTotal*
+       100
+      )
+    : 0;
+
+
+  const hPct=
+   hasData
+    ? 30+
+      66*
+      Math.sqrt(
+       total/maxTotal
+      )
+    : 10;
+
+
+  const bldg=
+   document.createElement(
+    "div"
+   );
+
+
+  bldg.className=
+   "bldg"+
+   (
+    hasData
+     ? ""
+     : " empty"
+   );
+
+
+  bldg.dataset.index=
+   i;
+
+
+  bldg.style.setProperty(
+   "--c",
+   colors[i]
+  );
+
+
+  bldg.title=
+   `${d[0]}: ${total} contribution${total===1?"":"s"}`;
+
+
+  /* -----------------------------------------
+     Short names
+  ----------------------------------------- */
+
+  const shortNames={
+
+   "Allied Health Sciences":
+    "AHS",
+
+   "Mechanical Engg":
+    "ME"
+
+  };
+
+
+  const displayName=
+   shortNames[d[0]] ||
+   d[0];
+
+
+  bldg.innerHTML=`
+
+   <div class="badge">
+    ${deptIcons[d[0]]||"🏛️"}
+   </div>
+
+
+   <div
+    class="bar"
+    data-target="${hasData?hPct:10}"
+    style="height:0%"
+   >
+
+
+    <div class="topStat">
+
+     <div class="pct">
+      ${
+       hasData
+        ? pct+"%"
+        : "0%"
+      }
+     </div>
+
+
+     <div class="cnt">
+
+      ${
+       hasData
+
+        ? total+
+          " output"+
+          (
+           total===1
+            ? ""
+            : "s"
+          )
+
+        : "no output"
+      }
+
+     </div>
+
+    </div>
+
+
+    <div class="name">
+     ${displayName}
+    </div>
+
+
+   </div>
+
+  `;
+
+
+  bldg.onclick=
+   ()=>openDetail(i);
+
+
+  skyline.appendChild(
+   bldg
+  );
+
+ }
+);
+
+
+/* =========================================================
+   BAR ANIMATION
+========================================================= */
+
+const bars=[
+ ...skyline.querySelectorAll(
+  ".bar"
+ )
+];
+
+
+bars.forEach(
+ (bar,idx)=>{
+
+  const building=
+   bar.closest(".bldg");
+
+  const isEmpty=
+   building.classList.contains(
+    "empty"
+   );
+
+
+  setTimeout(
+   ()=>{
+
+    if(isEmpty){
+
+     /*
+        AHS / ME
+
+        Set their final physical
+        height first, then animate
+        scaleY from bottom to top.
+     */
+
+     bar.style.height=
+      "82px";
+
+
+     /*
+        Force browser to register
+        the initial collapsed state.
+     */
+
+     void bar.offsetWidth;
+
+
+     /*
+        Start animation.
+     */
+
+     bar.classList.add(
+      "animate-in"
+     );
+
+    }
+
+    else{
+
+     /*
+        Normal departments use
+        their original height animation.
+     */
+
+     bar.style.height=
+      bar.dataset.target+
+      "%";
+
+    }
+
+   },
+   250+
+   idx*
+   250
+  );
+
+ }
+);
+
+
+/* =========================================================
+   DETAIL OVERLAY
+========================================================= */
+
+const overlay=
+ document.getElementById(
+  "overlay"
+ );
+
+const detail=
+ document.getElementById(
+  "detail"
+ );
+
+const statsWrap=
+ document.getElementById(
+  "statsWrap"
+ );
+
+const noData=
+ document.getElementById(
+  "noData"
+ );
+
+
+/* =========================================================
+   OPEN DEPARTMENT DETAIL
+========================================================= */
+
+function openDetail(i){
+
+ const d=
+  data[i];
+
+ const total=
+  totals[i];
+
+
+ const max=
+  Math.max(
+   1,
+   ...d.slice(1)
+  );
+
+
+ document.documentElement.style
+  .setProperty(
+   "--deptColor",
+   colors[i]
+  );
+
+
+ document.getElementById(
+  "dname"
+ ).textContent=
+  d[0];
+
+
+ document.getElementById(
+  "dtotal"
+ ).textContent=
+  total;
+
+
+ document.getElementById(
+  "big"
+ ).textContent=
+  total;
+
+
+ document.getElementById(
+  "papers"
+ ).textContent=
+  d[1];
+
+
+ document.getElementById(
+  "patents"
+ ).textContent=
+  d[2];
+
+
+ document.getElementById(
+  "books"
+ ).textContent=
+  d[3];
+
+
+ document.getElementById(
+  "chapters"
+ ).textContent=
+  d[4];
+
+
+ statsWrap
+  .querySelectorAll(
+   ".stat"
+  )
+  .forEach(
+   s=>
+    s.style.display=
+     total
+      ? "grid"
+      : "none"
+  );
+
+
+ noData.style.display=
+  total
+   ? "none"
+   : "block";
+
+
+ document
+  .querySelectorAll(
+   ".bldg"
+  )
+  .forEach(
+   x=>
+    x.classList.remove(
+     "active"
+    )
+  );
+
+
+ const selected=
+  document.querySelector(
+   `.bldg[data-index="${i}"]`
+  );
+
+
+ if(selected){
+
+  selected.classList.add(
+   "active"
+  );
+
+ }
+
+
+ const fills=[
+
+  document.getElementById(
+   "fill-papers"
+  ),
+
+  document.getElementById(
+   "fill-patents"
+  ),
+
+  document.getElementById(
+   "fill-books"
+  ),
+
+  document.getElementById(
+   "fill-chapters"
+  )
+
+ ];
+
+
+ fills.forEach(
+  x=>
+   x.style.width="0"
+ );
+
+
+ overlay.classList.add(
+  "show"
+ );
+
+
+ requestAnimationFrame(
+  ()=>{
+
+   setTimeout(
+    ()=>{
+
+     fills[0].style.width=
+      (
+       d[1]/
+       max*
+       100
+      )+"%";
+
+
+     fills[1].style.width=
+      (
+       d[2]/
+       max*
+       100
+      )+"%";
+
+
+     fills[2].style.width=
+      (
+       d[3]/
+       max*
+       100
+      )+"%";
+
+
+     fills[3].style.width=
+      (
+       d[4]/
+       max*
+       100
+      )+"%";
+
+    },
+    120
+   );
+
+  }
+ );
+
+}
+
+
+/* =========================================================
+   CLOSE DETAIL
+========================================================= */
+
+function closeDetail(){
+
+ overlay.classList.remove(
+  "show"
+ );
+
+
+ document
+  .querySelectorAll(
+   ".bldg"
+  )
+  .forEach(
+   x=>
+    x.classList.remove(
+     "active"
+    )
+  );
+
+}
+
+
+/* =========================================================
+   CLOSE BUTTON
+========================================================= */
+
+document.getElementById(
+ "close"
+).onclick=
+ closeDetail;
+
+
+/* =========================================================
+   CLICK OUTSIDE
+========================================================= */
+
+overlay.onclick=
+ e=>{
+
+  if(
+   e.target===
+   overlay
+  ){
+
+   closeDetail();
+
+  }
+
+ };
+
+
+/* =========================================================
+   ESC KEY
+========================================================= */
+
+document.addEventListener(
+ "keydown",
+ e=>{
+
+  if(
+   e.key===
+   "Escape"
+  ){
+
+   closeDetail();
+
+  }
+
+ }
+);
+
+</script>
+
+</body>
+</html>

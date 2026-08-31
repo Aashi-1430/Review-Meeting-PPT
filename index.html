@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Academic Review Meeting - Presentation</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  html, body {
+    width: 100vw;
+    height: 100vh;
+    overflow: hidden;
+    background: #F6F9F6;
+    font-family: Arial, Helvetica, sans-serif;
+  }
+
+  #stage {
+    position: relative;
+    width: 100vw;
+    height: 100vh;
+  }
+
+  iframe.slide-frame {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    border: none;
+    display: none;
+    background: #F6F9F6;
+  }
+
+  iframe.slide-frame.active {
+    display: block;
+  }
+
+  /* ===== Controls ===== */
+  #controls {
+    position: fixed;
+    left: 0;
+    right: 0;
+    bottom: 22px;
+    z-index: 1000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 18px;
+    pointer-events: none;
+  }
+
+  .nav-btn {
+    pointer-events: auto;
+    width: 52px;
+    height: 52px;
+    border-radius: 50%;
+    border: 1px solid rgba(27,42,33,0.25);
+    background: rgba(246,249,246,0.55);
+    backdrop-filter: blur(6px);
+    color: #1B2A21;
+    font-size: 22px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: background 0.2s ease, transform 0.15s ease, opacity 0.2s ease;
+    user-select: none;
+  }
+
+  .nav-btn:hover {
+    background: rgba(163,58,58,0.85);
+    transform: scale(1.08);
+  }
+
+  .nav-btn:active {
+    transform: scale(0.95);
+  }
+
+  .nav-btn.disabled {
+    opacity: 0.3;
+    pointer-events: none;
+  }
+
+  #counter {
+    pointer-events: auto;
+    min-width: 70px;
+    text-align: center;
+    color: #1B2A21;
+    font-size: 15px;
+    letter-spacing: 1px;
+    background: rgba(246,249,246,0.55);
+    backdrop-filter: blur(6px);
+    border: 1px solid rgba(27,42,33,0.2);
+    border-radius: 20px;
+    padding: 8px 16px;
+    font-variant-numeric: tabular-nums;
+  }
+
+  #controls, #controls * {
+    opacity: 0;
+    animation: controlsFadeIn 0.6s ease 0.4s forwards;
+  }
+
+  @keyframes controlsFadeIn {
+    to { opacity: 1; }
+  }
+
+  #progress-track {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 4px;
+    background: rgba(255,255,255,0.08);
+    z-index: 1000;
+  }
+
+  #progress-fill {
+    height: 100%;
+    background: #A33A3A;
+    width: 0%;
+    transition: width 0.35s ease;
+  }
+</style>
+</head>
+<body>
+
+<div id="progress-track"><div id="progress-fill"></div></div>
+
+<div id="stage">
+  <iframe class="slide-frame" data-index="0" src="S0.html"></iframe>
+  <iframe class="slide-frame" data-index="1" src="S1.html"></iframe>
+  <iframe class="slide-frame" data-index="2" src="S2.html"></iframe>
+  <iframe class="slide-frame" data-index="3" src="S3.html"></iframe>
+  <iframe class="slide-frame" data-index="4" src="S4.html"></iframe>
+  <iframe class="slide-frame" data-index="5" src="S5.html"></iframe>
+  <iframe class="slide-frame" data-index="6" src="S6.html"></iframe>
+  <iframe class="slide-frame" data-index="7" src="S7.html"></iframe>
+  <iframe class="slide-frame" data-index="8" src="S8.html"></iframe>
+  <iframe class="slide-frame" data-index="9" src="S9.html"></iframe>
+  <iframe class="slide-frame" data-index="10" src="SL.html"></iframe>
+</div>
+
+<div id="controls">
+  <div class="nav-btn" id="prevBtn" title="Previous (Left arrow)">&#10094;</div>
+  <div id="counter">1 / 9</div>
+  <div class="nav-btn" id="nextBtn" title="Next (Right arrow)">&#10095;</div>
+</div>
+
+<script>
+  const frames = Array.from(document.querySelectorAll('.slide-frame'));
+  const total = frames.length;
+  let current = 0;
+
+  const prevBtn = document.getElementById('prevBtn');
+  const nextBtn = document.getElementById('nextBtn');
+  const counter = document.getElementById('counter');
+  const progressFill = document.getElementById('progress-fill');
+
+  // Store original src for each frame so we can force a reload (replays CSS animations)
+  frames.forEach(f => f.dataset.src = f.getAttribute('src'));
+
+  function reloadFrame(frame) {
+    // Force full reload so the slide's CSS animations restart from scratch
+    frame.src = 'about:blank';
+    // Next tick, set the real src back
+    requestAnimationFrame(() => {
+      frame.src = frame.dataset.src;
+    });
+  }
+
+  function showSlide(index, { replay = true } = {}) {
+    if (index < 0 || index >= total) return;
+    current = index;
+
+    frames.forEach((f, i) => {
+      if (i === index) {
+        f.classList.add('active');
+      } else {
+        f.classList.remove('active');
+      }
+    });
+
+    if (replay) {
+      reloadFrame(frames[index]);
+    }
+
+    counter.textContent = (index + 1) + ' / ' + total;
+    progressFill.style.width = ((index + 1) / total * 100) + '%';
+
+    prevBtn.classList.toggle('disabled', index === 0);
+    nextBtn.classList.toggle('disabled', index === total - 1);
+  }
+
+  function next() {
+    if (current < total - 1) showSlide(current + 1);
+  }
+
+  function prev() {
+    if (current > 0) showSlide(current - 1);
+  }
+
+  prevBtn.addEventListener('click', prev);
+  nextBtn.addEventListener('click', next);
+
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'ArrowRight' || e.key === 'PageDown' || e.key === ' ') {
+      e.preventDefault();
+      next();
+    } else if (e.key === 'ArrowLeft' || e.key === 'PageUp') {
+      e.preventDefault();
+      prev();
+    }
+  });
+
+  // Basic swipe support for touch devices
+  let touchStartX = null;
+  document.addEventListener('touchstart', (e) => {
+    touchStartX = e.changedTouches[0].clientX;
+  }, { passive: true });
+
+  document.addEventListener('touchend', (e) => {
+    if (touchStartX === null) return;
+    const dx = e.changedTouches[0].clientX - touchStartX;
+    if (Math.abs(dx) > 50) {
+      if (dx < 0) next(); else prev();
+    }
+    touchStartX = null;
+  }, { passive: true });
+
+  // Initialize first slide (no need to reload it, it's already fresh)
+  showSlide(0, { replay: false });
+</script>
+
+</body>
+</html>
+
+
+<style id="sl-theme-override">
+/* =========================================================
+   SL MASTER THEME
+   Applied to S0-S8 to match the SL visual language.
+========================================================= */
+:root{
+    --sl-bg:#F6F9F6;
+    --sl-white:#FFFFFF;
+    --sl-green:#14532D;
+    --sl-green2:#198754;
+    --sl-green3:#2F6B45;
+    --sl-gold:#C9A227;
+    --sl-gold-light:#E7D58A;
+    --sl-red:#A33A3A;
+    --sl-text:#1B2A21;
+    --sl-muted:#718077;
+    --sl-border:#DDE8DF;
+    --sl-purple:#7356A8;
+    --sl-blue:#315B8A;
+}
+html,body{
+    background-color:var(--sl-bg) !important;
+    color:var(--sl-text) !important;
+}
+body{
+    background-image:
+      radial-gradient(circle at 8% 8%, rgba(25,135,84,.08), transparent 30%),
+      radial-gradient(circle at 92% 92%, rgba(201,162,39,.07), transparent 28%) !important;
+}
+h1,h2,h3,h4,h5,h6{
+    color:var(--sl-green);
+}
+a{color:var(--sl-green2);}
+button{
+    background:var(--sl-green) !important;
+    color:#fff !important;
+    border-color:var(--sl-green3) !important;
+}
+.card,.panel,.chart-card,.detail-card,.main-card,.achievement-card,
+.activity-card,.summary-card,.kpi,.bigcard,.stat,.faculty-card,
+.department-card,.visual-panel,.detail-box,.detail-screen,.event-section,
+.chart,.graph,.right-panel,.left-panel,.values,.summary,.directory,
+.detail-total-box,.detail-panel{
+    border-color:var(--sl-border);
+}
+.badge,.section-tag,.tag,.eyebrow,.overline{
+    color:var(--sl-green2) !important;
+    border-color:rgba(25,135,84,.30) !important;
+    background:rgba(25,135,84,.07) !important;
+}
+.header-line,.divider,.card-line{
+    background:linear-gradient(90deg,transparent,var(--sl-gold),transparent) !important;
+}
+.icon,.card-icon,.summary-icon,.value-icon,.achievement-icon{
+    background:#EDF6F0 !important;
+    color:var(--sl-green) !important;
+    border-color:var(--sl-border) !important;
+}
+.bar,.fill,.detail-bar-fill,.svgoi-bar{
+    background:linear-gradient(90deg,var(--sl-green2),var(--sl-green3)) !important;
+}
+.bar-conference,.conference{
+    background:var(--sl-gold) !important;
+}
+.bar-fdp,.fdp{
+    background:var(--sl-blue) !important;
+}
+.bar-seminar,.seminar{
+    background:var(--sl-green2) !important;
+}
+.track,.bar-container,.detail-bar-track{
+    background:#EDF1ED !important;
+}
+.legend-dot,.legend-color,.panel-dot,.badge-dot,.tag-dot{
+    background:var(--sl-gold) !important;
+    box-shadow:0 0 10px rgba(201,162,39,.25) !important;
+}
+.orange{color:var(--sl-gold) !important;}
+.blue{color:var(--sl-green2) !important;}
+.green{color:var(--sl-green2) !important;}
+.purple{color:var(--sl-purple) !important;}
+.pink{color:var(--sl-pink,#A94D75) !important;}
+.red{color:var(--sl-red) !important;}
+[style*="color: white"],[style*="color:#fff"],[style*="color: #fff"]{
+    color:var(--sl-text) !important;
+}
+</style>

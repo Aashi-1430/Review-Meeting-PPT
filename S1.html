@@ -1,0 +1,1336 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Institutional Academic Framework</title>
+
+<style>
+/* =========================================================
+   GLOBAL
+========================================================= */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: "Segoe UI", Arial, sans-serif;
+    background:
+        radial-gradient(circle at 50% 45%, rgba(49,91,138,0.20), transparent 40%),
+        linear-gradient(135deg, #F6F9F6, #F6F9F6 55%, #F6F9F6);
+    color: #1B2A21;
+    min-height: 100vh;
+    overflow-x: hidden;
+}
+
+/* =========================================================
+   MAIN SECTION
+========================================================= */
+
+.framework {
+    position: relative;
+    min-height: 100vh;
+    padding: 45px 4vw 35px;
+    overflow: hidden;
+}
+
+/* Background dots */
+
+.framework::before {
+    content: "";
+    position: absolute;
+    width: 240px;
+    height: 180px;
+    left: -40px;
+    top: 250px;
+
+    background-image: radial-gradient(
+        rgba(49,91,138,0.45) 1.5px,
+        transparent 1.5px
+    );
+
+    background-size: 20px 20px;
+    opacity: .35;
+}
+
+.framework::after {
+    content: "";
+    position: absolute;
+    width: 300px;
+    height: 200px;
+    right: -60px;
+    bottom: 20px;
+
+    background-image: radial-gradient(
+        rgba(49,91,138,0.4) 1.5px,
+        transparent 1.5px
+    );
+
+    background-size: 20px 20px;
+    opacity: .25;
+}
+
+/* =========================================================
+   HEADER
+========================================================= */
+
+.header {
+    text-align: center;
+    position: relative;
+    z-index: 5;
+    margin-bottom: 45px;
+    opacity: 0;
+    animation: headerReveal 1.15s cubic-bezier(.22,1,.36,1) .15s forwards;
+}
+
+.header h1 {
+    font-family: Georgia, serif;
+    font-size: clamp(32px, 4vw, 62px);
+    letter-spacing: 5px;
+    font-weight: 700;
+    line-height: 1.05;
+
+    animation: none;
+}
+
+.header h1 span {
+    color: #C9A227;
+}
+
+.header-line {
+    width: 250px;
+    height: 2px;
+    margin: 17px auto 13px;
+
+    background: linear-gradient(
+        90deg,
+        transparent,
+        #C9A227,
+        transparent
+    );
+
+    position: relative;
+}
+
+.header-line::after {
+    content: "";
+    position: absolute;
+    width: 9px;
+    height: 9px;
+    background: #C9A227;
+    transform: rotate(45deg);
+    left: calc(50% - 4px);
+    top: -4px;
+}
+
+.subtitle {
+    font-size: 17px;
+    letter-spacing: 1px;
+    color: #1B2A21;
+}
+
+/* =========================================================
+   DEPARTMENT GRID
+========================================================= */
+
+.departments {
+    position: relative;
+    z-index: 5;
+
+    max-width: 1450px;
+    margin: auto;
+
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 20px;
+}
+
+/* =========================================================
+   DEPARTMENT CARD
+========================================================= */
+
+.department-card {
+    --accent: #315B8A;
+
+    position: relative;
+    min-height: 285px;
+
+    background:
+        linear-gradient(
+            145deg,
+            rgba(255,255,255,.97),
+            rgba(255,255,255,.96)
+        );
+
+    border: 2px solid var(--accent);
+
+    border-radius: 24px;
+
+    color: #1B2A21;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-end;
+
+    padding: 78px 18px 28px;
+
+    box-shadow:
+        0 15px 35px rgba(27,42,33,.35),
+        0 0 18px color-mix(
+            in srgb,
+            var(--accent) 30%,
+            transparent
+        );
+
+    opacity: 0;
+    transform: translateY(45px) scale(.95);
+
+    animation: cardReveal 1.05s cubic-bezier(.22,1,.36,1) forwards;
+
+    transition:
+        transform .35s ease,
+        box-shadow .35s ease,
+        background .35s ease;
+}
+
+/* Individual delays */
+
+.departments .department-card:nth-child(1) { animation-delay: 3.00s; }
+.departments .department-card:nth-child(2) { animation-delay: 3.42s; }
+.departments .department-card:nth-child(3) { animation-delay: 3.84s; }
+.departments .department-card:nth-child(4) { animation-delay: 4.26s; }
+.departments .department-card:nth-child(5) { animation-delay: 4.68s; }
+
+.bottom-row .department-card:nth-child(1) { animation-delay: 5.30s; }
+.bottom-row .department-card:nth-child(2) { animation-delay: 5.72s; }
+.bottom-row .department-card:nth-child(3) { animation-delay: 6.14s; }
+.bottom-row .department-card:nth-child(4) { animation-delay: 6.56s; }
+.bottom-row .department-card:nth-child(5) { animation-delay: 6.98s; }
+
+.department-card:hover {
+    transform: translateY(-13px) scale(1.025);
+
+    box-shadow:
+        0 25px 50px rgba(27,42,33,.5),
+        0 0 35px color-mix(
+            in srgb,
+            var(--accent) 55%,
+            transparent
+        );
+}
+
+/* =========================================================
+   ICON
+========================================================= */
+
+.icon {
+    position: absolute;
+
+    width: 108px;
+    height: 108px;
+
+    top: -36px;
+
+    border-radius: 50%;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    background:
+        radial-gradient(
+            circle,
+            color-mix(
+                in srgb,
+                var(--accent) 85%,
+                #FFFFFF
+            ),
+            var(--accent)
+        );
+
+    border: 7px solid #1B2A21;
+
+    box-shadow:
+        0 7px 20px rgba(27,42,33,.35),
+        0 0 22px color-mix(
+            in srgb,
+            var(--accent) 55%,
+            transparent
+        );
+
+    transition: .4s ease;
+}
+
+.department-card:hover .icon {
+    transform: rotate(8deg) scale(1.08);
+}
+
+.icon svg {
+    width: 55px;
+    height: 55px;
+
+    fill: none;
+    stroke: #1B2A21;
+    stroke-width: 2;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+}
+
+/* =========================================================
+   CARD CONTENT
+========================================================= */
+
+.card-line {
+    width: 75%;
+    height: 1px;
+
+    background: var(--accent);
+
+    margin-bottom: 14px;
+
+    opacity: .65;
+}
+
+.department-name {
+    color: var(--accent);
+
+    font-size: 21px;
+    font-weight: 800;
+
+    text-align: center;
+
+    line-height: 1.1;
+
+    min-height: 48px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    letter-spacing: .5px;
+}
+
+.person {
+    margin-top: 16px;
+
+    text-align: center;
+
+    font-size: 15px;
+    line-height: 1.5;
+
+    color: #1B2A21;
+}
+
+.person strong {
+    font-size: 16px;
+}
+
+/* =========================================================
+   CENTRAL SVGOI STRIP
+========================================================= */
+
+.brand-strip {
+    position: relative;
+    z-index: 6;
+
+    max-width: 1000px;
+    min-height: 130px;
+
+    margin: 70px auto;
+
+    border: 1px solid rgba(49, 138, 68, 0.8);
+
+    border-radius: 25px;
+
+    background:
+        linear-gradient(
+            90deg,
+            rgba(246,249,246,.97),
+            rgba(246,249,246,.97),
+            rgba(246,249,246,.97)
+        );
+
+    box-shadow:
+        0 0 25px rgba(49,91,138,.25),
+        inset 0 0 35px rgba(49,91,138,.08);
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    gap: 25px;
+
+    opacity: 0;
+    transform: scale(.92);
+
+    animation: brandReveal 1.15s cubic-bezier(.22,1,.36,1) 1.95s forwards;
+
+    overflow: hidden;
+}
+
+.brand-strip::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+
+    background:
+        linear-gradient(
+            90deg,
+            transparent,
+            rgba(49,91,138,.12),
+            transparent
+        );
+
+    animation: scan 4s linear infinite;
+}
+
+.logo-symbol {
+    position: relative;
+    z-index: 2;
+
+    width: 92px;
+    height: 92px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    filter: drop-shadow(0 0 14px rgba(255,140,0,.45));
+}
+
+.logo-symbol img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+}
+
+.brand-text {
+    position: relative;
+    z-index: 2;
+
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+.svgoi {
+    font-family: Georgia, serif;
+
+    font-size: clamp(38px, 4vw, 60px);
+
+    font-weight: 800;
+
+    letter-spacing: 3px;
+}
+
+.divider {
+    height: 60px;
+    width: 2px;
+    background: rgba(255,255,255,.6);
+}
+
+.group-name {
+    font-family: Georgia, serif;
+
+    font-size: clamp(17px, 2vw, 27px);
+
+    letter-spacing: 1px;
+
+    line-height: 1.2;
+}
+
+/* =========================================================
+   SECOND ROW
+========================================================= */
+
+.bottom-row {
+    position: relative;
+    z-index: 5;
+
+    max-width: 1450px;
+
+    margin: 0 auto;
+
+    display: grid;
+
+    grid-template-columns:
+        repeat(5, 1fr);
+
+    gap: 20px;
+}
+
+/* =========================================================
+   FOOTER VALUES
+========================================================= */
+
+.values {
+    opacity: 0;
+    animation: valuesReveal .9s cubic-bezier(.22,1,.36,1) 8.10s forwards;
+    position: relative;
+    z-index: 5;
+
+    max-width: 1200px;
+
+    margin: 38px auto 0;
+
+    display: grid;
+
+    grid-template-columns:
+        repeat(4, 1fr);
+
+    border-top: 1px solid rgba(27,42,33,.15);
+
+    padding-top: 25px;
+}
+
+.value {
+    display: flex;
+
+    justify-content: center;
+    align-items: center;
+
+    gap: 12px;
+
+    color: #1B2A21;
+
+    font-size: 15px;
+
+    border-right: 1px solid
+        rgba(27,42,33,.15);
+}
+
+.value:last-child {
+    border-right: none;
+}
+
+.value-icon {
+    color: #C9A227;
+
+    font-size: 25px;
+}
+
+/* =========================================================
+   COLORS
+========================================================= */
+
+.blue {
+    --accent: #315B8A;
+}
+
+.purple {
+    --accent: #7356A8;
+}
+
+.cyan {
+    --accent: #315B8A;
+}
+
+.pink {
+    --accent: #198754;
+}
+
+.orange {
+    --accent: #C9A227;
+}
+
+.green {
+    --accent: #198754;
+}
+
+/* =========================================================
+   ANIMATIONS
+========================================================= */
+
+@keyframes headerReveal {
+    from {
+        opacity: 0;
+        transform: translateY(-14px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes valuesReveal {
+    from {
+        opacity: 0;
+        transform: translateY(12px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes titleReveal {
+
+    from {
+        opacity: 0;
+        transform: translateY(-25px);
+        letter-spacing: 15px;
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+        letter-spacing: 5px;
+    }
+}
+
+@keyframes cardReveal {
+
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+@keyframes brandReveal {
+
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+@keyframes scan {
+
+    0% {
+        transform: translateX(-100%);
+    }
+
+    100% {
+        transform: translateX(100%);
+    }
+}
+
+/* =========================================================
+   RESPONSIVE
+========================================================= */
+
+@media (max-width: 1200px) {
+
+    .departments,
+    .bottom-row {
+        grid-template-columns:
+            repeat(3, 1fr);
+    }
+
+    .bottom-row {
+        margin-top: 20px;
+    }
+
+    .values {
+        grid-template-columns:
+            repeat(2, 1fr);
+
+        gap: 20px;
+    }
+
+    .value:nth-child(2) {
+        border-right: none;
+    }
+}
+
+@media (max-width: 750px) {
+
+    .framework {
+        padding: 30px 18px;
+    }
+
+    .header h1 {
+        font-size: 30px;
+        letter-spacing: 2px;
+    }
+
+    .subtitle {
+        font-size: 13px;
+    }
+
+    .departments,
+    .bottom-row {
+        grid-template-columns: 1fr;
+    }
+
+    .department-card {
+        min-height: 250px;
+    }
+
+    .brand-strip {
+        padding: 20px;
+        flex-direction: column;
+        gap: 12px;
+    }
+
+    .brand-text {
+        flex-direction: column;
+        gap: 10px;
+        text-align: center;
+    }
+
+    .divider {
+        height: 1px;
+        width: 100px;
+    }
+
+    .values {
+        grid-template-columns: 1fr;
+    }
+
+    .value {
+        border-right: none;
+    }
+}
+</style>
+</head>
+
+
+<body>
+
+<section class="framework">
+
+    <!-- =====================================================
+         HEADER
+    ====================================================== -->
+
+    <header class="header">
+
+        <h1>
+            INSTITUTIONAL
+            <span>ACADEMIC FRAMEWORK</span>
+        </h1>
+
+        <div class="header-line"></div>
+
+        <p class="subtitle">
+            A multidisciplinary approach driving excellence in
+            education, research and innovation.
+        </p>
+
+    </header>
+
+
+    <!-- =====================================================
+         TOP ROW
+    ====================================================== -->
+
+    <div class="departments">
+
+
+        <!-- COMPUTER APPLICATIONS -->
+
+        <div class="department-card purple">
+
+            <div class="icon">
+
+                <svg viewBox="0 0 64 64">
+                    <rect x="8" y="10"
+                          width="48"
+                          height="34"
+                          rx="4"/>
+
+                    <path d="M20 54h24"/>
+                    <path d="M32 44v10"/>
+
+                    <path d="M24 21l-7 6 7 6"/>
+                    <path d="M40 21l7 6-7 6"/>
+                    <path d="M35 19l-6 16"/>
+                </svg>
+
+            </div>
+
+            <div class="card-line"></div>
+
+            <div class="department-name">
+                COMPUTER<br>APPLICATIONS
+            </div>
+
+            <div class="person">
+                <strong>Mr. Jarnail Singh</strong><br>
+                HOD, Computer Applications
+            </div>
+
+        </div>
+
+
+        <!-- APPLIED SCIENCES -->
+
+        <div class="department-card blue">
+
+            <div class="icon">
+
+                <svg viewBox="0 0 64 64">
+
+                    <path d="M26 8v18L15 48
+                             a6 6 0 005 8h24
+                             a6 6 0 005-8L38 26V8"/>
+
+                    <path d="M21 8h22"/>
+
+                    <path d="M20 42h24"/>
+
+                    <circle cx="43" cy="18" r="3"/>
+                    <circle cx="49" cy="25" r="2"/>
+                    <circle cx="45" cy="32" r="2"/>
+
+                </svg>
+
+            </div>
+
+            <div class="card-line"></div>
+
+            <div class="department-name">
+                APPLIED<br>SCIENCES
+            </div>
+
+            <div class="person">
+                <strong>Dr. Manoj Bali</strong><br>
+                HOD, Applied Sciences
+            </div>
+
+        </div>
+
+
+        <!-- CSE -->
+
+        <div class="department-card cyan">
+
+            <div class="icon">
+
+                <svg viewBox="0 0 64 64">
+
+                    <rect x="8" y="10"
+                          width="48"
+                          height="34"
+                          rx="4"/>
+
+                    <path d="M20 54h24"/>
+                    <path d="M32 44v10"/>
+
+                    <path d="M24 21l-7 6 7 6"/>
+                    <path d="M40 21l7 6-7 6"/>
+                    <path d="M35 19l-6 16"/>
+
+                </svg>
+
+            </div>
+
+            <div class="card-line"></div>
+
+            <div class="department-name">
+                CSE
+            </div>
+
+            <div class="person">
+                <strong>Dr. Arun Kumar</strong><br>
+                Dean, CSE
+            </div>
+
+        </div>
+
+
+        <!-- HM -->
+
+        <div class="department-card pink">
+
+            <div class="icon">
+
+                <svg viewBox="0 0 64 64">
+
+                    <circle cx="22" cy="20" r="7"/>
+                    <circle cx="43" cy="20" r="7"/>
+
+                    <path d="M8 48c0-10 7-16 14-16s14 6 14 16"/>
+
+                    <path d="M29 48c0-10 7-16 14-16
+                             7 0 13 6 13 16"/>
+
+                    <path d="M30 26v15"/>
+                    <path d="M22 34h8"/>
+
+                </svg>
+
+            </div>
+
+            <div class="card-line"></div>
+
+            <div class="department-name">
+                HM
+            </div>
+
+            <div class="person">
+                <strong>Dr. Richa Verma</strong><br>
+                HOD, HM
+            </div>
+
+        </div>
+
+
+        <!-- LAW -->
+
+        <div class="department-card orange">
+
+            <div class="icon">
+
+                <svg viewBox="0 0 64 64">
+
+                    <path d="M32 10v40"/>
+
+                    <path d="M17 18h30"/>
+
+                    <path d="M17 18L9 33h16z"/>
+                    <path d="M47 18l-8 15h16z"/>
+
+                    <path d="M19 50h26"/>
+
+                    <path d="M25 55h14"/>
+
+                </svg>
+
+            </div>
+
+            <div class="card-line"></div>
+
+            <div class="department-name">
+                LAW
+            </div>
+
+            <div class="person">
+                <strong>Dr. Richa Ranjan</strong><br>
+                Principal, Law
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- =====================================================
+         CENTRAL BRAND
+    ====================================================== -->
+
+    <div class="brand-strip">
+
+        <div class="logo-symbol">
+            <img src="logo_dark.png" alt="SVGOI Logo">
+        </div>
+
+        <div class="brand-text">
+
+            <div class="svgoi">
+                SVGOI
+            </div>
+
+            <div class="divider"></div>
+
+            <div class="group-name">
+                SWAMI VIVEKANAND<br>
+                GROUP OF INSTITUTES
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- =====================================================
+         BOTTOM ROW
+    ====================================================== -->
+
+    <div class="bottom-row">
+
+
+        <!-- CE / ME / EE / ECE -->
+
+        <div class="department-card cyan">
+
+            <div class="icon">
+
+                <svg viewBox="0 0 64 64">
+
+                    <path d="M8 52V20h20v32"/>
+                    <path d="M28 52V12h28v40"/>
+
+                    <path d="M14 28h8"/>
+                    <path d="M14 36h8"/>
+                    <path d="M14 44h8"/>
+
+                    <path d="M35 22h6"/>
+                    <path d="M45 22h6"/>
+                    <path d="M35 31h6"/>
+                    <path d="M45 31h6"/>
+
+                    <circle cx="45" cy="43" r="7"/>
+
+                </svg>
+
+            </div>
+
+            <div class="card-line"></div>
+
+            <div class="department-name">
+                CE/ME/EE/ECE
+            </div>
+
+            <div class="person">
+                <strong>Ms. Shivani Guleria</strong><br>
+                HOD, CE/ME/EE/ECE
+            </div>
+
+        </div>
+
+
+        <!-- EDUCATION -->
+
+        <div class="department-card green">
+
+            <div class="icon">
+
+                <svg viewBox="0 0 64 64">
+
+                    <path d="M6 22l26-13
+                             26 13-26 13z"/>
+
+                    <path d="M17 28v12
+                             c7 8 23 8 30 0V28"/>
+
+                    <path d="M32 35v18"/>
+
+                    <path d="M20 53h24"/>
+
+                </svg>
+
+            </div>
+
+            <div class="card-line"></div>
+
+            <div class="department-name">
+                EDUCATION
+            </div>
+
+            <div class="person">
+                <strong>Dr. Meena Thakur</strong>, Principal<br>
+                <strong>Dr. Vikram</strong>, HOD, Education
+            </div>
+
+        </div>
+
+
+        <!-- ALLIED HEALTH -->
+
+        <div class="department-card orange">
+
+            <div class="icon">
+
+                <svg viewBox="0 0 64 64">
+
+                    <path d="M32 8
+                             c-4 7-17 13-17 27
+                             a17 17 0 0034 0
+                             c0-14-13-20-17-27z"/>
+
+                    <path d="M25 35h14"/>
+                    <path d="M32 28v14"/>
+
+                </svg>
+
+            </div>
+
+            <div class="card-line"></div>
+
+            <div class="department-name">
+                ALLIED HEALTH<br>SCIENCES
+            </div>
+
+            <div class="person">
+                <strong>Dr. Manish Goswami</strong><br>
+                Director, Allied Health Sciences
+            </div>
+            <div class="person">
+                <strong>Dr. Himani Punia</strong><br>
+                HOD, Allied Health Sciences
+            </div>
+
+        </div>
+
+
+        <!-- RADIOLOGY -->
+
+        <div class="department-card purple">
+
+            <div class="icon">
+
+                <svg viewBox="0 0 64 64">
+
+                    <rect x="9" y="10"
+                          width="46"
+                          height="34"
+                          rx="3"/>
+
+                    <path d="M17 51h30"/>
+                    <path d="M32 44v7"/>
+
+                    <path d="M17 35l8-8
+                             7 5
+                             9-12"/>
+
+                    <circle cx="41" cy="20" r="3"/>
+
+                </svg>
+
+            </div>
+
+            <div class="card-line"></div>
+
+            <div class="department-name">
+                RADIOLOGY
+            </div>
+
+            <div class="person">
+                <strong>Mr. Manjul</strong><br>
+                HOD, Radiology
+            </div>
+
+        </div>
+
+
+        <!-- PHARMACY -->
+
+        <div class="department-card blue">
+
+            <div class="icon">
+
+                <svg viewBox="0 0 64 64">
+
+                    <rect x="12" y="20"
+                          width="40"
+                          height="24"
+                          rx="12"
+                          transform="rotate(-40 32 32)"/>
+
+                    <path d="M21 39l18-18"/>
+
+                </svg>
+
+            </div>
+
+            <div class="card-line"></div>
+
+            <div class="department-name">
+                PHARMACY
+            </div>
+
+            <div class="person">
+                <strong>Dr. Amit Goyal</strong><br>
+                Principal, Pharmacy
+            </div>
+            <div class="person">
+                <strong> Dr. Deepak Garg</strong><br>
+                HOD, Pharmacy
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- =====================================================
+         CORE VALUES
+    ====================================================== -->
+
+    <div class="values">
+
+        <div class="value">
+            <span class="value-icon">▣</span>
+            Academic Excellence
+        </div>
+
+        <div class="value">
+            <span class="value-icon">✦</span>
+            Innovative Teaching
+        </div>
+
+        <div class="value">
+            <span class="value-icon">♧</span>
+            Industry Collaboration
+        </div>
+
+        <div class="value">
+            <span class="value-icon">◎</span>
+            Holistic Development
+        </div>
+
+    </div>
+
+</section>
+
+
+<script>
+
+/* =========================================================
+   SUBTLE MOUSE PARALLAX
+========================================================= */
+
+const cards =
+    document.querySelectorAll(".department-card");
+
+document.addEventListener("mousemove", (e) => {
+
+    const x =
+        (e.clientX / window.innerWidth - .5) * 2;
+
+    const y =
+        (e.clientY / window.innerHeight - .5) * 2;
+
+    cards.forEach((card, index) => {
+
+        if (window.innerWidth > 900) {
+
+            const strength =
+                1.5 + (index % 3) * .25;
+
+            card.style.transform =
+                `translate(
+                    ${x * strength}px,
+                    ${y * strength}px
+                )`;
+
+        }
+
+    });
+
+});
+
+document.addEventListener("mouseleave", () => {
+
+    cards.forEach(card => {
+        card.style.transform = "";
+    });
+
+});
+
+
+/* =========================================================
+   INTERSECTION OBSERVER
+========================================================= */
+
+const observer =
+    new IntersectionObserver(
+        entries => {
+
+            entries.forEach(entry => {
+
+                if (entry.isIntersecting) {
+                    entry.target.classList.add("visible");
+                }
+
+            });
+
+        },
+        {
+            threshold: .15
+        }
+    );
+
+document
+    .querySelectorAll(".department-card")
+    .forEach(card => observer.observe(card));
+
+</script>
+
+</body>
+</html>
+
+<style id="sl-theme-override">
+/* =========================================================
+   SL MASTER THEME
+   Applied to S0-S8 to match the SL visual language.
+========================================================= */
+:root{
+    --sl-bg:#F6F9F6;
+    --sl-white:#FFFFFF;
+    --sl-green:#14532D;
+    --sl-green2:#198754;
+    --sl-green3:#2F6B45;
+    --sl-gold:#C9A227;
+    --sl-gold-light:#E7D58A;
+    --sl-red:#A33A3A;
+    --sl-text:#1B2A21;
+    --sl-muted:#718077;
+    --sl-border:#DDE8DF;
+    --sl-purple:#7356A8;
+    --sl-blue:#315B8A;
+}
+html,body{
+    background-color:var(--sl-bg) !important;
+    color:var(--sl-text) !important;
+}
+body{
+    background-image:
+      radial-gradient(circle at 8% 8%, rgba(25,135,84,.08), transparent 30%),
+      radial-gradient(circle at 92% 92%, rgba(201,162,39,.07), transparent 28%) !important;
+}
+h1,h2,h3,h4,h5,h6{
+    color:var(--sl-green);
+}
+a{color:var(--sl-green2);}
+button{
+    background:var(--sl-green) !important;
+    color:#fff !important;
+    border-color:var(--sl-green3) !important;
+}
+.card,.panel,.chart-card,.detail-card,.main-card,.achievement-card,
+.activity-card,.summary-card,.kpi,.bigcard,.stat,.faculty-card,
+.department-card,.visual-panel,.detail-box,.detail-screen,.event-section,
+.chart,.graph,.right-panel,.left-panel,.values,.summary,.directory,
+.detail-total-box,.detail-panel{
+    border-color:var(--sl-border);
+}
+.badge,.section-tag,.tag,.eyebrow,.overline{
+    color:var(--sl-green2) !important;
+    border-color:rgba(25,135,84,.30) !important;
+    background:rgba(25,135,84,.07) !important;
+}
+.header-line,.divider,.card-line{
+    background:linear-gradient(90deg,transparent,var(--sl-gold),transparent) !important;
+}
+.icon,.card-icon,.summary-icon,.value-icon,.achievement-icon{
+    background:#EDF6F0 !important;
+    color:var(--sl-green) !important;
+    border-color:var(--sl-border) !important;
+}
+.bar,.fill,.detail-bar-fill,.svgoi-bar{
+    background:linear-gradient(90deg,var(--sl-green2),var(--sl-green3)) !important;
+}
+.bar-conference,.conference{
+    background:var(--sl-gold) !important;
+}
+.bar-fdp,.fdp{
+    background:var(--sl-blue) !important;
+}
+.bar-seminar,.seminar{
+    background:var(--sl-green2) !important;
+}
+.track,.bar-container,.detail-bar-track{
+    background:#EDF1ED !important;
+}
+.legend-dot,.legend-color,.panel-dot,.badge-dot,.tag-dot{
+    background:var(--sl-gold) !important;
+    box-shadow:0 0 10px rgba(201,162,39,.25) !important;
+}
+.orange{color:var(--sl-gold) !important;}
+.blue{color:var(--sl-green2) !important;}
+.green{color:var(--sl-green2) !important;}
+.purple{color:var(--sl-purple) !important;}
+.pink{color:var(--sl-pink,#A94D75) !important;}
+.red{color:var(--sl-red) !important;}
+[style*="color: white"],[style*="color:#fff"],[style*="color: #fff"]{
+    color:var(--sl-text) !important;
+}
+</style>

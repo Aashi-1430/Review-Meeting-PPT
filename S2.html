@@ -1,0 +1,3965 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta name="viewport"
+      content="width=device-width, initial-scale=1.0">
+
+<title>Department Wise Overview | SVG0I</title>
+
+
+<style>
+
+/* =========================================================
+   RESET
+========================================================= */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+
+/* =========================================================
+   BODY
+========================================================= */
+
+body {
+
+    font-family:
+        "Segoe UI",
+        Arial,
+        sans-serif;
+
+    background:
+        radial-gradient(
+            circle at 15% 20%,
+            rgba(49,91,138,.13),
+            transparent 28%
+        ),
+
+        radial-gradient(
+            circle at 85% 80%,
+            rgba(201,162,39,.10),
+            transparent 28%
+        ),
+
+        linear-gradient(
+            135deg,
+            #F6F9F6 0%,
+            #F6F9F6 48%,
+            #F6F9F6 100%
+        );
+
+    color: #1B2A21;
+
+    min-height: 100vh;
+
+    overflow-x: hidden;
+}
+
+
+/* =========================================================
+   MAIN SECTION
+========================================================= */
+
+.department-section {
+
+    position: relative;
+
+    width: 100%;
+
+    min-height: 100vh;
+
+    padding:
+        65px
+        4vw
+        55px;
+
+    overflow: hidden;
+}
+
+
+/* =========================================================
+   BACKGROUND DECORATION
+========================================================= */
+
+.background-orb {
+
+    position: absolute;
+
+    border-radius: 50%;
+
+    pointer-events: none;
+
+    filter: blur(90px);
+
+    opacity: .5;
+}
+
+.orb-one {
+
+    width: 420px;
+    height: 420px;
+
+    background: #315B8A;
+
+    top: -250px;
+    left: -220px;
+}
+
+.orb-two {
+
+    width: 400px;
+    height: 400px;
+
+    background: #A33A3A;
+
+    right: -220px;
+    bottom: -220px;
+}
+
+.orb-three {
+
+    width: 220px;
+    height: 220px;
+
+    background: #315B8A;
+
+    right: 35%;
+    top: 40%;
+
+    opacity: .08;
+}
+
+
+/* =========================================================
+   GRID PATTERN
+========================================================= */
+
+.grid-background {
+
+    position: absolute;
+
+    inset: 0;
+
+    opacity: .045;
+
+    background-image:
+
+        linear-gradient(
+            rgba(255,255,255,.4) 1px,
+            transparent 1px
+        ),
+
+        linear-gradient(
+            90deg,
+            rgba(255,255,255,.4) 1px,
+            transparent 1px
+        );
+
+    background-size: 45px 45px;
+
+    pointer-events: none;
+}
+
+
+/* =========================================================
+   HEADER
+========================================================= */
+
+.section-header {
+
+    position: relative;
+
+    z-index: 5;
+
+    text-align: center;
+
+    margin-bottom: 45px;
+}
+
+
+.section-tag {
+
+    display: inline-flex;
+
+    align-items: center;
+
+    gap: 9px;
+
+    padding:
+        8px
+        17px;
+
+    border-radius: 50px;
+
+    background:
+        rgba(49,91,138,.08);
+
+    border:
+        1px solid
+        rgba(49,91,138,.35);
+
+    color: #315B8A;
+
+    font-size: 12px;
+
+    font-weight: 600;
+
+    letter-spacing: 2.5px;
+
+    text-transform: uppercase;
+
+    margin-bottom: 17px;
+
+    animation:
+        fadeDown .8s ease forwards;
+}
+
+
+.tag-dot {
+
+    width: 7px;
+    height: 7px;
+
+    border-radius: 50%;
+
+    background: #315B8A;
+
+    box-shadow:
+        0 0 12px #315B8A;
+
+    animation:
+        pulse 1.7s infinite;
+}
+
+
+.section-header h1 {
+
+    font-family:
+        Georgia,
+        "Times New Roman",
+        serif;
+
+    font-size:
+        clamp(30px, 4vw, 52px);
+
+    font-weight: 700;
+
+    letter-spacing: 3px;
+
+    line-height: 1.15;
+
+    color: #1B2A21;
+
+    animation:
+        titleReveal 1s ease forwards;
+}
+
+
+.section-header h1 span {
+
+    color: #C9A227;
+
+    text-shadow:
+        0 0 25px
+        rgba(201,162,39,.25);
+}
+
+
+.section-subtitle {
+
+    margin-top: 16px;
+
+    color: #315B8A;
+
+    font-size: 14px;
+
+    letter-spacing: 1.4px;
+
+    animation:
+        fadeUp 1s .2s ease both;
+}
+
+
+/* =========================================================
+   HEADER LINE
+========================================================= */
+
+.header-decoration {
+
+    width: 270px;
+
+    height: 2px;
+
+    margin:
+        20px
+        auto
+        0;
+
+    position: relative;
+
+    background:
+        linear-gradient(
+            90deg,
+            transparent,
+            #315B8A,
+            #C9A227,
+            transparent
+        );
+}
+
+
+.header-decoration::before {
+
+    content: "";
+
+    position: absolute;
+
+    width: 9px;
+    height: 9px;
+
+    left: 50%;
+    top: -4px;
+
+    transform:
+        translateX(-50%)
+        rotate(45deg);
+
+    background: #C9A227;
+
+    box-shadow:
+        0 0 15px
+        #C9A227;
+}
+
+
+/* =========================================================
+   CHART GRID
+========================================================= */
+
+.dashboard-grid {
+
+    position: relative;
+
+    z-index: 5;
+
+    max-width: 1550px;
+
+    margin: auto;
+
+    display: grid;
+
+    grid-template-columns:
+        repeat(2, minmax(0, 1fr));
+
+    gap: 28px;
+}
+
+
+/* =========================================================
+   CARD
+========================================================= */
+
+.chart-card {
+
+    position: relative;
+
+    background:
+        linear-gradient(
+            145deg,
+            rgba(246,249,246,.95),
+            rgba(246,249,246,.97)
+        );
+
+    border:
+        1px solid
+        rgba(49,91,138,.28);
+
+    border-radius: 26px;
+
+    padding: 25px;
+
+    overflow: hidden;
+
+    box-shadow:
+
+        0 25px 70px
+        rgba(27,42,33,.35),
+
+        inset 0 0 60px
+        rgba(49,91,138,.025);
+
+    opacity: 0;
+
+    transform:
+        translateY(40px)
+        scale(.97);
+
+    animation:
+        cardReveal .9s ease forwards;
+}
+
+
+.chart-card:nth-child(2) {
+
+    animation-delay: .18s;
+
+    border-color:
+        rgba(201,162,39,.28);
+}
+
+
+/* Top highlight */
+
+.chart-card::before {
+
+    content: "";
+
+    position: absolute;
+
+    top: 0;
+    left: 10%;
+
+    width: 80%;
+    height: 1px;
+
+    background:
+        linear-gradient(
+            90deg,
+            transparent,
+            #315B8A,
+            transparent
+        );
+
+    box-shadow:
+        0 0 15px
+        rgba(49,91,138,.8);
+}
+
+
+.faculty-card::before {
+
+    background:
+        linear-gradient(
+            90deg,
+            transparent,
+            #C9A227,
+            transparent
+        );
+
+    box-shadow:
+        0 0 15px
+        rgba(201,162,39,.8);
+}
+
+
+/* =========================================================
+   CARD HEADER
+========================================================= */
+
+.card-header {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 15px;
+
+    padding:
+        2px
+        5px
+        20px;
+
+    border-bottom:
+        1px solid
+        rgba(27,42,33,.07);
+
+    margin-bottom: 18px;
+}
+
+
+.card-icon {
+
+    width: 56px;
+    height: 56px;
+
+    border-radius: 17px;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    font-size: 27px;
+
+    background:
+        linear-gradient(
+            145deg,
+            rgba(49,91,138,.22),
+            rgba(49,91,138,.06)
+        );
+
+    border:
+        1px solid
+        rgba(49,91,138,.45);
+
+    box-shadow:
+        0 0 25px
+        rgba(49,91,138,.12);
+
+    flex-shrink: 0;
+}
+
+
+.faculty-card .card-icon {
+
+    background:
+        linear-gradient(
+            145deg,
+            rgba(201,162,39,.22),
+            rgba(163,58,58,.06)
+        );
+
+    border-color:
+        rgba(201,162,39,.48);
+
+    box-shadow:
+        0 0 25px
+        rgba(201,162,39,.12);
+}
+
+
+.card-header h2 {
+
+    font-size:
+        clamp(18px, 2vw, 25px);
+
+    line-height: 1.25;
+
+    letter-spacing: .5px;
+}
+
+
+.student-card .card-header h2 {
+
+    color: #315B8A;
+}
+
+
+.faculty-card .card-header h2 {
+
+    color: #C9A227;
+}
+
+
+/* =========================================================
+   CONTENT AREA
+========================================================= */
+
+.chart-content {
+
+    display: grid;
+
+    grid-template-columns:
+        minmax(330px, 1fr)
+        minmax(240px, .75fr);
+
+    align-items: center;
+
+    gap: 12px;
+
+    min-height: 510px;
+}
+
+
+/* =========================================================
+   DONUT CONTAINER
+========================================================= */
+
+.donut-container {
+
+    position: relative;
+
+    width: 100%;
+
+    min-height: 470px;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+}
+
+
+/* =========================================================
+   SVG DONUT
+========================================================= */
+
+.donut {
+
+    width: min(440px, 100%);
+
+    height: auto;
+
+    overflow: visible;
+
+    transform:
+        rotate(-90deg);
+}
+
+
+/* Outer ring */
+
+.donut-background {
+
+    fill: none;
+
+    stroke:
+        rgba(27,42,33,.045);
+
+    stroke-width: 38;
+}
+
+
+/* Segment */
+
+.segment {
+
+    fill: none;
+
+    stroke-width: 38;
+
+    stroke-linecap: butt;
+
+    cursor: pointer;
+
+    transition:
+        stroke-width .25s ease,
+        opacity .25s ease,
+        filter .25s ease;
+}
+
+
+/* Hover */
+
+.segment:hover {
+
+    stroke-width: 47;
+
+    filter:
+        drop-shadow(
+            0 0 8px
+            currentColor
+        );
+}
+
+
+/* =========================================================
+   CENTER
+========================================================= */
+
+.center {
+
+    position: absolute;
+
+    width: 190px;
+    height: 190px;
+
+    border-radius: 50%;
+
+    display: flex;
+
+    flex-direction: column;
+
+    align-items: center;
+    justify-content: center;
+
+    text-align: center;
+
+    background:
+        radial-gradient(
+            circle at center,
+            #315B8A 0%,
+            #F6F9F6 58%,
+            #F6F9F6 100%
+        );
+
+    border:
+        1px solid
+        rgba(49,91,138,.35);
+
+    box-shadow:
+
+        inset 0 0 35px
+        rgba(49,91,138,.12),
+
+        0 0 25px
+        rgba(49,91,138,.08);
+
+    pointer-events: none;
+}
+
+
+.faculty-card .center {
+
+    border-color:
+        rgba(201,162,39,.35);
+
+    background:
+        radial-gradient(
+            circle at center,
+            #F6F9F6 0%,
+            #F6F9F6 58%,
+            #F6F9F6 100%
+        );
+}
+
+
+.center-icon {
+
+    font-size: 25px;
+
+    margin-bottom: 5px;
+}
+
+
+.center-small {
+
+    color: #315B8A;
+
+    font-size: 10px;
+
+    letter-spacing: 2px;
+
+    text-transform: uppercase;
+}
+
+
+.center-title {
+
+    color: #1B2A21;
+
+    font-size: 14px;
+
+    font-weight: 700;
+
+    letter-spacing: .6px;
+
+    margin-top: 4px;
+}
+
+
+.center-number {
+
+    color: #315B8A;
+
+    font-size: 37px;
+
+    font-weight: 800;
+
+    line-height: 1;
+
+    margin-top: 9px;
+
+    text-shadow:
+        0 0 18px
+        rgba(49,91,138,.45);
+}
+
+
+.faculty-card .center-number {
+
+    color: #C9A227;
+
+    text-shadow:
+        0 0 18px
+        rgba(201,162,39,.45);
+}
+
+
+/* =========================================================
+   LEGEND
+========================================================= */
+
+.legend {
+
+    display: flex;
+
+    flex-direction: column;
+
+    gap: 6px;
+
+    max-height: 470px;
+
+    overflow-y: auto;
+
+    padding-right: 5px;
+}
+
+
+/* Scrollbar */
+
+.legend::-webkit-scrollbar {
+
+    width: 4px;
+}
+
+
+.legend::-webkit-scrollbar-track {
+
+    background:
+        rgba(255,255,255,.03);
+
+    border-radius: 10px;
+}
+
+
+.legend::-webkit-scrollbar-thumb {
+
+    background:
+        rgba(49,91,138,.35);
+
+    border-radius: 10px;
+}
+
+
+.faculty-card
+.legend::-webkit-scrollbar-thumb {
+
+    background:
+        rgba(201,162,39,.4);
+}
+
+
+/* Legend item */
+
+.legend-item {
+
+    position: relative;
+
+    display: grid;
+
+    grid-template-columns:
+        13px 1fr auto;
+
+    align-items: center;
+
+    gap: 9px;
+
+    padding:
+        9px
+        10px;
+
+    border-radius: 10px;
+
+    border:
+        1px solid
+        rgba(27,42,33,.055);
+
+    background:
+        rgba(255,255,255,.025);
+
+    cursor: pointer;
+
+    transition:
+        transform .2s ease,
+        background .2s ease,
+        border-color .2s ease;
+}
+
+
+.legend-item:hover {
+
+    transform:
+        translateX(-4px);
+
+    background:
+        rgba(49,91,138,.08);
+
+    border-color:
+        rgba(49,91,138,.3);
+}
+
+
+.faculty-card
+.legend-item:hover {
+
+    background:
+        rgba(201,162,39,.07);
+
+    border-color:
+        rgba(201,162,39,.3);
+}
+
+
+.legend-color {
+
+    width: 10px;
+    height: 10px;
+
+    border-radius: 3px;
+
+    box-shadow:
+        0 0 8px
+        currentColor;
+}
+
+
+.legend-name {
+
+    color: #1B2A21;
+
+    font-size: 12px;
+
+    line-height: 1.2;
+}
+
+
+.legend-value {
+
+    color: #1B2A21;
+
+    font-size: 12px;
+
+    font-weight: 700;
+
+    white-space: nowrap;
+}
+
+
+.legend-percent {
+
+    color: #315B8A;
+
+    font-size: 10px;
+
+    margin-left: 3px;
+}
+
+
+/* =========================================================
+   SUMMARY
+========================================================= */
+
+.summary {
+
+    margin-top: 12px;
+
+    min-height: 78px;
+
+    border-radius: 17px;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    gap: 15px;
+
+    background:
+        linear-gradient(
+            90deg,
+            rgba(49,91,138,.05),
+            rgba(49,91,138,.11),
+            rgba(49,91,138,.05)
+        );
+
+    border:
+        1px solid
+        rgba(49,91,138,.18);
+}
+
+
+.faculty-card .summary {
+
+    background:
+        linear-gradient(
+            90deg,
+            rgba(163,58,58,.04),
+            rgba(201,162,39,.10),
+            rgba(163,58,58,.04)
+        );
+
+    border-color:
+        rgba(201,162,39,.18);
+}
+
+
+.summary-icon {
+
+    font-size: 28px;
+}
+
+
+.summary-label {
+
+    color: #315B8A;
+
+    font-size: 11px;
+
+    letter-spacing: 1px;
+
+    text-transform: uppercase;
+}
+
+
+.summary-number {
+
+    display: block;
+
+    color: #315B8A;
+
+    font-size: 26px;
+
+    font-weight: 800;
+
+    margin-top: 2px;
+}
+
+
+.faculty-card
+.summary-number {
+
+    color: #C9A227;
+}
+
+
+/* =========================================================
+   FOOTER QUOTE
+========================================================= */
+
+.quote {
+
+    position: relative;
+
+    z-index: 5;
+
+    max-width: 950px;
+
+    margin:
+        38px
+        auto
+        0;
+
+    padding:
+        20px
+        25px;
+
+    text-align: center;
+
+    border-top:
+        1px solid
+        rgba(27,42,33,.08);
+
+    border-bottom:
+        1px solid
+        rgba(27,42,33,.08);
+
+    color: #315B8A;
+
+    font-family:
+        Georgia,
+        serif;
+
+    font-size: 19px;
+
+    font-style: italic;
+
+    letter-spacing: .8px;
+}
+
+
+.quote span {
+
+    color: #C9A227;
+
+    font-style: normal;
+
+    font-weight: 700;
+}
+
+
+/* =========================================================
+   TOOLTIP
+========================================================= */
+
+.chart-tooltip {
+
+    position: fixed;
+
+    z-index: 1000;
+
+    pointer-events: none;
+
+    padding:
+        10px
+        14px;
+
+    border-radius: 9px;
+
+    background:
+        rgba(246,249,246,.96);
+
+    border:
+        1px solid
+        rgba(49,91,138,.45);
+
+    box-shadow:
+        0 10px 30px
+        rgba(27,42,33,.4);
+
+    opacity: 0;
+
+    transform:
+        translateY(5px);
+
+    transition:
+        opacity .15s ease,
+        transform .15s ease;
+}
+
+
+.chart-tooltip.visible {
+
+    opacity: 1;
+
+    transform:
+        translateY(0);
+}
+
+
+.tooltip-name {
+
+    color: #315B8A;
+
+    font-weight: 700;
+
+    font-size: 12px;
+}
+
+
+.tooltip-value {
+
+    color: #1B2A21;
+
+    font-size: 11px;
+
+    margin-top: 3px;
+}
+
+
+/* =========================================================
+   DETAIL MODAL
+========================================================= */
+
+.modal-overlay {
+
+    position: fixed;
+
+    inset: 0;
+
+    z-index: 2000;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    padding: 20px;
+
+    background:
+        rgba(246,249,246,.72);
+
+    backdrop-filter:
+        blur(6px);
+
+    opacity: 0;
+
+    pointer-events: none;
+
+    transition:
+        opacity .25s ease;
+}
+
+
+.modal-overlay.visible {
+
+    opacity: 1;
+
+    pointer-events: auto;
+}
+
+
+.detail-card {
+
+    position: relative;
+
+    width: 100%;
+
+    max-width: 460px;
+
+    border-radius: 24px;
+
+    padding: 30px;
+
+    background:
+        linear-gradient(
+            160deg,
+            rgba(246,249,246,.98),
+            rgba(246,249,246,.99)
+        );
+
+    border:
+        1px solid
+        rgba(49,91,138,.35);
+
+    box-shadow:
+        0 30px 90px
+        rgba(27,42,33,.55);
+
+    transform:
+        translateY(24px)
+        scale(.96);
+
+    transition:
+        transform .3s ease;
+}
+
+
+.modal-overlay.visible .detail-card {
+
+    transform:
+        translateY(0)
+        scale(1);
+}
+
+
+.detail-card.faculty-theme {
+
+    border-color:
+        rgba(201,162,39,.38);
+}
+
+
+.detail-close {
+
+    position: absolute;
+
+    top: 18px;
+    right: 18px;
+
+    width: 32px;
+    height: 32px;
+
+    border-radius: 50%;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    background:
+        rgba(255,255,255,.06);
+
+    border:
+        1px solid
+        rgba(27,42,33,.15);
+
+    color: #315B8A;
+
+    font-size: 16px;
+
+    cursor: pointer;
+
+    transition:
+        background .2s ease,
+        transform .2s ease;
+}
+
+
+.detail-close:hover {
+
+    background:
+        rgba(163,58,58,.18);
+
+    border-color:
+        rgba(163,58,58,.4);
+
+    transform:
+        rotate(90deg);
+}
+
+
+.detail-eyebrow {
+
+    display: inline-flex;
+
+    align-items: center;
+
+    gap: 8px;
+
+    padding:
+        6px
+        13px;
+
+    border-radius: 50px;
+
+    background:
+        rgba(49,91,138,.1);
+
+    border:
+        1px solid
+        rgba(49,91,138,.35);
+
+    color: #315B8A;
+
+    font-size: 10px;
+
+    font-weight: 700;
+
+    letter-spacing: 2px;
+
+    text-transform: uppercase;
+
+    margin-bottom: 14px;
+}
+
+
+.faculty-theme .detail-eyebrow {
+
+    background:
+        rgba(201,162,39,.1);
+
+    border-color:
+        rgba(201,162,39,.35);
+
+    color: #C9A227;
+}
+
+
+.detail-title {
+
+    font-size: 23px;
+
+    font-weight: 800;
+
+    color: #1B2A21;
+
+    letter-spacing: .3px;
+
+    line-height: 1.3;
+
+    margin-bottom: 22px;
+
+    padding-right: 30px;
+}
+
+
+.detail-total {
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: space-between;
+
+    padding: 16px 18px;
+
+    border-radius: 16px;
+
+    background:
+        linear-gradient(
+            90deg,
+            rgba(49,91,138,.08),
+            rgba(49,91,138,.14)
+        );
+
+    border:
+        1px solid
+        rgba(49,91,138,.22);
+
+    margin-bottom: 22px;
+}
+
+
+.faculty-theme .detail-total {
+
+    background:
+        linear-gradient(
+            90deg,
+            rgba(163,58,58,.07),
+            rgba(201,162,39,.13)
+        );
+
+    border-color:
+        rgba(201,162,39,.22);
+}
+
+
+.detail-total-label {
+
+    color: #315B8A;
+
+    font-size: 12px;
+
+    letter-spacing: 1px;
+
+    text-transform: uppercase;
+}
+
+
+.detail-total-value {
+
+    color: #315B8A;
+
+    font-size: 30px;
+
+    font-weight: 800;
+}
+
+
+.faculty-theme .detail-total-value {
+
+    color: #C9A227;
+}
+
+
+.detail-breakdown {
+
+    display: flex;
+
+    flex-direction: column;
+
+    gap: 14px;
+}
+
+
+.detail-row {
+
+    display: flex;
+
+    flex-direction: column;
+
+    gap: 6px;
+}
+
+
+.detail-row-top {
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: space-between;
+}
+
+
+.detail-row-label {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 9px;
+
+    color: #1B2A21;
+
+    font-size: 13px;
+
+    font-weight: 600;
+}
+
+
+.detail-dot {
+
+    width: 10px;
+    height: 10px;
+
+    border-radius: 3px;
+
+    box-shadow:
+        0 0 8px
+        currentColor;
+
+    flex-shrink: 0;
+}
+
+
+.detail-row-value {
+
+    color: #1B2A21;
+
+    font-size: 13px;
+
+    font-weight: 700;
+}
+
+
+.detail-row-percent {
+
+    color: #315B8A;
+
+    font-size: 11px;
+
+    font-weight: 500;
+
+    margin-left: 4px;
+}
+
+
+.detail-bar-track {
+
+    width: 100%;
+
+    height: 8px;
+
+    border-radius: 6px;
+
+    background:
+        rgba(255,255,255,.06);
+
+    overflow: hidden;
+}
+
+
+.detail-bar-fill {
+
+    height: 100%;
+
+    border-radius: 6px;
+
+    width: 0%;
+
+    transition:
+        width .7s cubic-bezier(.4,0,.2,1);
+}
+
+
+.detail-empty-note {
+
+    margin-top: 6px;
+
+    color: #315B8A;
+
+    font-size: 11px;
+
+    text-align: center;
+
+    font-style: italic;
+}
+
+
+/* =========================================================
+   ANIMATIONS
+========================================================= */
+
+@keyframes titleReveal {
+
+    from {
+
+        opacity: 0;
+
+        transform:
+            translateY(-25px);
+
+        letter-spacing: 12px;
+    }
+
+    to {
+
+        opacity: 1;
+
+        transform:
+            translateY(0);
+
+        letter-spacing: 3px;
+    }
+}
+
+
+@keyframes fadeDown {
+
+    from {
+
+        opacity: 0;
+
+        transform:
+            translateY(-15px);
+    }
+
+    to {
+
+        opacity: 1;
+
+        transform:
+            translateY(0);
+    }
+}
+
+
+@keyframes fadeUp {
+
+    from {
+
+        opacity: 0;
+
+        transform:
+            translateY(15px);
+    }
+
+    to {
+
+        opacity: 1;
+
+        transform:
+            translateY(0);
+    }
+}
+
+
+@keyframes cardReveal {
+
+    to {
+
+        opacity: 1;
+
+        transform:
+            translateY(0)
+            scale(1);
+    }
+}
+
+
+@keyframes pulse {
+
+    0%,
+    100% {
+
+        opacity: .5;
+
+        transform:
+            scale(.8);
+    }
+
+    50% {
+
+        opacity: 1;
+
+        transform:
+            scale(1.2);
+    }
+}
+
+
+/* =========================================================
+   RESPONSIVE
+========================================================= */
+
+@media (max-width: 1200px) {
+
+    .chart-content {
+
+        grid-template-columns:
+            1fr;
+
+    }
+
+    .legend {
+
+        display: grid;
+
+        grid-template-columns:
+            repeat(2, 1fr);
+
+        max-height: none;
+
+        overflow: visible;
+    }
+
+}
+
+
+@media (max-width: 900px) {
+
+    .dashboard-grid {
+
+        grid-template-columns:
+            1fr;
+    }
+
+    .chart-card {
+
+        min-height: auto;
+    }
+
+}
+
+
+@media (max-width: 600px) {
+
+    .department-section {
+
+        padding:
+            40px
+            13px
+            35px;
+    }
+
+    .section-header h1 {
+
+        font-size: 28px;
+
+        letter-spacing: 1px;
+    }
+
+    .section-subtitle {
+
+        font-size: 11px;
+    }
+
+    .chart-card {
+
+        padding: 17px;
+
+        border-radius: 20px;
+    }
+
+    .card-header h2 {
+
+        font-size: 17px;
+    }
+
+    .card-icon {
+
+        width: 46px;
+        height: 46px;
+
+        font-size: 22px;
+    }
+
+    .chart-content {
+
+        min-height: auto;
+    }
+
+    .donut-container {
+
+        min-height: 350px;
+    }
+
+    .donut {
+
+        width: 330px;
+    }
+
+    .center {
+
+        width: 150px;
+        height: 150px;
+    }
+
+    .center-number {
+
+        font-size: 30px;
+    }
+
+    .center-title {
+
+        font-size: 11px;
+    }
+
+    .legend {
+
+        grid-template-columns:
+            1fr;
+    }
+
+    .summary {
+
+        min-height: 70px;
+    }
+
+    .quote {
+
+        font-size: 15px;
+    }
+
+    .detail-card {
+
+        padding: 22px;
+    }
+
+    .detail-title {
+
+        font-size: 19px;
+    }
+
+}
+
+</style>
+
+</head>
+
+
+<body>
+
+
+<!-- =========================================================
+     BACKGROUND
+========================================================= -->
+
+<section class="department-section">
+
+    <div class="background-orb orb-one"></div>
+
+    <div class="background-orb orb-two"></div>
+
+    <div class="background-orb orb-three"></div>
+
+    <div class="grid-background"></div>
+
+
+    <!-- =====================================================
+         HEADER
+    ====================================================== -->
+
+    <header class="section-header">
+
+        <div class="section-tag">
+
+            <span class="tag-dot"></span>
+
+            INSTITUTIONAL ACADEMIC DATA
+
+        </div>
+
+
+        <h1>
+
+            DEPARTMENT WISE
+
+            <span>OVERVIEW</span>
+
+        </h1>
+
+
+        <div class="header-decoration"></div>
+
+
+        <p class="section-subtitle">
+
+            STUDENT STRENGTH
+            &nbsp; • &nbsp;
+            TEACHING FACULTY
+            &nbsp; • &nbsp;
+            DEPARTMENTAL DISTRIBUTION
+
+        </p>
+
+        <p class="section-subtitle" style="margin-top:8px; font-size:11px; opacity:.75;">
+            Click any department slice or legend row for a detailed breakdown
+        </p>
+
+    </header>
+
+
+
+    <!-- =====================================================
+         DASHBOARD
+    ====================================================== -->
+
+    <div class="dashboard-grid">
+
+
+        <!-- =================================================
+             STUDENT STRENGTH CARD
+        ================================================== -->
+
+        <article class="chart-card student-card">
+
+
+            <div class="card-header">
+
+                <div class="card-icon">
+
+                    👥
+
+                </div>
+
+
+                <h2>
+
+                    DEPARTMENT-WISE
+                    <br>
+
+                    STUDENT STRENGTH
+
+                </h2>
+
+            </div>
+
+
+
+            <div class="chart-content">
+
+
+                <!-- DONUT -->
+
+                <div class="donut-container">
+
+                    <svg
+                        id="studentDonut"
+                        class="donut"
+                        viewBox="0 0 440 440">
+
+                    </svg>
+
+
+                    <!-- CENTER -->
+
+                    <div class="center">
+
+                        <div class="center-icon">
+                            👥
+                        </div>
+
+                        <div class="center-small">
+                            TOTAL
+                        </div>
+
+                        <div class="center-title">
+                            STUDENTS
+                        </div>
+
+                        <div
+                            class="center-number"
+                            data-count="5173">
+
+                            5,173
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+
+                <!-- LEGEND -->
+
+                <div
+                    id="studentLegend"
+                    class="legend">
+
+                </div>
+
+            </div>
+
+
+
+            <!-- SUMMARY -->
+
+            <div class="summary">
+
+                <div class="summary-icon">
+                    👥
+                </div>
+
+                <div>
+
+                    <div class="summary-label">
+                        Total Student Strength
+                    </div>
+
+                    <span class="summary-number">
+                        5,173
+                    </span>
+
+                </div>
+
+            </div>
+
+        </article>
+
+
+
+        <!-- =================================================
+             FACULTY CARD
+        ================================================== -->
+
+        <article class="chart-card faculty-card">
+
+
+            <div class="card-header">
+
+                <div class="card-icon">
+
+                    🎓
+
+                </div>
+
+
+                <h2>
+
+                    DEPARTMENT-WISE
+                    <br>
+
+                    TEACHING FACULTY
+
+                </h2>
+
+            </div>
+
+
+
+            <div class="chart-content">
+
+
+                <!-- DONUT -->
+
+                <div class="donut-container">
+
+                    <svg
+                        id="facultyDonut"
+                        class="donut"
+                        viewBox="0 0 440 440">
+
+                    </svg>
+
+
+                    <!-- CENTER -->
+
+                    <div class="center">
+
+                        <div class="center-icon">
+                            🎓
+                        </div>
+
+                        <div class="center-small">
+                            TOTAL
+                        </div>
+
+                        <div class="center-title">
+                            FACULTY
+                        </div>
+
+                        <div
+                            class="center-number"
+                            data-count="134">
+
+                            134
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+
+                <!-- LEGEND -->
+
+                <div
+                    id="facultyLegend"
+                    class="legend">
+
+                </div>
+
+            </div>
+
+
+
+            <!-- SUMMARY -->
+
+            <div class="summary">
+
+                <div class="summary-icon">
+                    🎓
+                </div>
+
+                <div>
+
+                    <div class="summary-label">
+                        Total Teaching Faculty
+                    </div>
+
+                    <span class="summary-number">
+                        134
+                    </span>
+
+                </div>
+
+            </div>
+
+        </article>
+
+    </div>
+
+
+
+    <!-- =====================================================
+         QUOTE
+    ====================================================== -->
+
+    <div class="quote">
+
+        “Empowering Education Through
+        <span>Strong Departments</span>”
+
+    </div>
+
+
+</section>
+
+
+
+<!-- =========================================================
+     TOOLTIP
+========================================================= -->
+
+<div
+    id="tooltip"
+    class="chart-tooltip">
+
+    <div
+        id="tooltipName"
+        class="tooltip-name">
+    </div>
+
+    <div
+        id="tooltipValue"
+        class="tooltip-value">
+    </div>
+
+</div>
+
+
+
+<!-- =========================================================
+     DETAIL MODAL
+========================================================= -->
+
+<div
+    id="detailModal"
+    class="modal-overlay">
+
+    <div
+        id="detailCard"
+        class="detail-card">
+
+        <div
+            id="detailClose"
+            class="detail-close">
+            ✕
+        </div>
+
+        <div
+            id="detailEyebrow"
+            class="detail-eyebrow">
+            <span></span>
+        </div>
+
+        <div
+            id="detailTitle"
+            class="detail-title">
+        </div>
+
+        <div class="detail-total">
+
+            <div
+                id="detailTotalLabel"
+                class="detail-total-label">
+            </div>
+
+            <div
+                id="detailTotalValue"
+                class="detail-total-value">
+            </div>
+
+        </div>
+
+        <div
+            id="detailBreakdown"
+            class="detail-breakdown">
+        </div>
+
+    </div>
+
+</div>
+
+
+
+<script>
+
+
+/* =========================================================
+   EXACT DATA FROM YOUR ORIGINAL GRAPHICS
+========================================================= */
+
+
+/* ---------------------------------------------------------
+   STUDENT STRENGTH
+
+   Total = 5,173
+
+   13 departments
+--------------------------------------------------------- */
+
+const studentData = [
+
+    {
+        name: "Allied Health Sciences",
+        value: 1021,
+        percent: "20%",
+        color: "#3478d4"
+    },
+
+    {
+        name: "Pharmacy",
+        value: 848,
+        percent: "16%",
+        color: "#648fd2"
+    },
+
+    {
+        name: "CSE",
+        value: 820,
+        percent: "16%",
+        color: "#69ad3f"
+    },
+
+    {
+        name: "Computer Applications",
+        value: 588,
+        percent: "11%",
+        color: "#5b99d2"
+    },
+
+    {
+        name: "Applied Sciences",
+        value: 446,
+        percent: "9%",
+        color: "#f17c29"
+    },
+
+    {
+        name: "Education",
+        value: 365,
+        percent: "7%",
+        color: "#a853d0"
+    },
+
+    {
+        name: "Business Administration",
+        value: 385,
+        percent: "7%",
+        color: "#9fa2a5"
+    },
+
+    {
+        name: "LAW",
+        value: 256,
+        percent: "5%",
+        color: "#286395"
+    },
+
+    {
+        name: "HM",
+        value: 154,
+        percent: "3%",
+        color: "#b28b00"
+    },
+
+    {
+        name: "Civil",
+        value: 111,
+        percent: "2%",
+        color: "#8a8a8a"
+    },
+
+    {
+        name: "EE",
+        value: 86,
+        percent: "2%",
+        color: "#70a83f"
+    },
+
+    {
+        name: "ME",
+        value: 57,
+        percent: "1%",
+        color: "#42729f"
+    },
+
+    {
+        name: "ECE",
+        value: 36,
+        percent: "1%",
+        color: "#294f79"
+    }
+
+];
+
+
+
+/* ---------------------------------------------------------
+   TEACHING FACULTY
+
+   Total = 134
+
+   11 departments/categories
+--------------------------------------------------------- */
+
+const facultyData = [
+
+    {
+        name: "Pharmacy",
+        value: 29,
+        color: "#5b9bd5"
+    },
+
+    {
+        name: "Allied Health Sciences",
+        value: 23,
+        color: "#b38a00"
+    },
+
+    {
+        name: "Applied Sciences",
+        value: 17,
+        color: "#467cc7"
+    },
+
+    {
+        name: "Computer Applications",
+        value: 14,
+        color: "#969696"
+    },
+
+    {
+        name: "CSE",
+        value: 11,
+        color: "#286395"
+    },
+
+    {
+        name: "Education",
+        value: 8,
+        color: "#639d38"
+    },
+
+    {
+        name: "Business Administration",
+        value: 9,
+        color: "#f17c29"
+    },
+
+    {
+        name: "HM",
+        value: 8,
+        color: "#ffbd00"
+    },
+
+    {
+        name: "Law",
+        value: 6,
+        color: "#62a73d"
+    },
+
+    {
+        name: "Civil",
+        value: 4,
+        color: "#b65c12"
+    },
+
+    {
+        name: "EE/ECE",
+        value: 3,
+        color: "#777777"
+    },
+
+    {
+        name: "ME",
+        value: 2,
+        color: "#3c6e9b"
+    }
+
+];
+
+
+
+/* =========================================================
+   DEPARTMENT DETAIL BREAKDOWN DATA
+   (keyed by lowercase, trimmed department name)
+========================================================= */
+
+
+const studentBreakdown = {
+
+    "allied health sciences": {
+        attending: 596,
+        nonAttending: 425,
+        onHold: 0
+    },
+
+    "applied sciences": {
+        attending: 396,
+        nonAttending: 50,
+        onHold: 0
+    },
+
+    "business administration": {
+        attending: 241,
+        nonAttending: 144,
+        onHold: 0
+    },
+
+    "civil": {
+        attending: 62,
+        nonAttending: 49,
+        onHold: 0
+    },
+
+    "computer applications": {
+        attending: 360,
+        nonAttending: 228,
+        onHold: 0
+    },
+
+    "cse": {
+        attending: 748,
+        nonAttending: 72,
+        onHold: 0
+    },
+
+    "ece": {
+        attending: 18,
+        nonAttending: 18,
+        onHold: 0
+    },
+
+    "education": {
+        attending: 0,
+        nonAttending: 365,
+        onHold: 0
+    },
+
+    "ee": {
+        attending: 32,
+        nonAttending: 54,
+        onHold: 0
+    },
+
+    "hm": {
+        attending: 111,
+        nonAttending: 43,
+        onHold: 0
+    },
+
+    "law": {
+        attending: 126,
+        nonAttending: 114,
+        onHold: 16
+    },
+
+    "me": {
+        attending: 16,
+        nonAttending: 41,
+        onHold: 0
+    },
+
+    "pharmacy": {
+        attending: 590,
+        nonAttending: 85,
+        onHold: 173
+    }
+
+};
+
+
+const facultyBreakdown = {
+
+    "applied sciences": {
+        withPhd: 4,
+        pursuingPhd: 2
+    },
+
+    "business administration": {
+        withPhd: 4,
+        pursuingPhd: 2
+    },
+
+    "computer applications": {
+        withPhd: 0,
+        pursuingPhd: 2
+    },
+
+    "hm": {
+        withPhd: 1,
+        pursuingPhd: 3
+    },
+
+    "pharmacy": {
+        withPhd: 6,
+        pursuingPhd: 13
+    },
+
+    "law": {
+        withPhd: 1,
+        pursuingPhd: 4
+    },
+
+    "me": {
+        withPhd: 0,
+        pursuingPhd: 0
+    },
+
+    "civil": {
+        withPhd: 0,
+        pursuingPhd: 2
+    },
+
+    "ee/ece": {
+        withPhd: 1,
+        pursuingPhd: 0
+    },
+
+    "allied health sciences": {
+        withPhd: 2,
+        pursuingPhd: 4
+    },
+
+    "cse": {
+        withPhd: 1,
+        pursuingPhd: 6
+    },
+
+    "education": {
+        withPhd: 5,
+        pursuingPhd: 3
+    }
+
+};
+
+
+
+/* =========================================================
+   CREATE DONUT CHART
+========================================================= */
+
+function createDonut(
+    svgId,
+    legendId,
+    data,
+    chartType
+) {
+
+
+    const svg =
+        document.getElementById(svgId);
+
+
+    const legend =
+        document.getElementById(legendId);
+
+
+    /* SVG dimensions */
+
+    const cx = 220;
+
+    const cy = 220;
+
+    const radius = 145;
+
+
+    /* Circumference */
+
+    const circumference =
+        2 * Math.PI * radius;
+
+
+    /* Total */
+
+    const total =
+        data.reduce(
+            (sum, item) =>
+                sum + item.value,
+            0
+        );
+
+
+    /* Background */
+
+    const background =
+        document.createElementNS(
+            "http://www.w3.org/2000/svg",
+            "circle"
+        );
+
+
+    background.setAttribute(
+        "cx",
+        cx
+    );
+
+    background.setAttribute(
+        "cy",
+        cy
+    );
+
+    background.setAttribute(
+        "r",
+        radius
+    );
+
+    background.setAttribute(
+        "class",
+        "donut-background"
+    );
+
+
+    svg.appendChild(
+        background
+    );
+
+
+    /* -----------------------------------------------------
+       CREATE SEGMENTS
+    ----------------------------------------------------- */
+
+    let offset = 0;
+
+
+    data.forEach(
+        (item, index) => {
+
+
+            const segment =
+                document.createElementNS(
+                    "http://www.w3.org/2000/svg",
+                    "circle"
+                );
+
+
+            /* Percentage */
+
+            const percentage =
+                item.value / total;
+
+
+            /* Segment length */
+
+            const length =
+                percentage *
+                circumference;
+
+
+            /* SVG */
+
+            segment.setAttribute(
+                "cx",
+                cx
+            );
+
+            segment.setAttribute(
+                "cy",
+                cy
+            );
+
+            segment.setAttribute(
+                "r",
+                radius
+            );
+
+            segment.setAttribute(
+                "class",
+                "segment"
+            );
+
+            segment.setAttribute(
+                "stroke",
+                item.color
+            );
+
+            segment.setAttribute(
+                "stroke-dasharray",
+                `${length} ${circumference}`
+            );
+
+            segment.setAttribute(
+                "stroke-dashoffset",
+                -offset
+            );
+
+
+            /* Animation */
+
+            segment.style.strokeDasharray =
+                `0 ${circumference}`;
+
+
+            segment.style.opacity = "0";
+
+
+            setTimeout(
+                () => {
+
+                    segment.style.opacity =
+                        "1";
+
+                    segment.style.strokeDasharray =
+                        `${length} ${circumference}`;
+
+                },
+
+                350 +
+                index * 90
+            );
+
+
+            /* Store data */
+
+            segment.dataset.name =
+                item.name;
+
+            segment.dataset.value =
+                item.value;
+
+            segment.dataset.percent =
+                item.percent || "";
+
+            segment.dataset.color =
+                item.color;
+
+
+            /* Add SVG */
+
+            svg.appendChild(
+                segment
+            );
+
+
+            /* Click -> open detail modal */
+
+            segment.addEventListener(
+                "click",
+                () => {
+
+                    openDetailModal(
+                        chartType,
+                        item
+                    );
+
+                }
+            );
+
+
+            /* ------------------------------------------------
+               LEGEND ITEM
+            ------------------------------------------------ */
+
+            const legendItem =
+                document.createElement(
+                    "div"
+                );
+
+
+            legendItem.className =
+                "legend-item";
+
+
+            legendItem.innerHTML = `
+
+                <span
+                    class="legend-color"
+                    style="
+                        background:${item.color};
+                        color:${item.color};
+                    ">
+                </span>
+
+                <span
+                    class="legend-name">
+
+                    ${item.name}
+
+                </span>
+
+                <span
+                    class="legend-value">
+
+                    ${item.value}
+
+                    ${
+                        item.percent
+                        ?
+                        `<span
+                            class="legend-percent">
+                            ${item.percent}
+                         </span>`
+                        :
+                        ""
+                    }
+
+                </span>
+
+            `;
+
+
+            legend.appendChild(
+                legendItem
+            );
+
+
+            /* ------------------------------------------------
+               LINK LEGEND TO SEGMENT
+            ------------------------------------------------ */
+
+            legendItem.addEventListener(
+                "mouseenter",
+                () => {
+
+                    highlightSegment(
+                        svg,
+                        segment
+                    );
+
+                }
+            );
+
+
+            legendItem.addEventListener(
+                "mouseleave",
+                () => {
+
+                    resetSegments(
+                        svg
+                    );
+
+                }
+            );
+
+
+            /* Click -> open detail modal */
+
+            legendItem.addEventListener(
+                "click",
+                () => {
+
+                    openDetailModal(
+                        chartType,
+                        item
+                    );
+
+                }
+            );
+
+
+            /* ------------------------------------------------
+               NEXT OFFSET
+            ------------------------------------------------ */
+
+            offset += length;
+
+        }
+    );
+
+}
+
+
+
+/* =========================================================
+   HIGHLIGHT SEGMENT
+========================================================= */
+
+function highlightSegment(
+    svg,
+    selected
+) {
+
+
+    const segments =
+        svg.querySelectorAll(
+            ".segment"
+        );
+
+
+    segments.forEach(
+        segment => {
+
+            if (
+                segment === selected
+            ) {
+
+                segment.style.opacity =
+                    "1";
+
+                segment.style.strokeWidth =
+                    "48";
+
+                segment.style.filter =
+                    `drop-shadow(
+                        0 0 10px
+                        ${segment.getAttribute("stroke")}
+                    )`;
+
+            }
+
+            else {
+
+                segment.style.opacity =
+                    ".18";
+
+                segment.style.strokeWidth =
+                    "38";
+
+                segment.style.filter =
+                    "none";
+
+            }
+
+        }
+    );
+
+}
+
+
+
+/* =========================================================
+   RESET SEGMENTS
+========================================================= */
+
+function resetSegments(svg) {
+
+    svg
+        .querySelectorAll(
+            ".segment"
+        )
+        .forEach(
+            segment => {
+
+                segment.style.opacity =
+                    "1";
+
+                segment.style.strokeWidth =
+                    "38";
+
+                segment.style.filter =
+                    "none";
+
+            }
+        );
+
+}
+
+
+
+/* =========================================================
+   SVG SEGMENT HOVER
+========================================================= */
+
+function addSegmentHover(
+    svg
+) {
+
+
+    const tooltip =
+        document.getElementById(
+            "tooltip"
+        );
+
+
+    const tooltipName =
+        document.getElementById(
+            "tooltipName"
+        );
+
+
+    const tooltipValue =
+        document.getElementById(
+            "tooltipValue"
+        );
+
+
+    svg
+        .querySelectorAll(
+            ".segment"
+        )
+        .forEach(
+            segment => {
+
+
+                segment.addEventListener(
+                    "mouseenter",
+                    event => {
+
+
+                        const name =
+                            segment.dataset.name;
+
+
+                        const value =
+                            segment.dataset.value;
+
+
+                        const percent =
+                            segment.dataset.percent;
+
+
+                        tooltipName.textContent =
+                            name;
+
+
+                        tooltipValue.textContent =
+                            percent
+                            ?
+                            `${value} students · ${percent} · click for details`
+                            :
+                            `${value} faculty · click for details`;
+
+
+                        tooltip.classList.add(
+                            "visible"
+                        );
+
+
+                        highlightSegment(
+                            svg,
+                            segment
+                        );
+
+                    }
+                );
+
+
+                segment.addEventListener(
+                    "mousemove",
+                    event => {
+
+                        tooltip.style.left =
+                            (
+                                event.clientX
+                                + 15
+                            )
+                            + "px";
+
+
+                        tooltip.style.top =
+                            (
+                                event.clientY
+                                + 15
+                            )
+                            + "px";
+
+                    }
+                );
+
+
+                segment.addEventListener(
+                    "mouseleave",
+                    () => {
+
+                        tooltip.classList.remove(
+                            "visible"
+                        );
+
+
+                        resetSegments(
+                            svg
+                        );
+
+                    }
+                );
+
+            }
+        );
+
+}
+
+
+
+/* =========================================================
+   BUILD CHARTS
+========================================================= */
+
+createDonut(
+    "studentDonut",
+    "studentLegend",
+    studentData,
+    "student"
+);
+
+
+createDonut(
+    "facultyDonut",
+    "facultyLegend",
+    facultyData,
+    "faculty"
+);
+
+
+/* =========================================================
+   ENABLE HOVER
+========================================================= */
+
+addSegmentHover(
+    document.getElementById(
+        "studentDonut"
+    )
+);
+
+
+addSegmentHover(
+    document.getElementById(
+        "facultyDonut"
+    )
+);
+
+
+
+/* =========================================================
+   CONNECT LEGEND AFTER CHART CREATION
+========================================================= */
+
+function connectLegend(
+    legendId,
+    svgId
+) {
+
+
+    const legend =
+        document.getElementById(
+            legendId
+        );
+
+
+    const svg =
+        document.getElementById(
+            svgId
+        );
+
+
+    const items =
+        legend.querySelectorAll(
+            ".legend-item"
+        );
+
+
+    const segments =
+        svg.querySelectorAll(
+            ".segment"
+        );
+
+
+    items.forEach(
+        (item, index) => {
+
+            item.addEventListener(
+                "mouseenter",
+                () => {
+
+                    highlightSegment(
+                        svg,
+                        segments[index]
+                    );
+
+                }
+            );
+
+
+            item.addEventListener(
+                "mouseleave",
+                () => {
+
+                    resetSegments(
+                        svg
+                    );
+
+                }
+            );
+
+        }
+    );
+
+}
+
+
+connectLegend(
+    "studentLegend",
+    "studentDonut"
+);
+
+
+connectLegend(
+    "facultyLegend",
+    "facultyDonut"
+);
+
+
+
+/* =========================================================
+   DETAIL MODAL LOGIC
+========================================================= */
+
+const detailModal =
+    document.getElementById(
+        "detailModal"
+    );
+
+const detailCard =
+    document.getElementById(
+        "detailCard"
+    );
+
+const detailEyebrow =
+    document.getElementById(
+        "detailEyebrow"
+    );
+
+const detailTitle =
+    document.getElementById(
+        "detailTitle"
+    );
+
+const detailTotalLabel =
+    document.getElementById(
+        "detailTotalLabel"
+    );
+
+const detailTotalValue =
+    document.getElementById(
+        "detailTotalValue"
+    );
+
+const detailBreakdown =
+    document.getElementById(
+        "detailBreakdown"
+    );
+
+const detailClose =
+    document.getElementById(
+        "detailClose"
+    );
+
+
+function buildDetailRow(
+    label,
+    value,
+    total,
+    color
+) {
+
+
+    const percent =
+        total > 0
+        ?
+        Math.round(
+            (value / total) * 100
+        )
+        :
+        0;
+
+
+    const row =
+        document.createElement(
+            "div"
+        );
+
+
+    row.className =
+        "detail-row";
+
+
+    row.innerHTML = `
+
+        <div class="detail-row-top">
+
+            <div class="detail-row-label">
+
+                <span
+                    class="detail-dot"
+                    style="
+                        background:${color};
+                        color:${color};
+                    ">
+                </span>
+
+                ${label}
+
+            </div>
+
+            <div class="detail-row-value">
+
+                ${value}
+
+                <span class="detail-row-percent">
+                    (${percent}%)
+                </span>
+
+            </div>
+
+        </div>
+
+        <div class="detail-bar-track">
+
+            <div
+                class="detail-bar-fill"
+                style="background:${color};">
+            </div>
+
+        </div>
+
+    `;
+
+
+    /* Animate bar fill after insert */
+
+    requestAnimationFrame(
+        () => {
+
+            requestAnimationFrame(
+                () => {
+
+                    const fill =
+                        row.querySelector(
+                            ".detail-bar-fill"
+                        );
+
+                    fill.style.width =
+                        percent + "%";
+
+                }
+            );
+
+        }
+    );
+
+
+    return row;
+
+}
+
+
+function openDetailModal(
+    type,
+    item
+) {
+
+
+    const key =
+        item.name
+            .trim()
+            .toLowerCase();
+
+
+    detailBreakdown.innerHTML =
+        "";
+
+
+    if (
+        type === "student"
+    ) {
+
+
+        detailCard.classList.remove(
+            "faculty-theme"
+        );
+
+
+        detailEyebrow.querySelector(
+            "span"
+        ).textContent =
+            "STUDENT STRENGTH";
+
+
+        detailTitle.textContent =
+            item.name;
+
+
+        detailTotalLabel.textContent =
+            "Total Active Students";
+
+
+        detailTotalValue.textContent =
+            item.value.toLocaleString();
+
+
+        const breakdown =
+            studentBreakdown[key];
+
+
+        if (
+            breakdown
+        ) {
+
+
+            detailBreakdown.appendChild(
+                buildDetailRow(
+                    "Attending Students",
+                    breakdown.attending,
+                    item.value,
+                    "#2ecc71"
+                )
+            );
+
+
+            detailBreakdown.appendChild(
+                buildDetailRow(
+                    "Non Attending Students",
+                    breakdown.nonAttending,
+                    item.value,
+                    "#ff5c5c"
+                )
+            );
+
+
+            if (
+                breakdown.onHold > 0
+            ) {
+
+                detailBreakdown.appendChild(
+                    buildDetailRow(
+                        "Students On Hold",
+                        breakdown.onHold,
+                        item.value,
+                        "#ffb020"
+                    )
+                );
+
+            }
+
+            else {
+
+                const note =
+                    document.createElement(
+                        "div"
+                    );
+
+                note.className =
+                    "detail-empty-note";
+
+                note.textContent =
+                    "No students on hold in this department";
+
+                detailBreakdown.appendChild(
+                    note
+                );
+
+            }
+
+        }
+
+        else {
+
+            const note =
+                document.createElement(
+                    "div"
+                );
+
+            note.className =
+                "detail-empty-note";
+
+            note.textContent =
+                "Detailed breakdown not available for this department";
+
+            detailBreakdown.appendChild(
+                note
+            );
+
+        }
+
+    }
+
+    else {
+
+
+        detailCard.classList.add(
+            "faculty-theme"
+        );
+
+
+        detailEyebrow.querySelector(
+            "span"
+        ).textContent =
+            "TEACHING FACULTY";
+
+
+        detailTitle.textContent =
+            item.name;
+
+
+        detailTotalLabel.textContent =
+            "Total Teaching Faculty";
+
+
+        detailTotalValue.textContent =
+            item.value.toLocaleString();
+
+
+        const breakdown =
+            facultyBreakdown[key];
+
+
+        if (
+            breakdown
+        ) {
+
+
+            detailBreakdown.appendChild(
+                buildDetailRow(
+                    "Faculty with Ph.D",
+                    breakdown.withPhd,
+                    item.value,
+                    "#2ecc71"
+                )
+            );
+
+
+            detailBreakdown.appendChild(
+                buildDetailRow(
+                    "Faculty Pursuing Ph.D",
+                    breakdown.pursuingPhd,
+                    item.value,
+                    "#ffb020"
+                )
+            );
+
+
+            const remaining =
+                item.value -
+                breakdown.withPhd -
+                breakdown.pursuingPhd;
+
+
+            if (
+                remaining > 0
+            ) {
+
+                detailBreakdown.appendChild(
+                    buildDetailRow(
+                        "Other Faculty",
+                        remaining,
+                        item.value,
+                        "#5b99d2"
+                    )
+                );
+
+            }
+
+        }
+
+        else {
+
+            const note =
+                document.createElement(
+                    "div"
+                );
+
+            note.className =
+                "detail-empty-note";
+
+            note.textContent =
+                "Detailed breakdown not available for this department";
+
+            detailBreakdown.appendChild(
+                note
+            );
+
+        }
+
+    }
+
+
+    detailModal.classList.add(
+        "visible"
+    );
+
+}
+
+
+function closeDetailModal() {
+
+    detailModal.classList.remove(
+        "visible"
+    );
+
+}
+
+
+detailClose.addEventListener(
+    "click",
+    closeDetailModal
+);
+
+
+detailModal.addEventListener(
+    "click",
+    event => {
+
+        if (
+            event.target === detailModal
+        ) {
+
+            closeDetailModal();
+
+        }
+
+    }
+);
+
+
+document.addEventListener(
+    "keydown",
+    event => {
+
+        if (
+            event.key === "Escape"
+        ) {
+
+            closeDetailModal();
+
+        }
+
+    }
+);
+
+
+
+/* =========================================================
+   NUMBER COUNTER
+========================================================= */
+
+function animateCounter(
+    element
+) {
+
+
+    const target =
+        Number(
+            element.dataset.count
+        );
+
+
+    const duration =
+        1500;
+
+
+    const start =
+        performance.now();
+
+
+    function update(
+        currentTime
+    ) {
+
+
+        const progress =
+            Math.min(
+                (
+                    currentTime -
+                    start
+                ) /
+                duration,
+                1
+            );
+
+
+        const eased =
+            1 -
+            Math.pow(
+                1 - progress,
+                3
+            );
+
+
+        const current =
+            Math.floor(
+                eased * target
+            );
+
+
+        element.textContent =
+            current.toLocaleString();
+
+
+        if (
+            progress < 1
+        ) {
+
+            requestAnimationFrame(
+                update
+            );
+
+        }
+
+    }
+
+
+    requestAnimationFrame(
+        update
+    );
+
+}
+
+
+document
+    .querySelectorAll(
+        "[data-count]"
+    )
+    .forEach(
+        element => {
+
+            setTimeout(
+                () => {
+
+                    animateCounter(
+                        element
+                    );
+
+                },
+                700
+            );
+
+        }
+    );
+
+
+
+/* =========================================================
+   CARD MOUSE TILT
+========================================================= */
+
+const cards =
+    document.querySelectorAll(
+        ".chart-card"
+    );
+
+
+cards.forEach(
+    card => {
+
+
+        card.addEventListener(
+            "mousemove",
+            event => {
+
+
+                if (
+                    window.innerWidth < 1000
+                ) return;
+
+
+                const rect =
+                    card.getBoundingClientRect();
+
+
+                const x =
+                    event.clientX -
+                    rect.left;
+
+
+                const y =
+                    event.clientY -
+                    rect.top;
+
+
+                const centerX =
+                    rect.width / 2;
+
+
+                const centerY =
+                    rect.height / 2;
+
+
+                const rotateY =
+                    (
+                        x -
+                        centerX
+                    ) /
+                    centerX *
+                    1.2;
+
+
+                const rotateX =
+                    -(
+                        y -
+                        centerY
+                    ) /
+                    centerY *
+                    1.2;
+
+
+                card.style.transform =
+                    `
+                    translateY(-3px)
+                    rotateX(${rotateX}deg)
+                    rotateY(${rotateY}deg)
+                    scale(1.005)
+                    `;
+
+            }
+        );
+
+
+        card.addEventListener(
+            "mouseleave",
+            () => {
+
+                card.style.transform =
+                    "";
+
+            }
+        );
+
+    }
+);
+
+
+/* =========================================================
+   SCROLL REVEAL
+========================================================= */
+
+const observer =
+    new IntersectionObserver(
+        entries => {
+
+            entries.forEach(
+                entry => {
+
+                    if (
+                        entry.isIntersecting
+                    ) {
+
+                        entry.target.classList.add(
+                            "visible"
+                        );
+
+                    }
+
+                }
+            );
+
+        },
+        {
+            threshold: .15
+        }
+    );
+
+
+document
+    .querySelectorAll(
+        ".chart-card"
+    )
+    .forEach(
+        card => {
+
+            observer.observe(
+                card
+            );
+
+        }
+    );
+
+
+</script>
+
+</body>
+
+</html>
+
+<style id="sl-theme-override">
+/* =========================================================
+   SL MASTER THEME
+   Applied to S0-S8 to match the SL visual language.
+========================================================= */
+:root{
+    --sl-bg:#F6F9F6;
+    --sl-white:#FFFFFF;
+    --sl-green:#14532D;
+    --sl-green2:#198754;
+    --sl-green3:#2F6B45;
+    --sl-gold:#C9A227;
+    --sl-gold-light:#E7D58A;
+    --sl-red:#A33A3A;
+    --sl-text:#1B2A21;
+    --sl-muted:#718077;
+    --sl-border:#DDE8DF;
+    --sl-purple:#7356A8;
+    --sl-blue:#315B8A;
+}
+html,body{
+    background-color:var(--sl-bg) !important;
+    color:var(--sl-text) !important;
+}
+body{
+    background-image:
+      radial-gradient(circle at 8% 8%, rgba(25,135,84,.08), transparent 30%),
+      radial-gradient(circle at 92% 92%, rgba(201,162,39,.07), transparent 28%) !important;
+}
+h1,h2,h3,h4,h5,h6{
+    color:var(--sl-green);
+}
+a{color:var(--sl-green2);}
+button{
+    background:var(--sl-green) !important;
+    color:#fff !important;
+    border-color:var(--sl-green3) !important;
+}
+.card,.panel,.chart-card,.detail-card,.main-card,.achievement-card,
+.activity-card,.summary-card,.kpi,.bigcard,.stat,.faculty-card,
+.department-card,.visual-panel,.detail-box,.detail-screen,.event-section,
+.chart,.graph,.right-panel,.left-panel,.values,.summary,.directory,
+.detail-total-box,.detail-panel{
+    border-color:var(--sl-border);
+}
+.badge,.section-tag,.tag,.eyebrow,.overline{
+    color:var(--sl-green2) !important;
+    border-color:rgba(25,135,84,.30) !important;
+    background:rgba(25,135,84,.07) !important;
+}
+.header-line,.divider,.card-line{
+    background:linear-gradient(90deg,transparent,var(--sl-gold),transparent) !important;
+}
+.icon,.card-icon,.summary-icon,.value-icon,.achievement-icon{
+    background:#EDF6F0 !important;
+    color:var(--sl-green) !important;
+    border-color:var(--sl-border) !important;
+}
+.bar,.fill,.detail-bar-fill,.svgoi-bar{
+    background:linear-gradient(90deg,var(--sl-green2),var(--sl-green3)) !important;
+}
+.bar-conference,.conference{
+    background:var(--sl-gold) !important;
+}
+.bar-fdp,.fdp{
+    background:var(--sl-blue) !important;
+}
+.bar-seminar,.seminar{
+    background:var(--sl-green2) !important;
+}
+.track,.bar-container,.detail-bar-track{
+    background:#EDF1ED !important;
+}
+.legend-dot,.legend-color,.panel-dot,.badge-dot,.tag-dot{
+    background:var(--sl-gold) !important;
+    box-shadow:0 0 10px rgba(201,162,39,.25) !important;
+}
+.orange{color:var(--sl-gold) !important;}
+.blue{color:var(--sl-green2) !important;}
+.green{color:var(--sl-green2) !important;}
+.purple{color:var(--sl-purple) !important;}
+.pink{color:var(--sl-pink,#A94D75) !important;}
+.red{color:var(--sl-red) !important;}
+[style*="color: white"],[style*="color:#fff"],[style*="color: #fff"]{
+    color:var(--sl-text) !important;
+}
+</style>

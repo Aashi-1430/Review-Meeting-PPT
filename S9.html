@@ -1,0 +1,1389 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>University Result Analysis | SVIET</title>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<style>
+:root{
+  --bg:#F6F9F6;
+  --card:#ffffff;
+  --text:#1B2A21;
+  --muted:#4B7A5A;
+  --line:rgba(27,42,33,.12);
+  --primary:#198754;
+  --secondary:#2F6B45;
+  --heading:#14532D;
+  --success:#198754;
+  --danger:#ef4444;
+  --warning:#f59e0b;
+}
+
+*{box-sizing:border-box}
+
+body{
+  margin:0;
+  font-family:Inter,Segoe UI,Arial,sans-serif;
+  background:var(--bg);
+  color:var(--text);
+}
+
+.page{
+  max-width:1450px;
+  margin:auto;
+  padding:30px;
+}
+
+/* HERO */
+.hero{
+  position:relative;
+  overflow:hidden;
+  border-radius:28px;
+  padding:38px 42px;
+  color:white;
+  background:linear-gradient(120deg,#0f2e1c 0%,#198754 48%,#2F6B45 100%);
+  box-shadow:0 20px 45px rgba(20,83,45,.20);
+}
+
+.hero:before,
+.hero:after{
+  content:"";
+  position:absolute;
+  border-radius:50%;
+  opacity:.18;
+}
+
+.hero:before{
+  width:280px;
+  height:280px;
+  background:#fff;
+  right:-80px;
+  top:-120px;
+}
+
+.hero:after{
+  width:180px;
+  height:180px;
+  background:#7be8a3;
+  right:230px;
+  bottom:-110px;
+}
+
+.hero-content{
+  position:relative;
+  z-index:2;
+}
+
+.eyebrow{
+  font-size:12px;
+  letter-spacing:2.5px;
+  text-transform:uppercase;
+  font-weight:800;
+  opacity:.75;
+}
+
+h1{
+  font-size:clamp(30px,4vw,52px);
+  margin:9px 0 8px;
+  letter-spacing:-1.5px;
+}
+
+.hero p{
+  margin:0;
+  opacity:.85;
+  font-size:15px;
+}
+
+.session-pill{
+  display:inline-flex;
+  gap:8px;
+  align-items:center;
+  margin-top:22px;
+  padding:9px 14px;
+  background:rgba(255,255,255,.13);
+  border:1px solid rgba(255,255,255,.22);
+  border-radius:999px;
+  font-size:13px;
+}
+
+.dot{
+  width:8px;
+  height:8px;
+  border-radius:50%;
+  background:#5eead4;
+  box-shadow:0 0 12px #5eead4;
+}
+
+/* SUMMARY */
+.summary{
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:16px;
+  margin:22px 0;
+}
+
+.stat{
+  background:var(--card);
+  border:1px solid var(--line);
+  border-radius:20px;
+  padding:20px;
+  box-shadow:0 8px 25px rgba(30,45,80,.05);
+  position:relative;
+  overflow:hidden;
+}
+
+.stat .label{
+  font-size:12px;
+  color:var(--muted);
+  font-weight:700;
+  text-transform:uppercase;
+  letter-spacing:.8px;
+}
+
+.stat .value{
+  font-size:32px;
+  font-weight:850;
+  margin-top:8px;
+}
+
+.stat .sub{
+  font-size:12px;
+  color:var(--muted);
+  margin-top:4px;
+}
+
+.stat i{
+  position:absolute;
+  right:-18px;
+  bottom:-28px;
+  width:100px;
+  height:100px;
+  border-radius:50%;
+  background:#e8f5ec;
+}
+
+/* SECTION HEADINGS */
+.section-title{
+  display:flex;
+  justify-content:space-between;
+  align-items:end;
+  margin:32px 0 15px;
+}
+
+.section-title h2{
+  margin:0;
+  font-size:21px;
+}
+
+.section-title span{
+  font-size:12px;
+  color:var(--muted);
+}
+
+/* MAIN CHART */
+.panel{
+  background:var(--card);
+  border:1px solid var(--line);
+  border-radius:22px;
+  padding:22px;
+  box-shadow:0 8px 25px rgba(30,45,80,.05);
+}
+
+.panel h3{
+  margin:0 0 5px;
+  font-size:16px;
+}
+
+.panel .caption{
+  font-size:12px;
+  color:var(--muted);
+  margin-bottom:16px;
+}
+
+.chart-wrap{
+  height:390px;
+  position:relative;
+}
+
+/* DEPARTMENT CARDS */
+.cards{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:17px;
+}
+
+.dept{
+  background:var(--card);
+  border:1px solid var(--line);
+  border-radius:22px;
+  padding:19px;
+  box-shadow:0 8px 25px rgba(30,45,80,.05);
+  transition:.25s;
+  position:relative;
+  overflow:hidden;
+  cursor:pointer;
+}
+
+.dept:hover{
+  transform:translateY(-4px);
+  box-shadow:0 14px 35px rgba(30,45,80,.10);
+  border-color:#a8d9bc;
+}
+
+.dept:after{
+  content:"";
+  position:absolute;
+  width:85px;
+  height:85px;
+  border-radius:50%;
+  right:-35px;
+  top:-35px;
+  background:linear-gradient(135deg,#e8f5ec,#eef7ee);
+}
+
+.dept-head{
+  display:flex;
+  justify-content:space-between;
+  gap:12px;
+  position:relative;
+  z-index:2;
+}
+
+.dept-name{
+  font-size:15px;
+  font-weight:800;
+  line-height:1.25;
+}
+
+.rank{
+  font-size:11px;
+  font-weight:800;
+  color:#14532D;
+  background:#dcf3e4;
+  padding:5px 8px;
+  border-radius:999px;
+  white-space:nowrap;
+}
+
+.metric{
+  margin:19px 0 10px;
+  display:flex;
+  justify-content:space-between;
+  align-items:end;
+}
+
+.current{
+  font-size:38px;
+  font-weight:900;
+  letter-spacing:-1px;
+}
+
+.current small{
+  font-size:15px;
+}
+
+.prev{
+  font-size:12px;
+  color:var(--muted);
+  text-align:right;
+}
+
+.prev b{
+  display:block;
+  color:var(--text);
+  font-size:15px;
+}
+
+.bar{
+  height:9px;
+  background:#e5efe8;
+  border-radius:99px;
+  overflow:hidden;
+}
+
+.fill{
+  height:100%;
+  border-radius:99px;
+  background:linear-gradient(90deg,#198754,#2F6B45);
+}
+
+.change{
+  margin-top:11px;
+  font-size:12px;
+  font-weight:700;
+}
+
+.tap-hint{
+  margin-top:10px;
+  font-size:11px;
+  color:#94a3b8;
+  font-weight:600;
+}
+
+.up{color:var(--success)}
+.down{color:var(--danger)}
+.same{color:var(--muted)}
+
+/* TABLE */
+.table-panel{
+  margin-top:18px;
+}
+
+table{
+  width:100%;
+  border-collapse:collapse;
+}
+
+th,td{
+  text-align:left;
+  padding:14px 12px;
+  border-bottom:1px solid var(--line);
+  font-size:13px;
+}
+
+th{
+  font-size:11px;
+  color:var(--muted);
+  text-transform:uppercase;
+  letter-spacing:.7px;
+}
+
+td:first-child{
+  font-weight:800;
+}
+
+tbody tr{
+  cursor:pointer;
+}
+
+tbody tr:hover{
+  background:#f2f8f4;
+}
+
+.progress-cell{
+  min-width:150px;
+}
+
+.mini-progress{
+  height:8px;
+  background:#e5efe8;
+  border-radius:99px;
+  overflow:hidden;
+  margin-top:6px;
+}
+
+.mini-progress span{
+  display:block;
+  height:100%;
+  background:linear-gradient(90deg,#198754,#2F6B45);
+  border-radius:99px;
+}
+
+/* INSIGHT */
+.insight{
+  margin-top:18px;
+  border-radius:20px;
+  padding:18px 20px;
+  background:linear-gradient(120deg,#e8f5ec,#eef7ee);
+  border:1px solid #cfe8d8;
+}
+
+.insight strong{
+  font-size:13px;
+}
+
+.insight p{
+  margin:7px 0 0;
+  color:#566176;
+  font-size:13px;
+  line-height:1.6;
+}
+
+.footer{
+  text-align:center;
+  color:#8a94a6;
+  font-size:11px;
+  margin:28px 0 5px;
+}
+
+/* MODAL */
+.modal-overlay{
+  display:none;
+  position:fixed;
+  inset:0;
+  background:rgba(15,20,40,.55);
+  backdrop-filter:blur(3px);
+  z-index:100;
+  align-items:center;
+  justify-content:center;
+  padding:20px;
+}
+
+.modal-overlay.open{
+  display:flex;
+}
+
+.modal-box{
+  background:#fff;
+  border-radius:22px;
+  max-width:820px;
+  width:100%;
+  max-height:85vh;
+  overflow-y:auto;
+  padding:28px 28px 24px;
+  box-shadow:0 30px 70px rgba(20,30,60,.35);
+  animation:pop .18s ease;
+}
+
+@keyframes pop{
+  from{transform:scale(.96);opacity:0}
+  to{transform:scale(1);opacity:1}
+}
+
+.modal-head{
+  display:flex;
+  justify-content:space-between;
+  align-items:flex-start;
+  gap:14px;
+  margin-bottom:6px;
+}
+
+.modal-head h3{
+  margin:0;
+  font-size:19px;
+}
+
+.modal-head .close-btn{
+  border:none;
+  background:#e8f0ea;
+  width:32px;
+  height:32px;
+  border-radius:50%;
+  font-size:16px;
+  cursor:pointer;
+  color:#4b5563;
+  flex-shrink:0;
+}
+
+.modal-head .close-btn:hover{
+  background:#d7e8dc;
+}
+
+.modal-sub{
+  font-size:12px;
+  color:var(--muted);
+  margin-bottom:18px;
+}
+
+.session-tabs{
+  display:flex;
+  gap:8px;
+  margin-bottom:16px;
+}
+
+.session-tab{
+  border:1px solid var(--line);
+  background:#f0f7f2;
+  padding:8px 14px;
+  border-radius:999px;
+  font-size:12px;
+  font-weight:700;
+  cursor:pointer;
+  color:var(--muted);
+}
+
+.session-tab.active{
+  background:var(--primary);
+  border-color:var(--primary);
+  color:#fff;
+}
+
+.modal-table-wrap table{
+  font-size:12.5px;
+}
+
+.modal-table-wrap th{
+  background:#f0f7f2;
+}
+
+.modal-table-wrap tbody tr{
+  cursor:default;
+}
+
+.modal-table-wrap tbody tr:hover{
+  background:transparent;
+}
+
+.total-row td{
+  font-weight:800;
+  border-top:2px solid var(--line);
+  border-bottom:none;
+  background:#f2f8f4;
+}
+
+.no-data{
+  text-align:center;
+  padding:34px 10px;
+  color:#94a3b8;
+  font-size:13px;
+  line-height:1.7;
+}
+
+/* RESPONSIVE */
+@media(max-width:1050px){
+  .summary{
+    grid-template-columns:repeat(2,1fr);
+  }
+
+  .cards{
+    grid-template-columns:repeat(2,1fr);
+  }
+}
+
+@media(max-width:680px){
+  .page{
+    padding:15px;
+  }
+
+  .hero{
+    padding:28px 24px;
+  }
+
+  .summary,
+  .cards{
+    grid-template-columns:1fr;
+  }
+
+  .chart-wrap{
+    height:300px;
+  }
+
+  th:nth-child(3),
+  td:nth-child(3){
+    display:none;
+  }
+
+  .modal-box{
+    padding:22px 18px 18px;
+  }
+}
+</style>
+</head>
+
+<body>
+
+<div class="page">
+
+  <!-- HEADER -->
+  <section class="hero">
+    <div class="hero-content">
+
+      <div class="eyebrow">
+        IQAC • Academic Performance Dashboard
+      </div>
+
+      <h1>
+        University Result Analysis
+      </h1>
+
+      <p>
+        Department-wise comparison of university examination results
+      </p>
+
+      <div class="session-pill">
+        <span class="dot"></span>
+        Comparing January–June 2026 with July–December 2025
+      </div>
+
+    </div>
+  </section>
+
+
+  <!-- SUMMARY CARDS -->
+  <section class="summary">
+
+    <div class="stat">
+      <div class="label">Departments Analysed</div>
+      <div class="value" id="deptCount">00</div>
+      <div class="sub">Current dataset</div>
+      <i></i>
+    </div>
+
+    <div class="stat">
+      <div class="label">Overall Avg. • Jul–Dec 2025</div>
+      <div class="value" id="avgPrevious">0%</div>
+      <div class="sub">Previous session</div>
+      <i></i>
+    </div>
+
+    <div class="stat">
+      <div class="label">Overall Avg. • Jan–Jun 2026</div>
+      <div class="value" id="avgCurrent">0%</div>
+      <div class="sub">Current (latest) session</div>
+      <i></i>
+    </div>
+
+    <div class="stat">
+      <div class="label">Perfect Result</div>
+      <div class="value">100%</div>
+      <div class="sub">Education Department</div>
+      <i></i>
+    </div>
+
+  </section>
+
+
+  <!-- RESULT COMPARISON -->
+  <div class="section-title">
+    <h2>University Result Comparison</h2>
+    <span>July–December 2025 vs January–June 2026</span>
+  </div>
+
+  <div class="panel">
+
+    <h3>
+      Department-wise Pass Percentage
+    </h3>
+
+    <div class="caption">
+      Comparative university examination performance across the two sessions · click a department to view semester-wise detail
+    </div>
+
+    <div class="chart-wrap">
+      <canvas id="resultChart"></canvas>
+    </div>
+
+  </div>
+
+
+  <!-- DEPARTMENT SCORECARDS -->
+  <div class="section-title">
+    <h2>Department Scorecards</h2>
+    <span>Sorted by January–June 2026 (latest) performance · tap a card for details</span>
+  </div>
+
+  <div class="cards" id="cards"></div>
+
+
+  <!-- DETAILED TABLE -->
+  <div class="panel table-panel">
+
+    <h3>
+      Detailed Result Comparison
+    </h3>
+
+    <div class="caption">
+      Pass percentage comparison across departments · click a row for semester-wise detail
+    </div>
+
+    <table>
+
+      <thead>
+        <tr>
+          <th>Department</th>
+          <th>Jul–Dec 2025</th>
+          <th>Jan–June 2026</th>
+          <th>Change</th>
+          <th>Latest Performance</th>
+        </tr>
+      </thead>
+
+      <tbody id="resultTable"></tbody>
+
+    </table>
+
+  </div>
+
+
+  <!-- INSIGHT -->
+  <div class="insight">
+
+    <strong>
+      📌 Academic Performance Snapshot
+    </strong>
+
+    <p id="insightText"></p>
+
+  </div>
+
+
+  <div class="footer">
+    University Result Analysis • Designed for Academic / IQAC Review • SVIET
+  </div>
+
+</div>
+
+
+<!-- MODAL -->
+<div class="modal-overlay" id="modalOverlay">
+  <div class="modal-box">
+
+    <div class="modal-head">
+      <div>
+        <h3 id="modalTitle">Department</h3>
+        <div class="modal-sub" id="modalSub"></div>
+      </div>
+      <button class="close-btn" id="closeModal">✕</button>
+    </div>
+
+    <div class="session-tabs">
+      <div class="session-tab active" data-session="previous" id="tabPrevious">Jul–Dec 2025</div>
+      <div class="session-tab" data-session="current" id="tabCurrent">Jan–Jun 2026</div>
+    </div>
+
+    <div class="modal-table-wrap" id="modalTableWrap"></div>
+
+  </div>
+</div>
+
+
+<script>
+
+/* =========================================================
+   RESULT DATA
+   "previous"  = July–December 2025  (earlier session)
+   "current"   = January–June 2026   (latest / most recent session)
+
+   Change is always calculated as:
+     current (Jan–Jun 2026) - previous (Jul–Dec 2025)
+   A positive change = result IMPROVED in Jan–Jun 2026.
+   A negative change = result DECREASED in Jan–Jun 2026.
+
+   semesters.previous / semesters.current hold the row-level
+   semester-wise detail shown in the popup for that department
+   and session. Set to null (or leave the array out) where
+   detailed data has not been supplied yet — the popup will
+   show a "no data" placeholder in that case, and will fall
+   back to the overall pass percentage only.
+
+   NOTE: overall previous/current pass % for a department is
+   now computed automatically from its semester rows whenever
+   those rows are supplied (totalPassed / totalAppeared), so it
+   always matches the popup total. If no rows are supplied for
+   a session, the manually-entered previous/current number below
+   is used instead as a placeholder.
+   ========================================================= */
+
+const data = [
+
+  {
+    name:"Civil Engineering",
+    semesters:{
+      previous:[
+        {programme:"BTCI", sem:"3rd", batch:"2024", university:"IKGPTU", appeared:31, passed:18},
+        {programme:"BTCI", sem:"5th", batch:"2023", university:"IKGPTU", appeared:33, passed:27},
+        {programme:"BTCI", sem:"7th", batch:"2022", university:"IKGPTU", appeared:33, passed:30}
+      ],
+      current:[
+        {programme:"BTCI", sem:"4th", batch:"2024", university:"IKGPTU", appeared:29, passed:7},
+        {programme:"BTCI", sem:"6th", batch:"2023", university:"IKGPTU", appeared:19, passed:7}
+      ]
+    }
+  },
+
+  {
+    name:"Mechanical Engineering",
+    semesters:{
+      previous:[
+        {programme:"BTME", sem:"3rd (non-attending)", batch:"2024", university:"IKGPTU", appeared:19, passed:1},
+        {programme:"BTME", sem:"5th", batch:"2023", university:"IKGPTU", appeared:20, passed:1},
+        {programme:"BTME", sem:"7th", batch:"2022", university:"IKGPTU", appeared:12, passed:4}
+      ],
+      current:[
+        {programme:"BTME", sem:"4th (non-attending)", batch:"2024", university:"IKGPTU", appeared:13, passed:0},
+        {programme:"BTME", sem:"6th (Online)", batch:"2023", university:"IKGPTU", appeared:21, passed:6},
+        {programme:"BTME", sem:"8th", batch:"2022", university:"IKGPTU", appeared:12, passed:12}
+      ]
+    }
+  },
+
+  {
+    name:"Electrical Engineering",
+    semesters:{
+      previous:[
+        {programme:"BTEE", sem:"3rd", batch:"2024", university:"IKGPTU", appeared:20, passed:6},
+        {programme:"BTEE", sem:"5th (non-attending)", batch:"2023", university:"IKGPTU", appeared:13, passed:3},
+        {programme:"BTEE", sem:"7th (non-attending)", batch:"2022", university:"IKGPTU", appeared:14, passed:5}
+      ],
+      current:[
+        {programme:"BTEE", sem:"4th", batch:"2024", university:"IKGPTU", appeared:13, passed:1},
+        {programme:"BTEE", sem:"6th (non-attending)", batch:"2023", university:"IKGPTU", appeared:13, passed:1},
+        {programme:"BTEE", sem:"8th (non-attending)", batch:"2022", university:"IKGPTU", appeared:14, passed:11}
+      ]
+    }
+  },
+
+  {
+    name:"ECE",
+    semesters:{
+      previous:[
+        {programme:"BTEC", sem:"3rd (non-attending)", batch:"2024", university:"IKGPTU", appeared:5, passed:3},
+        {programme:"BTEC", sem:"5th (non-attending)", batch:"2023", university:"IKGPTU", appeared:15, passed:10},
+        {programme:"BTEC", sem:"7th (non-attending)", batch:"2022", university:"IKGPTU", appeared:13, passed:7}
+      ],
+      current:[
+        {programme:"BTEC", sem:"4th (non-attending)", batch:"2024", university:"IKGPTU", appeared:5, passed:3},
+        {programme:"BTEC", sem:"6th (non-attending)", batch:"2023", university:"IKGPTU", appeared:15, passed:7},
+        {programme:"BTEC", sem:"8th (non-attending)", batch:"2022", university:"IKGPTU", appeared:12, passed:9}
+      ]
+    }
+  },
+
+  {
+    name:"Education",
+    semesters:{
+      previous:[
+        {programme:"B.Ed", sem:"3rd", batch:"2024", university:"PUP", appeared:135, passed:135},
+        {programme:"M.Ed", sem:"3rd", batch:"2024", university:"PUP", appeared:34, passed:34}
+      ],
+      current:[
+        {programme:"B.Ed", sem:"4th", batch:"2024", university:"PUP", appeared:135, passed:135},
+        {programme:"M.Ed", sem:"4th", batch:"2024", university:"PUP", appeared:34, passed:34}
+      ]
+    }
+  },
+
+  {
+    name:"Radiology",
+    semesters:{
+      previous:[
+        {programme:"B.sc(ANT)", sem:"3rd", batch:"2025", university:"MRSPTU", appeared:7, passed:3},
+        {programme:"B.sc(ANT)", sem:"5th", batch:"2025", university:"MRSPTU", appeared:22, passed:21},
+        {programme:"B.sc(ANT)", sem:"7th", batch:"2025", university:"MRSPTU", appeared:19, passed:19},
+        {programme:"DPNU", sem:"1st", batch:"2025", university:"MRSPTU", appeared:1, passed:0},
+        {programme:"DPNU", sem:"3rd", batch:"2025", university:"MRSPTU", appeared:4, passed:2},
+        {programme:"M.sc(CCT)", sem:"1st", batch:"2025", university:"MRSPTU", appeared:7, passed:7},
+        {programme:"M.sc(ATOT)", sem:"1st", batch:"2025", university:"MRSPTU", appeared:29, passed:24},
+        {programme:"M.sc(ATOT)", sem:"3rd", batch:"2025", university:"MRSPTU", appeared:12, passed:10},
+        {programme:"B.sc(CCT)", sem:"1st", batch:"2025", university:"IKGPTU", appeared:8, passed:2},
+        {programme:"B.sc(CCT)", sem:"3rd", batch:"2025", university:"IKGPTU", appeared:13, passed:4},
+        {programme:"B.sc(CCT)", sem:"5th", batch:"2025", university:"IKGPTU", appeared:6, passed:6},
+        {programme:"B.sc(CCT)", sem:"3rd (Leet)", batch:"2025", university:"IKGPTU", appeared:2, passed:0},
+        {programme:"B.sc(OTT)", sem:"1st", batch:"2025", university:"IKGPTU", appeared:48, passed:10},
+        {programme:"B.sc(OTT)", sem:"3rd", batch:"2025", university:"IKGPTU", appeared:27, passed:23},
+        {programme:"B.sc(OTT)", sem:"5th", batch:"2025", university:"IKGPTU", appeared:29, passed:16},
+        {programme:"B.sc(OTT)", sem:"3rd (Leet)", batch:"2025", university:"IKGPTU", appeared:10, passed:4},
+        {programme:"B.sc(OTT)", sem:"5th (Leet)", batch:"2025", university:"IKGPTU", appeared:10, passed:8}
+      ],
+      current:[
+        {programme:"B.sc(OTT)", sem:"2nd", batch:"2026", university:"IKGPTU", appeared:42, passed:21},
+        {programme:"B.sc(OTT)", sem:"4th", batch:"2026", university:"IKGPTU", appeared:26, passed:19},
+        {programme:"B.sc(OTT)", sem:"6th", batch:"2026", university:"IKGPTU", appeared:29, passed:26},
+        {programme:"B.sc(OTT)", sem:"4th (Leet)", batch:"2026", university:"IKGPTU", appeared:8, passed:3},
+        {programme:"B.sc(OTT)", sem:"6th (Leet)", batch:"2026", university:"IKGPTU", appeared:9, passed:9},
+        {programme:"B.sc(CCT)", sem:"2nd", batch:"2026", university:"IKGPTU", appeared:8, passed:7},
+        {programme:"B.sc(CCT)", sem:"4th", batch:"2026", university:"IKGPTU", appeared:13, passed:11},
+        {programme:"B.sc(CCT)", sem:"6th", batch:"2026", university:"IKGPTU", appeared:6, passed:6},
+        {programme:"B.sc(CCT)", sem:"4th (Leet)", batch:"2026", university:"IKGPTU", appeared:2, passed:2},
+        {programme:"B.sc(ANT)", sem:"6th", batch:"2026", university:"MRSPTU", appeared:20, passed:20},
+        {programme:"B.sc(ANT)", sem:"8th", batch:"2026", university:"MRSPTU", appeared:19, passed:18},
+        {programme:"DPNU", sem:"4th", batch:"2026", university:"MRSPTU", appeared:3, passed:3}
+      ]
+    }
+  },
+
+  /* Newly added departments — pass percentages / semester-wise
+     data not supplied yet. Showing 0% as a placeholder until
+     actual figures are provided — send them the same way the
+     Civil Engineering data was supplied and they will populate
+     automatically (cards, table, chart and popup). */
+  { name:"Applied Sciences",         previous:0, current:0, semesters:null },
+  { name:"Business Administration",  previous:0, current:0, semesters:null },
+  { name:"CSE",                      previous:0, current:0, semesters:null },
+  { name:"Computer Applications",    previous:0, current:0, semesters:null },
+  { name:"Pharmacy",                 previous:0, current:0, semesters:null },
+  { name:"HM",                       previous:0, current:0, semesters:null },
+  { name:"Law",                      previous:0, current:0, semesters:null },
+  { name:"Allied Health Sciences",   previous:0, current:0, semesters:null }
+
+];
+
+const SESSION_LABEL = {
+  previous:"July–December 2025",
+  current:"January–June 2026"
+};
+
+
+/* =========================================================
+   DERIVE OVERALL % FROM SEMESTER ROWS (when available)
+   ========================================================= */
+
+function computeOverall(department, session){
+
+  const rows = department.semesters ? department.semesters[session] : null;
+
+  if(rows && rows.length){
+    const totalAppeared = rows.reduce((s,r) => s + r.appeared, 0);
+    const totalPassed   = rows.reduce((s,r) => s + r.passed, 0);
+    return totalAppeared ? (totalPassed / totalAppeared) * 100 : 0;
+  }
+
+  return typeof department[session] === "number" ? department[session] : 0;
+}
+
+data.forEach(department=>{
+  department.previous = Math.round(computeOverall(department,"previous") * 100) / 100;
+  department.current  = Math.round(computeOverall(department,"current")  * 100) / 100;
+});
+
+
+/* =========================================================
+   SUMMARY CALCULATIONS
+   ========================================================= */
+
+const avg = key =>
+  data.reduce((sum,department) =>
+    sum + department[key],0
+  ) / data.length;
+
+document.getElementById("deptCount").textContent =
+  String(data.length).padStart(2,"0");
+
+document.getElementById("avgPrevious").textContent =
+  avg("previous").toFixed(1) + "%";
+
+document.getElementById("avgCurrent").textContent =
+  avg("current").toFixed(1) + "%";
+
+
+/* =========================================================
+   DEPARTMENT SCORECARDS
+   Sorted by the latest session (Jan–Jun 2026)
+   ========================================================= */
+
+const sorted = [...data].sort(
+  (a,b) => b.current - a.current
+);
+
+const cards = document.getElementById("cards");
+
+sorted.forEach((department,index)=>{
+
+  // Change = latest (Jan-Jun 2026) minus earlier (Jul-Dec 2025)
+  const change =
+    Math.round((department.current - department.previous) * 100) / 100;
+
+  const className =
+    change > 0 ? "up" :
+    change < 0 ? "down" :
+    "same";
+
+  const sign =
+    change > 0 ? "+" : "";
+
+  const changeLabel =
+    change > 0 ? "increased by" :
+    change < 0 ? "decreased by" :
+    "unchanged,";
+
+  const card = document.createElement("div");
+  card.className = "dept";
+  card.dataset.name = department.name;
+
+  card.innerHTML = `
+
+      <div class="dept-head">
+
+        <div class="dept-name">
+          ${department.name}
+        </div>
+
+        <div class="rank">
+          #${index + 1} Latest
+        </div>
+
+      </div>
+
+
+      <div class="metric">
+
+        <div class="current">
+          ${department.current}<small>%</small>
+        </div>
+
+        <div class="prev">
+          Jul–Dec 2025
+          <b>${department.previous}%</b>
+        </div>
+
+      </div>
+
+
+      <div class="bar">
+
+        <div
+          class="fill"
+          style="width:${Math.min(department.current,100)}%">
+        </div>
+
+      </div>
+
+
+      <div class="change ${className}">
+
+        ${changeLabel} ${sign}${Math.abs(change)}
+        percentage point${Math.abs(change) == 1 ? "" : "s"}
+        vs Jul–Dec 2025
+
+      </div>
+
+      <div class="tap-hint">Tap for semester-wise detail →</div>
+
+  `;
+
+  card.addEventListener("click", () => openModal(department.name));
+
+  cards.appendChild(card);
+
+});
+
+
+/* =========================================================
+   RESULT TABLE
+   ========================================================= */
+
+const table =
+  document.getElementById("resultTable");
+
+data.forEach(department=>{
+
+  const change =
+    Math.round((department.current - department.previous) * 100) / 100;
+
+  const className =
+    change > 0 ? "up" :
+    change < 0 ? "down" :
+    "same";
+
+  const sign =
+    change > 0 ? "+" : "";
+
+  const row = document.createElement("tr");
+  row.dataset.name = department.name;
+
+  row.innerHTML = `
+
+      <td>
+        ${department.name}
+      </td>
+
+      <td>
+        ${department.previous}%
+      </td>
+
+      <td>
+        <b>${department.current}%</b>
+      </td>
+
+      <td class="${className}">
+        <b>${sign}${change}%</b>
+      </td>
+
+      <td class="progress-cell">
+
+        ${department.current}%
+
+        <div class="mini-progress">
+
+          <span
+            style="width:${Math.min(department.current,100)}%">
+          </span>
+
+        </div>
+
+      </td>
+
+  `;
+
+  row.addEventListener("click", () => openModal(department.name));
+
+  table.appendChild(row);
+
+});
+
+
+/* =========================================================
+   ACADEMIC INSIGHT
+   ========================================================= */
+
+const best = sorted[0];
+
+const lowest =
+  sorted[sorted.length - 1];
+
+const improved =
+  data.filter(
+    department =>
+      department.current > department.previous
+  );
+
+const declined =
+  data.filter(
+    department =>
+      department.current < department.previous
+  );
+
+document.getElementById("insightText").innerHTML =
+
+  `<b>${best.name}</b> records the highest pass
+  percentage in January–June 2026 at
+  <b>${best.current}%</b>.
+  <b>${improved.length}</b> of ${data.length}
+  departments improved compared with July–December 2025,
+  while <b>${declined.length}</b> declined.
+  <b>${lowest.name}</b> currently has the lowest pass
+  percentage at <b>${lowest.current}%</b>.
+  Education maintained a perfect <b>100%</b> result
+  in both sessions.`;
+
+
+/* =========================================================
+   MAIN COMPARISON BAR CHART
+   ========================================================= */
+
+new Chart(
+  document.getElementById("resultChart"),
+  {
+
+    type:"bar",
+
+    data:{
+
+      labels:
+        data.map(department =>
+          department.name
+        ),
+
+      datasets:[
+
+        {
+          label:"July–December 2025",
+          data:
+            data.map(department =>
+              department.previous
+            ),
+          borderRadius:8,
+          backgroundColor:"#bcd9c6"
+        },
+
+        {
+          label:"January–June 2026",
+          data:
+            data.map(department =>
+              department.current
+            ),
+          borderRadius:8,
+          backgroundColor:"#198754"
+        }
+
+      ]
+
+    },
+
+    options:{
+
+      responsive:true,
+      maintainAspectRatio:false,
+
+      onClick:(evt, elements, chart) => {
+        if(!elements.length) return;
+        const idx = elements[0].index;
+        const name = data[idx].name;
+        openModal(name);
+      },
+
+      plugins:{
+
+        legend:{
+          position:"bottom",
+          labels:{
+            usePointStyle:true,
+            boxWidth:8
+          }
+        },
+
+        tooltip:{
+
+          callbacks:{
+
+            label:function(context){
+
+              return " " +
+                context.dataset.label +
+                ": " +
+                context.parsed.y +
+                "%";
+
+            }
+
+          }
+
+        }
+
+      },
+
+      scales:{
+
+        y:{
+
+          beginAtZero:true,
+          max:100,
+
+          ticks:{
+            callback:
+              value => value + "%"
+          },
+
+          grid:{
+            color:"#e5efe8"
+          }
+
+        },
+
+        x:{
+          grid:{
+            display:false
+          }
+        }
+
+      }
+
+    }
+
+  }
+);
+
+
+/* =========================================================
+   MODAL LOGIC
+   ========================================================= */
+
+const modalOverlay   = document.getElementById("modalOverlay");
+const modalTitle     = document.getElementById("modalTitle");
+const modalSub       = document.getElementById("modalSub");
+const modalTableWrap = document.getElementById("modalTableWrap");
+const tabPrevious    = document.getElementById("tabPrevious");
+const tabCurrent     = document.getElementById("tabCurrent");
+const closeModalBtn  = document.getElementById("closeModal");
+
+let activeDept = null;
+let activeSession = "previous";
+
+function renderSemesterTable(department, session){
+
+  const rows = department.semesters ? department.semesters[session] : null;
+
+  if(!rows || rows.length === 0){
+    modalTableWrap.innerHTML = `
+      <div class="no-data">
+        Detailed semester-wise data for <b>${department.name}</b>
+        (${SESSION_LABEL[session]}) has not been added yet.<br>
+        Only the overall pass percentage
+        (<b>${department[session]}%</b>) is currently available.
+      </div>
+    `;
+    return;
+  }
+
+  const totalAppeared = rows.reduce((s,r) => s + r.appeared, 0);
+  const totalPassed   = rows.reduce((s,r) => s + r.passed, 0);
+  const totalPct = totalAppeared
+    ? ((totalPassed / totalAppeared) * 100)
+    : 0;
+
+  const bodyRows = rows.map((r,i) => `
+    <tr>
+      <td>${i+1}</td>
+      <td>${r.programme}</td>
+      <td>${r.sem}</td>
+      <td>${r.batch}</td>
+      <td>${r.university}</td>
+      <td>${r.appeared}</td>
+      <td>${r.passed}</td>
+      <td>${((r.passed / r.appeared) * 100).toFixed(0)}%</td>
+    </tr>
+  `).join("");
+
+  modalTableWrap.innerHTML = `
+    <table>
+      <thead>
+        <tr>
+          <th>S.No.</th>
+          <th>Programme</th>
+          <th>Sem/Year</th>
+          <th>Batch</th>
+          <th>University</th>
+          <th>Appeared</th>
+          <th>Passed</th>
+          <th>Pass %</th>
+        </tr>
+      </thead>
+      <tbody>
+        ${bodyRows}
+        <tr class="total-row">
+          <td colspan="5">TOTAL STUDENTS</td>
+          <td>${totalAppeared}</td>
+          <td>${totalPassed}</td>
+          <td>${totalPct.toFixed(2)}%</td>
+        </tr>
+      </tbody>
+    </table>
+  `;
+}
+
+function openModal(name){
+
+  activeDept = data.find(d => d.name === name);
+  if(!activeDept) return;
+
+  activeSession = "previous";
+
+  modalTitle.textContent = activeDept.name;
+  modalSub.textContent =
+    `Pass percentage: ${activeDept.previous}% (Jul–Dec 2025) → ${activeDept.current}% (Jan–Jun 2026)`;
+
+  tabPrevious.classList.add("active");
+  tabCurrent.classList.remove("active");
+
+  renderSemesterTable(activeDept, activeSession);
+
+  modalOverlay.classList.add("open");
+}
+
+function closeModal(){
+  modalOverlay.classList.remove("open");
+  activeDept = null;
+}
+
+tabPrevious.addEventListener("click", () => {
+  if(!activeDept) return;
+  activeSession = "previous";
+  tabPrevious.classList.add("active");
+  tabCurrent.classList.remove("active");
+  renderSemesterTable(activeDept, activeSession);
+});
+
+tabCurrent.addEventListener("click", () => {
+  if(!activeDept) return;
+  activeSession = "current";
+  tabCurrent.classList.add("active");
+  tabPrevious.classList.remove("active");
+  renderSemesterTable(activeDept, activeSession);
+});
+
+closeModalBtn.addEventListener("click", closeModal);
+
+modalOverlay.addEventListener("click", (e) => {
+  if(e.target === modalOverlay) closeModal();
+});
+
+document.addEventListener("keydown", (e) => {
+  if(e.key === "Escape") closeModal();
+});
+
+</script>
+
+</body>
+</html>
